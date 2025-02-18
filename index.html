@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>CarpoolMNS</title>
       <link rel="stylesheet" href="styles/index.css">
+      <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
@@ -13,7 +14,8 @@
             <nav class="navbar">
                   <div class="navbar__links">
                         <a href="#" class="nav__links-logo"><img src="https://dummyimage60.com/60" alt="Logo"></a>
-                        <a href="">Rechercher un trajet</a>
+                        <a href="index.html">Accueil</a>
+                        <a href="search.html">Rechercher un trajet</a>
                         <a href="">Publier un trajet</a>
                         <a href="">Mon espace</a>
                   </div>
@@ -37,8 +39,12 @@
                               </div>
                         </div>
                         <div class="hero__container-right">
-                              <div class="hero__right-img">
-                                    <img src="#" alt="Image hero carroussel">
+                              <div class="hero__right-carrousel-container">
+                                    <div class="hero__right-carrousel">
+                                          <div class="hero__right-carrousel-slide"><img src="#" alt="Image 1"></div>
+                                          <div class="hero__right-carrousel-slide"><img src="#" alt="Image 2"></div>
+                                          <div class="hero__right-carrousel-slide"><img src="#" alt="Image 3"></div>
+                                    </div>
                               </div>
                               <div class="hero__right-bottom">
                                     <div class="hero__right-bottom-text">
@@ -48,8 +54,10 @@
                                     <div class="hero__right-bottom-nav">
                                           <div class="hero__right-bottom-nav-track"></div>
                                           <div class="hero__right-bottom-nav-cta">
-                                                <a href="#" class="btn"><img src="img/Arrow left.svg" alt="Précédent"></a>
-                                                <a href="#" class="btn"><img src="img/Arrow right.svg" alt="Suivant"></a>
+                                                <a href="#" class="btn" onclick="moveSlide(-1)"><img
+                                                            src="img/cta/Arrow left.svg" alt="Précédent"></a>
+                                                <a href="#" class="btn" onclick="moveSlide(1)"><img
+                                                            src="img/cta/Arrow right.svg" alt="Suivant"></a>
                                           </div>
                                     </div>
                               </div>
@@ -155,13 +163,18 @@
                               <a href="#" class="footer__links">Lien 5</a>
                         </div>
                         <div class="footer__top-socials">
-                              <a href="#" class="footer__top-socials-icon"><img src="#" alt="Logo1"></a>
-                              <a href="#" class="footer__top-socials-icon"><img src="#" alt="Logo2"></a>
-                              <a href="#" class="footer__top-socials-icon"><img src="#" alt="Logo3"></a>
-                              <a href="#" class="footer__top-socials-icon"><img src="#" alt="Logo4"></a>
-                              <a href="#" class="footer__top-socials-icon"><img src="#" alt="Logo5"></a>
+                              <a href="#" class="footer__top-socials-icon"><img src="img/icon/FacebookSecondary.svg"
+                                          alt="Logo1"></a>
+                              <a href="#" class="footer__top-socials-icon"><img src="img/icon/InstagramSecondary.svg"
+                                          alt="Logo2"></a>
+                              <a href="#" class="footer__top-socials-icon"><img src="img/icon/XSecondary.svg"
+                                          alt="Logo3"></a>
+                              <a href="#" class="footer__top-socials-icon"><img src="img/icon/LinkedInSecondary.svg"
+                                          alt="Logo4"></a>
+                              <a href="#" class="footer__top-socials-icon"><img src="img/icon/YoutubeSecondary.svg"
+                                          alt="Logo5"></a>
                         </div>
-                  </div> 
+                  </div>
                   <div class="footer__bottom">
                         <p>@2024 Relume.All rights reserved</p>
                         <a href="#">Privacy policy</a>
@@ -170,5 +183,6 @@
                   </div>
       </footer>
 </body>
+<script src="scripts/index.js"></script>
 
 </html>

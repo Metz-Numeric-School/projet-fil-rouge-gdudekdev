@@ -1,0 +1,116 @@
+/* STANDARD  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+:root {
+  --primary-bg: #fff;
+  --primary-bg-hover : #b2b2b2;
+  --primary-font: #000;
+  --secondary-bg: #000;
+  --secondary-bg-hover: #555454;
+  --secondary-font: #fff;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+/* COMPONENTS */
+.btn {
+  padding: 8px 20px 8px 20px;
+}
+.btn__primary {
+  cursor:pointer;
+  background: var(--primary-bg);
+  color: var(--primary-font);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.btn__primary:hover{
+  background: var(--primary-bg-hover);
+}
+.btn__secondary {
+  cursor:pointer;
+  background: var(--secondary-bg);
+  color: var(--secondary-font);
+}
+.btn__secondary:hover{
+  background: var(--secondary-bg-hover);
+}
+.container {
+  width: 80%;
+  max-width: 1440px;
+}
+
+/* HEADER */
+header {
+  height: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navbar {
+  display: flex;
+  background: white;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.navbar__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.navbar__links > a {
+  color: var(--primary-font);
+}
+.navbar__btn {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* FOOTER */
+.footer{
+  background-color: #6f6f6f;
+  height: 25vh;
+  color:var(--secondary-font);
+  display: flex;
+  flex-direction: column;
+  padding:48px;
+  justify-content: space-between;
+}
+.footer__top{
+  display: flex;
+  justify-content: space-between;
+}
+.footer__top-logo{
+  width:15%;
+  background: var(--secondary-font);
+}
+.footer__top-links > a{
+  color :var(--secondary-font)
+}
+.footer__top-socials{
+  width:15%;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+}
+
+.footer__bottom{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2%;
+  padding-top:48px;
+  border-top: 1px solid var(--primary-bg);
+}
+.footer__bottom > a{
+  color:var(--secondary-font);
+  text-decoration: underline;
+}
