@@ -21,4 +21,4 @@ function moveSlide(step) {
 
 setInterval(() => {
   moveSlide(1); // Avancer d'une slide toutes les 3 secondes
-}, 30000); // 3000ms = 3 secondes
+}, 15000);
