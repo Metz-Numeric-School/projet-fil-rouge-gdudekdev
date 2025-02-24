@@ -23,7 +23,7 @@
                   <section class="profil__section">
                         <h3 class="profil__section-title">Vos trajets</h3>
                         <div class="profil__section-content">
-                              <a href="#" class="profil__item">
+                              <a href="profil/historique/historique.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/clock-three-svgrepo-com.svg" alt="Horloge">
                                     </div>
