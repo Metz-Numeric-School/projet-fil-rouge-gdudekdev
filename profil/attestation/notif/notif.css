@@ -1,0 +1,99 @@
+/* NAVBAR */
+.navbar__header {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  margin-bottom: 16px;
+}
+.navbar__back {
+  display: flex;
+}
+.navbar__back a {
+  font-size: 0.8rem;
+}
+.navbar__back-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
+.navbar__back-cta img {
+  width: 8px;
+  height: auto;
+  display: block;
+}
+
+/* CONTENT */
+.notif {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.notif__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.notif__content-info {
+  display: flex;
+  width: 100%;
+  font-weight:bolder;
+}
+.notif__content-info-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+}
+.notif__content-info-img img {
+  width: 16px;
+  height: auto;
+  display: block;
+}
+/* FORMULAIRE */
+.notif__form {
+  display: flex;
+  flex-direction: column;
+}
+.notif__form label {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.notif__form input[type='date']{
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  background-color: #f6f6f6;
+  transition: border-color 0.3s ease;
+  color: white;
+  font-size: 1.1rem;
+  text-shadow: 0 0 1px black;
+  text-transform: uppercase ;
+}
+
+.notif__form input[type="date"]:focus {
+  border-color: #000000;
+  color: white;
+  
+}
+
+.notif__form input[type="submit"] {
+  background: #ebebeb;
+  height: 48px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+}
+
+.notif__form input[type="submit"]:hover {
+  background: #000000;
+  color: white;
+}

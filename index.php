@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="styles/main.css">
       <link rel="stylesheet" href="styles/index.css">
-      <title>Accueil</title>
+      <title>Planning</title>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
             </div>
 
       </main>
-      <?php include('footer.php')?>
+      <?php include 'components/footer.php' ?>
 </body>
 
 </html>

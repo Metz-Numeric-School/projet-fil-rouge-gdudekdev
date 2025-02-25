@@ -1,0 +1,123 @@
+/* NAVBAR */
+.navbar__header {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  margin-bottom: 16px;
+}
+.navbar__back {
+  display: flex;
+}
+.navbar__back a {
+  font-size: 0.8rem;
+}
+.navbar__back-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
+.navbar__back-cta img {
+  width: 8px;
+  height: auto;
+  display: block;
+}
+/* CONTENT */
+.attestation {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 100%;
+  padding: 16px 0;
+  gap: 16px;
+}
+.attestation__main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.attestation h2 {
+  width: 100%;
+}
+.attestation__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.attestation__main-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+.attestation__main-item:last-child {
+  border-bottom: none;
+}
+.attestation__main-item:hover {
+  background-color: #f6f6f6;
+}
+.attestation__item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}
+.attestation__item-icon img {
+  width: 20px;
+  height: auto;
+  display: block;
+  filter: grayscale(100%) opacity(55%);
+}
+.attestation__item-content {
+  max-width: 70%;
+}
+.attestation__item-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+}
+.attestation__item-cta span {
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 0.8rem;
+}
+
+.attestation__item-cta img {
+  width: 12px;
+  height: auto;
+  display: block;
+}
+
+/* BOUTON TOGGLE NOTIF */
+
+.attestation__notif-container {
+  width: 48px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  background: #ccc;
+  transition: background 0.3s ease;
+}
+.toggle-circle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.active {
+  background: black !important;
+}
+.active .toggle-circle {
+  transform: translate(24px, -50%);
+  background: white;
+}

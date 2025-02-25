@@ -22,7 +22,8 @@ a{
       color:var(--primary-font-color);
 }
 h2{
-      font-size:1.2rem;
+      font-size:1.4rem;
+      font-weight: 700;
 }
 p{
       font-size: 0.8rem;

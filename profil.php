@@ -34,7 +34,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil/attestation/attestation.php"class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/leaf-ui-svgrepo-com.svg" alt="Feuille">
                                     </div>
@@ -45,7 +45,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="/profil/vehicule/vehicule.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/car-side-svgrepo-com.svg" alt="Voiture">
                                     </div>
@@ -182,7 +182,7 @@
                   </section>
             </div>
       </main>
-      <?php include 'footer.php'; ?>
+      <?php include 'components/footer.php' ?>
 </body>
 
 </html>

@@ -5,12 +5,11 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="/styles/main.css">
-      <link rel="stylesheet" href="historique.css">
-      <title>Historique des trajets</title>
+      <link rel="stylesheet" href="vehicule.css">
+      <title>Votre véhicule</title>
 </head>
 
 <body>
-
       <head>
             <nav class="navbar">
                   <div class="navbar__header">
@@ -24,25 +23,13 @@
                               <h3>Historique des trajets</h3>
                         </div>
                   </div>
-                  <div class="navbar__tab">
-                        <div class="navbar__tab-passager active">
-                              <span>Passager</span>
-                        </div>
-                        <div class="navbar__tab-conducteur">
-                              <span>Conducteur</span>
-                        </div>
-                  </div>
             </nav>
       </head>
       <main>
-            <div class="historique__content">
-                  <p>Historique des trajets pour le passager.</p>
-            </div>
 
-
+            </form>
       </main>
-      <?php include '../../components/footer.php' ?>
 </body>
-<script src="historique.js"></script>
+<script src="vehicule.js"></script>
 
 </html>
