@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="styles/main.css">
       <link rel="stylesheet" href="styles/profil.css">
-      <title>Document</title>
+      <title>Paramètres</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="/profil/vehicule/vehicule.php" class="profil__item">
+                              <a href="/profil/vehicule/marque.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/car-side-svgrepo-com.svg" alt="Voiture">
                                     </div>
