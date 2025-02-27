@@ -11,7 +11,7 @@
 
 <body>
 
-      <head>
+      <header>
             <nav class="navbar">
                   <div class="navbar__header">
                         <div class="navbar__back">
@@ -33,7 +33,7 @@
                         </div>
                   </div>
             </nav>
-      </head>
+      </header>
       <main>
             <div class="historique__content">
                   <p>Historique des trajets pour le passager.</p>

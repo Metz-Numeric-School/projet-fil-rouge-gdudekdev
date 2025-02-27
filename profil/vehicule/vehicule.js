@@ -1,84 +1,77 @@
-function selectChoice(choice, nextPage) {
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = nextPage;
-
-  // Ajouter les valeurs de marque et modèle si elles existent
-  const marqueInput = document.createElement('input');
-  marqueInput.type = 'hidden';
-  marqueInput.name = 'marque';
-  marqueInput.value = document.querySelector('input[name="marque"]') ? document.querySelector('input[name="marque"]').value : '';
-
-  const modeleInput = document.createElement('input');
-  modeleInput.type = 'hidden';
-  modeleInput.name = 'modele';
-  modeleInput.value = document.querySelector('input[name="modele"]') ? document.querySelector('input[name="modele"]').value : '';
-
-  // Ajouter la couleur ou la motorisation sélectionnée
-  const choixInput = document.createElement('input');
-  choixInput.type = 'hidden';
-  choixInput.name = nextPage === 'motorisation.php' ? 'couleur' : 'motorisation';
-  choixInput.value = choice;
-
-  // Ajouter les champs au formulaire
-  form.appendChild(marqueInput);
-  form.appendChild(modeleInput);
-  form.appendChild(choixInput);
-
-  // Ajouter le formulaire au document et le soumettre
-  document.body.appendChild(form);
-  form.submit();
-}
-
-function skipStep() {
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'confirmation.php';
-
-  // Ajouter les valeurs de marque, modèle, couleur et motorisation
-  const marqueInput = document.createElement('input');
-  marqueInput.type = 'hidden';
-  marqueInput.name = 'marque';
-  marqueInput.value = document.querySelector('input[name="marque"]').value;
-
-  const modeleInput = document.createElement('input');
-  modeleInput.type = 'hidden';
-  modeleInput.name = 'modele';
-  modeleInput.value = document.querySelector('input[name="modele"]').value;
-
-  const couleurInput = document.createElement('input');
-  couleurInput.type = 'hidden';
-  couleurInput.name = 'couleur';
-  couleurInput.value = document.querySelector('input[name="couleur"]').value;
-
-  const motorisationInput = document.createElement('input');
-  motorisationInput.type = 'hidden';
-  motorisationInput.name = 'motorisation';
-  motorisationInput.value = document.querySelector('input[name="motorisation"]').value;
-
-  // Ajouter les champs au formulaire
-  form.appendChild(marqueInput);
-  form.appendChild(modeleInput);
-  form.appendChild(couleurInput);
-  form.appendChild(motorisationInput);
-
-  // Ajouter le formulaire au document et le soumettre
-  document.body.appendChild(form);
-  form.submit();
-}
-
-function filterChoices(searchId, choicesId) {
-  const input = document.getElementById(searchId);
-  const filter = input.value.toLowerCase();
-  const ul = document.getElementById(choicesId);
-  const li = ul.getElementsByTagName('li');
-
-  for (let i = 0; i < li.length; i++) {
-      const txtValue = li[i].textContent || li[i].innerText;
-      if (txtValue.toLowerCase().indexOf(filter) > -1) {
-          li[i].style.display = '';
-      } else {
-          li[i].style.display = 'none';
+document.addEventListener("DOMContentLoaded", function () {
+      const forms = document.querySelectorAll('.form__etape');
+      const backButton = document.querySelector('.navbar__back-cta');
+      const recapStep = document.getElementById("recap");
+      const recapContent = document.querySelector(".form__recap-content");
+      const submitButton = document.querySelector(".form__submit");
+  
+      let currentStepIndex = 0;
+  
+      function showStep(index) {
+          forms.forEach((form, i) => {
+              form.style.display = i === index ? "block" : "none";
+          });
+          currentStepIndex = index;
       }
-  }
-}
+  
+      showStep(0);
+  
+      forms.forEach((form, index) => {
+          if (form.id !== "recap") {
+              const choix = form.querySelectorAll(".form__choix");
+  
+              choix.forEach((item) => {
+                  item.addEventListener("click", () => {
+                      const choixValue = item.querySelector("p").innerText;
+  
+                      let hiddenInput = form.querySelector(`input[type="hidden"][name="${form.id}"]`);
+                      if (!hiddenInput) {
+                          hiddenInput = document.createElement("input");
+                          hiddenInput.type = "hidden";
+                          hiddenInput.name = form.id;
+                          form.appendChild(hiddenInput);
+                      }
+  
+                      hiddenInput.value = choixValue;
+  
+                      if (index < forms.length - 2) {
+                          showStep(index + 1);
+                      } else {
+                          fillRecap();
+                          showStep(forms.length - 1);
+                      }
+                  });
+              });
+          }
+      });
+  
+      backButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          if (currentStepIndex > 0) {
+              showStep(currentStepIndex - 1);
+          } else {
+              window.location.href = "/profil.php";
+          }
+      });
+  
+      function fillRecap() {
+          recapContent.innerHTML = "";
+          forms.forEach((form) => {
+              if (form.id !== "recap") {
+                  let hiddenInput = form.querySelector(`input[type="hidden"][name="${form.id}"]`);
+                  if (hiddenInput) {
+                      let recapItem = document.createElement("p");
+                      recapItem.innerHTML = `<strong>${form.id} :</strong> ${hiddenInput.value}`;
+                      recapContent.appendChild(recapItem);
+                  }
+              }
+          });
+      }
+  
+      // 🚀 Rediriger vers le menu après validation
+      submitButton.addEventListener("click", (event) => {
+          event.preventDefault(); // Empêche l'envoi réel du formulaire
+          window.location.href = "/profil.php"; // Redirige vers le menu
+      });
+  });
+  

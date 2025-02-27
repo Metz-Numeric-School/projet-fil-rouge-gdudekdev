@@ -1,0 +1,95 @@
+/* NAVBAR HEADER */
+.navbar__header {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  margin-bottom: 16px;
+}
+.navbar__back {
+  display: flex;
+}
+.navbar__back a {
+  font-size: 0.8rem;
+}
+.navbar__back-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
+.navbar__back-cta img {
+  width: 16px;
+  height: auto;
+  display: block;
+}
+
+/* FORMULAIRE */
+
+.pref__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.pref__form-txt {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.pref__form-txt:focus {
+  border-bottom: 2px solid black;
+}
+.pref__form-submit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background-color: black;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.pref__fumeur {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+/* TOGGLER */
+.pref__toggle-container {
+  width: 48px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  background: #ccc;
+  transition: background 0.3s ease;
+}
+.toggle-circle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.active {
+  background: black !important;
+}
+.active .toggle-circle {
+  transform: translate(24px, -50%);
+  background: white;
+}

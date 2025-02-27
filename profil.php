@@ -45,7 +45,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="/profil/vehicule/marque.php" class="profil__item">
+                              <a href="/profil/vehicule/vehicule.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/car-side-svgrepo-com.svg" alt="Voiture">
                                     </div>
@@ -62,45 +62,12 @@
                   <section class="profil__section">
                         <h3 class="profil__section-title">Préférences</h3>
                         <div class="profil__section-content">
-                              <a href="#" class="profil__item">
-                                    <div class="profil__item-icon">
-                                          <img src="img/profil/icon/calendar-week-svgrepo-com.svg" alt="Calendrier">
-                                    </div>
-                                    <div class="profil__item-content">
-                                          <h5>Solde</h5>
-                                    </div>
-                                    <div class="profil__item-cta">
-                                          <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
-                                    </div>
-                              </a>
-                              <a href="#" class="profil__item">
-                                    <div class="profil__item-icon">
-                                          <img src="img/profil/icon/bank-card-svgrepo-com.svg" alt="Carte bancaire">
-                                    </div>
-                                    <div class="profil__item-content">
-                                          <h5>Paiement et codes promo</h5>
-                                    </div>
-                                    <div class="profil__item-cta">
-                                          <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
-                                    </div>
-                              </a>
-                              <a href="#" class="profil__item">
+                              <a href="/profil/info/info.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/person-svgrepo-com.svg" alt="Personne">
                                     </div>
                                     <div class="profil__item-content">
                                           <h5>Infos personnelles</h5>
-                                    </div>
-                                    <div class="profil__item-cta">
-                                          <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
-                                    </div>
-                              </a>
-                              <a href="#" class="profil__item">
-                                    <div class="profil__item-icon">
-                                          <img src="img/profil/icon/star-svgrepo-com.svg" alt="Etoile">
-                                    </div>
-                                    <div class="profil__item-content">
-                                          <h5>Vos avantages</h5>
                                     </div>
                                     <div class="profil__item-cta">
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">

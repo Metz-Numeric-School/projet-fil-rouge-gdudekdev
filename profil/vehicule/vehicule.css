@@ -1,204 +1,75 @@
 /* NAVBAR HEADER */
 .navbar__header {
-      display: flex;
-      align-items: center;
-      height: 16px;
-      margin-bottom: 16px;
-    }
-    .navbar__back {
-      display: flex;
-    }
-    .navbar__back a {
-      font-size: 0.8rem;
-    }
-    .navbar__back-cta {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 4px;
-    }
-    .navbar__back-cta img {
-      width: 8px;
-      height: auto;
-      display: block;
-    }
-    
-    /* CONTENT */
-  form {
-      margin: 20px 0;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-  }
-  
-  .choices {
-      list-style-type: none;
-      padding: 0;
-  }
-  
-  .choices li {
-      padding: 10px;
-      cursor: pointer;
-      background-color: #f0f0f0;
-      margin: 5px 0;
-  }
-  
-  .choices li:hover {
-      background-color: #e0e0e0;
-  }
-  
-  button {
-      padding: 10px 15px;
-  }
-  /* COULEUR */
-  .color-option {
-      display: flex;
-      align-items: center;/* Styles généraux */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  align-items: center;
+  height: 16px;
+  margin-bottom: 16px;
 }
-
-.navbar {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px;
+.navbar__back {
+  display: flex;
 }
-
-.navbar__header {
-    display: flex;
-    align-items: center;
+.navbar__back a {
+  font-size: 0.8rem;
 }
-
+.navbar__back-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+}
 .navbar__back-cta img {
-    width: 20px;
-    height: 20px;
+  width: 16px;
+  height: auto;
+  display: block;
 }
 
-/* Styles du formulaire */
-main {
-    padding: 20px;
+/* FORMULAIRE */
+.form__etape {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-
-h2 {
-    margin-bottom: 20px;
+.form__etape-choix {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-
-/* Styles des champs de recherche */
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
+.form__choix {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  padding: 4px;
+  border-radius: 5px;
 }
-
-/* Styles des choix */
-.choices {
-    list-style-type: none;
-    padding: 0;
+.form__choix-item {
+  display: flex;
+  width: 50%;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-.choices li {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+.form__choix-item p{
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
-
-.choices li:hover {
-    background-color: #e4e4e4;
+.form__choix-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-/* Styles pour les carrés de couleur */
-.color-choice {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    display: inline-block;
+.form__choix-img img{
+  height: 24px;
+  width: 24px;
 }
-
-/* Styles du bouton */
-button {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.form__choix-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-button:hover {
-    background-color: #0056b3;
+.form__choix-cta img{
+  height: 16px;
+  width: 16px;
 }
-
-/* Styles du bouton dans la page confirmation */
-.button {
-    display: inline-block;
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-/* Styles du récapitulatif */
-ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-/* Autres styles globaux */
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-      cursor: pointer;
-      margin: 10px 0;
-  }
-
-  .color-square {
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-  }
-  /* MOTORISATION */
-  .motorisation-option {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      margin: 10px 0;
-  }
-
-  .motorisation-icon {
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      border: 1px solid black;
-  }
