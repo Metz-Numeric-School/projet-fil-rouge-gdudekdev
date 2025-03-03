@@ -34,7 +34,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="profil/attestation/attestation.php"class="profil__item">
+                              <a href="profil/attestation/attestation.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/leaf-ui-svgrepo-com.svg" alt="Feuille">
                                     </div>
@@ -84,7 +84,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil/block/block.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/stop-svgrepo-com.svg" alt="Stop">
                                     </div>
@@ -100,7 +100,7 @@
                   <section class="profil__section">
                         <h3 class="profil__section-title">Aide</h3>
                         <div class="profil__section-content">
-                              <a href="#" class="profil__item">
+                              <a href="profil/faq/faq.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/question-mark-circle-svgrepo-com.svg"
                                                 alt="Questions">
@@ -112,7 +112,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil/cgu/cgu.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/form-one-svgrepo-com.svg" alt="Formulaire">
                                     </div>
@@ -123,7 +123,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil/privacy/privacy.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/lock-alt-svgrepo-com.svg" alt="Cadenas">
                                     </div>
@@ -134,7 +134,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil/cookies/cookies.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/cookie-svgrepo-com.svg" alt="Cookie">
                                     </div>

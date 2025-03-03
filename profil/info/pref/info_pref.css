@@ -64,6 +64,11 @@
   width: 100%;
   justify-content: space-between;
 }
+.pref__bavard {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
 /* TOGGLER */
 .pref__toggle-container {
   width: 48px;

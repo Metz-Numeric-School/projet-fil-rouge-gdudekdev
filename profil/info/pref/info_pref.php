@@ -31,7 +31,13 @@
                               <div class="toggle-circle"></div>
                         </div>
                   </div>
-
+                  <div class="pref__bavard">
+                        <h4>Je suis bavard</h4>
+                        <input type="range" min="0" max="5" step="1" name="bavardLevel" id="bavardLevel">
+                  </div>
+                  <div>
+                        
+                  </div>
                   <input type="hidden" name="toggleState" id="toggleState" value="off">
                   <input type="submit" value="Mettre à jour" class="pref__form-submit">
             </form>
