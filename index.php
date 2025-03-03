@@ -4,8 +4,8 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="styles/main.css">
-      <link rel="stylesheet" href="styles/index.css">
+      <link rel="stylesheet" href="/styles/main.css">
+      <link rel="stylesheet" href="/styles/index.css">
       <title>Planning</title>
 </head>
 
@@ -18,9 +18,9 @@
                               <h2>Je connais mon covoitureur</h2>
                               <p>Envoyez une demande de covoiturage à un ami ou un collègue depuis votre liste de contacts</p>
                         </div>
-                        <div class="planning__friend-cta">
-                              <a href="#">Covoiturer avec une connaissance</a>
-                        </div>
+                        <a href="planning\relatives\relatives.php" class="planning__friend-cta">
+                              <p>Covoiturer avec une connaissance</p>
+                        </a>
 
                   </section>
                   <section class="planning__newride">
@@ -32,9 +32,9 @@
                               <p>Publiez votre trajet domicile-travail pour voir les covoitureurs disponibles sur votre
                                     route.</p>
                         </div>
-                        <div class="planning__newride-cta">
-                              <a href="#">Publier votre trajet</a>
-                        </div>
+                        <a class="planning__newride-cta" href="#">
+                              <p>Publier votre trajet</p>
+                        </a>
                   </section>
                   <section class="planning__search">
 

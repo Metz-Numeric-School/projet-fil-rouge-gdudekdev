@@ -32,7 +32,7 @@
       flex-direction: column;
       gap:16px;
       height:fit-content;
-      background: grey;
+      background: #b1b1b1;
       padding: 16px;
       border-radius: 15px;
 }

@@ -3,6 +3,7 @@
   border-bottom: 1px solid #e5e5e5;
   font-size: 1.5em;
   font-weight: 400;
+
   text-align: center;
 }
 
@@ -10,6 +11,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 16px;
   padding: 4px;
   overflow-y: hidden;
   flex: 1;
@@ -22,29 +24,31 @@
   gap: 10px;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px; /* Increase padding for better readability */
-  min-height: 100px; /* Increase min-height for better spacing */
-  border-radius: 5px;
+  padding: 12px;
+  min-height: 80px;
+  border-radius: 10px;
   width: 100%;
   transition: background 0.3s ease-in-out;
-  margin-bottom: 4px; /* Add margin between messages */
 }
 
 .message__item:hover {
-  background: #f1f1f1;
+  background: #f9f9f9;
 }
-
 .message__item-content {
   display: flex;
-  gap: 8px; /* Increase gap for better spacing */
+  gap: 4px;
   justify-content: space-between;
   height: 100%;
   width: 100%;
 }
-
+.message__item-content-container {
+  display: flex;
+  gap: 8px;
+  width: 80%;
+}
 .message__item-sender-img {
-  width: 56px; /* Increase size for better visibility */
-  height: 56px; /* Increase size for better visibility */
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: 1px solid #e5e5e5;
 }
@@ -58,9 +62,8 @@
 .message__item-maincontent {
   display: flex;
   flex-direction: column;
-  gap: 8px; 
+  gap: 8px;
   height: 100%;
-  width: 60%; /* Increase width for better readability */
   overflow: hidden;
 }
 
@@ -68,7 +71,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 0.8em; 
 }
 
 header {
@@ -88,26 +90,24 @@ main {
 }
 
 .conversation-tab {
-  display: none; /* Ensure it is hidden by default */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Ensure input is at the bottom */
+  display: none;
   position: fixed;
-  top: 0; /* Cover the header */
-  left: 0;
+  top: 0;
+  right: 0;
   width: 100%; /* Full width */
-  height: calc(100vh - 60px); /* Adjust based on footer height */
+  height: calc(100vh - 60px); /* Adjust based on header and footer height */
   background-color: white;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   padding: 16px;
   overflow-y: auto;
   z-index: 1001;
-  display: hidden;
-  flex-direction: column;
-  justify-content: flex-end; /* Ensure input is at the bottom */
 }
-
 .conversation-tab--visible {
   display: flex;
 }
-
 .conversation-header {
   display: flex;
   justify-content: space-between;
@@ -147,8 +147,39 @@ main {
 .conversation-input button {
   padding: 8px 16px;
   border: none;
-  background-color: #a1a1a1;
+  background-color: #9a9b9b;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.conversation-message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.conversation-message--self {
+  justify-content: flex-end;
+}
+
+.conversation-message--other {
+  justify-content: flex-start;
+}
+
+.conversation-message-content {
+  max-width: 60%;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+}
+
+.conversation-message--self .conversation-message-content {
+  background-color: #d5d5d6;
+  color: white;
+}
+
+.conversation-message--other .conversation-message-content {
+  background-color: #e5e5e5;
+  color: black;
 }

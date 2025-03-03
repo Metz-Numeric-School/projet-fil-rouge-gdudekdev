@@ -19,17 +19,19 @@
             <div class="message__content">
                   <div class="message__item" data-conversation-id="1">
                         <div class="message__item-content">
-                              <div class="message__item-sender-img">
-                                    <img src="#" alt="sender-img">
-                              </div>
-                              <div class="message__item-maincontent">
-                                    <div class="message__item-sender-name">
-                                          <h3>John Doe</h3>
+                              <div class="message__item-content-container">
+                                    <div class="message__item-sender-img">
+                                          <img src="#" alt="sender-img">
                                     </div>
-                                    <div class="message__item-preview">
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus
-                                                feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui. Nullam
-                                                vel eros sit amet arcu vestibulum accumsan in in leo.</p>
+                                    <div class="message__item-maincontent">
+                                          <div class="message__item-sender-name">
+                                                <h3>John Doe</h3>
+                                          </div>
+                                          <div class="message__item-preview">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus
+                                                      feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui. Nullam
+                                                      vel eros sit amet arcu vestibulum accumsan in in leo.</p>
+                                          </div>
                                     </div>
                               </div>
                               <div class="message__item-date">
