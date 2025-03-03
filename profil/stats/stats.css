@@ -1,29 +1,29 @@
 /* NAVBAR */
-.navbar__header {
+.stats__navbar-header {
   display: flex;
   align-items: center;
   height: 16px;
   margin-bottom: 16px;
 }
-.navbar__back {
+.stats__navbar-back {
   display: flex;
 }
-.navbar__back a {
+.stats__navbar-back a {
   font-size: 0.8rem;
 }
-.navbar__back-cta {
+.stats__navbar-back-cta {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 4px;
 }
-.navbar__back-cta img {
+.stats__navbar-back-cta img {
   width: 8px;
   height: auto;
   display: block;
 }
 /* CONTENT */
-.cookies {
+.stats {
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -31,32 +31,39 @@
   padding: 16px 0;
   gap: 16px;
 }
-.cookies__main {
+.stats__main {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.cookies h2 {
+.stats h2 {
   width: 100%;
+  font-size: 24px;
+  margin-bottom: 16px;
 }
-.cookies__content {
+.stats__content {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.cookies__main-item {
+.stats__main-item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
   padding: 12px 0;
   border-bottom: 1px solid #ddd;
 }
-.cookies__main-item:last-child {
+.stats__main-item:last-child {
   border-bottom: none;
 }
-.cookies__main-item:hover {
+.stats__main-item:hover {
   background-color: #f6f6f6;
 }
-.cookies__item-content {
-  max-width: 70%;
+.stats__main-item h5 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.stats__main-item p {
+  font-size: 16px;
+  margin: 0;
 }

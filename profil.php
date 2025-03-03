@@ -73,7 +73,7 @@
                                           <img src="img/profil/cta/right-arrow.svg" alt="Flèche vers la droite">
                                     </div>
                               </a>
-                              <a href="#" class="profil__item">
+                              <a href="profil\stats\stats.php" class="profil__item">
                                     <div class="profil__item-icon">
                                           <img src="img/profil/icon/stats-svgrepo-com.svg" alt="Statistiques">
                                     </div>
