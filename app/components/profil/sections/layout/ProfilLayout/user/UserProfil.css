@@ -1,0 +1,15 @@
+.profil__user {
+  @apply flex justify-center items-center flex-col h-26 mb-4 gap-4;
+}
+.profil__user-img-container {
+  @apply gap-8 relative;
+}
+.profil__user-img {
+  @apply h-16 w-16 rounded-full border border-black overflow-hidden;
+}
+.profil__user-input-img{
+  @apply  flex justify-center items-center w-5 h-5 bg-[var(--maincolor-vibrant)] text-2xl font-bold text-center rounded-full cursor-pointer hover:bg-gray-700 absolute right-0 bottom-0 z-1000;
+}
+.profil__user-input-img svg{
+@apply stroke-white w-4 h-4 block;
+}

@@ -1,0 +1,55 @@
+/* FORMULAIRE */
+.vehicule__form-etape {
+  @apply flex flex-col gap-6 p-4;
+}
+.vehicule__form-etape-choix {
+  @apply flex flex-col gap-2;
+}
+.vehicule__form-choix {
+  @apply flex justify-between items-center shadow-sm w-full p-1 rounded-md;
+}
+.vehicule__form-choix-item {
+  @apply flex w-1/2 gap-2 justify-start items-center;
+}
+.vehicule__form-choix-item p {
+  @apply font-semibold text-base uppercase;
+}
+.vehicule__form-choix-img {
+  @apply flex justify-center items-center;
+}
+.vehicule__form-choix-img img {
+  @apply h-6 w-6;
+}
+.vehicule__form-choix-cta {
+  @apply flex justify-center items-center;
+}
+.vehicule__form-choix-cta img {
+  @apply h-4 w-4;
+}
+.vehicule__step-title{
+  @apply text-[var(--maincolor-original)]
+}
+.vehicule__step-choice-list{
+  @apply flex flex-col gap-4 py-6;
+}
+.vehicule__step-choice-list div{
+  @apply hover:bg-[var(--maincolor-light)] hover:text-white hover:cursor-pointer;
+}
+.vehicule__step-btn{
+  @apply flex items-center justify-center px-4 py-2 rounded bg-[var(--maincolor-original)] text-white hover:bg-[var(--maincolor-dark)] hover:cursor-pointer;
+}
+.vehicule__step-btn.skippable{
+  @apply flex items-center justify-center px-4 py-2 rounded bg-[var(--cta-accent)] text-white hover:bg-[var(--cta-accent-hover)] hover:cursor-pointer scale-75;
+}
+.vehicule__step-skippable{
+  @apply flex flex-col gap-6 py-4
+}
+.vehicule__step-skippable-action{
+  @apply flex gap-8 ;
+}
+.vehicule__recap-list{
+  @apply flex flex-col gap-2 py-6 ;
+}
+.vehicule__recap-key{
+  @apply text-[var(--cta-secondary)];
+}

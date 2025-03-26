@@ -1,0 +1,19 @@
+.modal__home-trajet {
+  @apply fixed top-0 left-0 w-screen h-screen bg-[rgba(0,0,0,0.5)] flex justify-center items-center z-2000;
+}
+
+.modal__home-trajet-content {
+  @apply absolute bg-white rounded shadow-lg w-11/12 max-w-md;
+}
+
+.modal__home-trajet-action {
+  @apply flex flex-col justify-center items-center w-full py-2;
+}
+
+.modal__home-trajet-action-item {
+  @apply border-b border-gray-300 px-4 py-3 text-center text-gray-800 cursor-pointer hover:bg-[var(--maincolor-light)] hover:text-white ;
+}
+
+.modal__home-trajet-action-item:last-child {
+  @apply border-none;
+}

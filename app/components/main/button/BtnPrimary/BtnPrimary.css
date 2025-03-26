@@ -1,0 +1,7 @@
+.btnprimary {
+  @apply flex justify-center items-center w-fit rounded px-4 py-2 
+bg-[var(--cta-primary)] text-white 
+transition-colors ease-in-out duration-300
+hover:bg-[var(--cta-primary-hover)] 
+active:bg-[var(--cta-primary-active)];
+}

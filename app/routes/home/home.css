@@ -1,0 +1,5 @@
+/* home */
+.home {
+  /* Flex */
+  @apply flex flex-col gap-4 mb-[var(--navbar-height)];
+}

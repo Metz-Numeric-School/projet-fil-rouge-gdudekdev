@@ -1,0 +1,83 @@
+.trajet__choice-detail-main {
+  @apply flex flex-col gap-2 bg-white p-6 rounded-tl-lg rounded-tr-lg shadow-lg w-full absolute bottom-[var(--navbar-height)] pt-2 min-h-52 max-h-96 overflow-y-scroll;
+}
+
+.trajet__choice-detail-main-cta {
+  @apply flex items-center justify-center relative py-2;
+}
+
+.trajet__choice-detail-main-cta svg {
+  @apply -rotate-90 h-4 w-4 fill-[var(--maincolor-original)] block;
+}
+.trajet__choice-detail-add{
+      @apply flex justify-center items-center bg-[var(--maincolor-original)] hover:bg-[var(--maincolor-dark)] cursor-pointer text-white absolute right-0 py-1 px-3 rounded;
+}
+.trajet__choice-detail-main-content{
+      @apply flex flex-col gap-6;
+}
+
+.trajet__choice-detail-main-itineraire{
+      @apply flex flex-col gap-4
+}
+
+.trajet__choice-detail-itineraire-frame {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .trajet__choice-detail-itineraire-step {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    
+    .trajet__choice-detail-itineraire-step-left-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    
+    
+    .trajet__choice-detail-itineraire-line {
+      position: absolute;
+      width: 4px;
+      height: 100%;
+      background-color: var(--maincolor-original);
+      top: 10px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+    
+    .trajet__choice-detail-itineraire-checkpoint {
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border: 4px solid var(--maincolor-original);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    
+    .trajet__choice-detail-itineraire-checkpoint-desc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 15px;
+      width: 100%;
+    }
+    
+    .trajet__choice-detail-itineraire-checkpoint-desc-content h5 {
+      font-size: 16px;
+      margin: 0;
+    }
+    
+    .trajet__choice-detail-itineraire-checkpoint-desc p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+    

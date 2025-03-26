@@ -1,0 +1,6 @@
+.profil__section {
+  @apply flex flex-col gap-5 mb-4 mt-8;
+}
+.profil__section-title {
+  @apply w-full text-[var(--maincolor-original)];
+}

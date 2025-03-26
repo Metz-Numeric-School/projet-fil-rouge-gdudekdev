@@ -1,0 +1,48 @@
+.conversation-tab {
+  @apply flex-col justify-between fixed top-0 left-0 right-0 bottom-0 w-full bg-white shadow-lg overflow-y-auto z-[1005] hidden;
+}
+
+.conversation-tab--visible {
+  @apply flex;
+}
+
+.conversation-content {
+  @apply h-screen relative p-4;
+}
+
+.conversation-header {
+  @apply flex justify-between items-center border-b border-gray-200 pb-3 mb-4;
+}
+
+.conversation-header .close-btn {
+  @apply bg-none border-none text-xl cursor-pointer text-gray-600;
+}
+
+.conversation-chats {
+  @apply flex flex-col-reverse overflow-y-auto flex-1;
+  max-height: calc(100vh - 180px);
+}
+
+.conversation-chat {
+  @apply flex items-center mb-4;
+}
+
+.conversation-chat--self {
+  @apply justify-end;
+}
+
+.conversation-chat--other {
+  @apply justify-start;
+}
+
+.conversation-chat-content {
+  @apply max-w-[80%] p-3 rounded-lg shadow-sm text-sm;
+}
+
+.conversation-chat--self .conversation-chat-content {
+  @apply bg-gray-800 text-white;
+}
+
+.conversation-chat--other .conversation-chat-content {
+  @apply bg-[var(--maincolor-light)] text-gray-900;
+}

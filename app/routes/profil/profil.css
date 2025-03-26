@@ -1,0 +1,5 @@
+/* USER */
+.profil{
+  @apply flex flex-col pt-4 mt-8 ;
+}
+

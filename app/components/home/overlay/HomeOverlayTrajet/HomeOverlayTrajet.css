@@ -1,0 +1,7 @@
+.home__overlay-fullpage {
+  @apply absolute top-0 left-0 w-screen h-screen bg-white z-1000 flex flex-col items-stretch justify-start overflow-y-auto p-8;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+.home__overlay-close-btn {
+  @apply absolute top-5 right-5 bg-none border-none text-2xl cursor-pointer;
+}

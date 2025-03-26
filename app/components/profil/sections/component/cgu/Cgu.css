@@ -1,0 +1,25 @@
+/* CONTENT */
+.cgu {
+  @apply flex flex-col h-fit w-full p-4 gap-4 mb-[var(--navbar-height)];
+}
+.cgu__main {
+  @apply flex flex-col w-full;
+}
+.cgu h2 {
+  @apply w-full text-[var(--maincolor-original)];
+}
+.cgu__content {
+  @apply flex flex-col gap-4;
+}
+.cgu__main-item {
+  @apply flex items-center relative py-3 border-b border-gray-300;
+}
+.cgu__main-item:last-child {
+  @apply border-b-0;
+}
+.cgu__item-content {
+  @apply max-w-[70%];
+}
+.cgu__item-content h5{
+  @apply text-lg text-[var(--maincolor-vibrant)] font-semibold;
+}

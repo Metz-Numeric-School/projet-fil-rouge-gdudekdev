@@ -1,0 +1,42 @@
+/* CONTENT */
+.notif {
+  @apply flex flex-col gap-6 p-4;
+}
+.notif__content {
+  @apply flex flex-col gap-6;
+}
+.notif__content-info {
+  @apply flex w-full font-bold;
+}
+.notif__content-info-img {
+  @apply flex justify-center items-center mr-2;
+}
+.notif__content-info-img img {
+  @apply w-4 h-auto block;
+}
+/* FORMULAIRE */
+.notif__form {
+  @apply flex flex-col;
+}
+.notif__form label {
+  @apply text-xs font-bold mb-2;
+}
+.notif__form input[type="date"] {
+  @apply p-2 rounded mb-2 bg-[var(--maincolor-light)] transition-colors duration-300 text-white text-lg shadow-sm uppercase;
+}
+
+.notif__form input[type="date"]:focus {
+  @apply border-black text-white;
+}
+
+.notif__form input[type="submit"] {
+  @apply bg-white  text-[var(--maincolor-original)] border border-[var(--maincolor-original)]  h-12 p-2.5 mt-8 rounded text-base cursor-pointer transition-colors duration-300 w-1/2 hover:bg-[var(--maincolor-medium)] hover:text-white;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color:white; /* Change la couleur de la flèche */
+  stroke : var(--maincolor-original);
+  border-radius: 50%; /* Optionnel: rendre la flèche ronde */
+  padding: 5px;
+}
+
+

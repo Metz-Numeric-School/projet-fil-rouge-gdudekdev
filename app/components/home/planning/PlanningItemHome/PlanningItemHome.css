@@ -1,0 +1,25 @@
+/* Planning Item */
+.home__item {
+  @apply flex flex-col justify-between items-center gap-4 bg-white shadow-sm p-4 rounded-lg w-full border border-gray-200;
+}
+.home__item-main {
+  @apply flex gap-8 justify-between w-full;
+}
+.home__item-main-container {
+  @apply flex w-1/2 justify-between items-center gap-8;
+}
+.home__item-option svg {
+  @apply w-4 h-auto block cursor-pointer;
+}
+.home__item-cta {
+  @apply flex justify-center items-center;
+}
+.home__item-direction p {
+  @apply w-full h-full;
+}
+.home__item-departure p{
+  @apply text-2xl
+}
+.home__item-content{
+  @apply flex flex-col justify-between items-center h-full w-full ;
+}

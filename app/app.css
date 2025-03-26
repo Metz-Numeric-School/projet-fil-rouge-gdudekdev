@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sarala", ui-sans-serif, system-ui, sans-serif;
+}
+
+@apply bg-white dark:bg-gray-950 p-0 m-0 box-border list-none no-underline;
+
+:root {
+  --navbar-height: 76px;
+  --maincolor-light: #52C98A;
+  --maincolor-original: #149255;
+  --maincolor-medium: #107543;
+  --maincolor-dark: #0C5832;
+  --maincolor-vibrant: #094927;
+
+  --cta-primary: #149255;
+  --cta-primary-hover: #107543;
+  --cta-primary-active: #0C5832;
+  
+  --cta-secondary: #14A292;
+  --cta-secondary-hover: #107A74;
+  --cta-secondary-active: #0C5C58;
+  
+  --cta-accent: #921449;
+  --cta-accent-hover: #7A113E;
+  --cta-accent-active: #5C0D30;
+  
+  --cta-text-highlight: #FFD166;
+  --cta-background: #F4F4F4;
+
+}
+html{
+  @apply overflow-x-hidden;
+}
+body {
+  @apply w-screen h-screen overflow-x-hidden overflow-y-auto font-sans;
+}
+main {
+  @apply pb-[var(--navbar-height)];
+}
+/* STYLES GENERAUX  */
+h2 {
+  @apply font-bold text-2xl ; 
+}
+h3 {
+  @apply font-semibold text-xl ;
+}
+
+.noscroll {
+  overflow: hidden;
+}
+/* IMPORTANT */
+/* TODO détail d'un trajet plus choix du chemin que l'on souhaite emprunter*/
+/* TODO faire un modèle pour l'historique avec un recap du trajet et potentiellment changer la note ( à voir sur le fonctionnement à venir) */
+/* TODO système de note à intégrer */
+/* TODO Gestion de l'itinéraire + Visualisation
+Valeur par défaut : Passager ou conducteur mais possiblité de modifier son statut par trajet
+Système de match entre le conducteur et les passagers */
+/* SECONDAIRE */
+/* TODO implémentation des couleurs ... */
+/* TODO paufiner le design pour qu'il soit clean */
+/* TODO animation de fermeture sur l'overlay Home Trajet */
+/* TODO nettoyage des classes CSS */
+/* TODO gestion des erreurs */
+
+/* --- LAYOUT --- */
+@import "./layouts/import/ImportLayout.css";
+/* --- ROUTES ---- */
+/* HOME */
+@import "./routes/home/home.css";
+@import "./components/home/import/ImportHome.css";
+/* PROFIL */
+@import "./routes/profil/profil.css";
+@import "./components/profil/import/ImportProfil.css";
+/* CHAT */
+@import "./routes/chat/chat.css";
+@import "./components/chat/import/ImportChat.css";
+/* LOGIN */
+@import "./routes/login/login.css";
+/* --- COMPONENTS --- */
+@import "./components/main/import/ImportComponentMain.css"

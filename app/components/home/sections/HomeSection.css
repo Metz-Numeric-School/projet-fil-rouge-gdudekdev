@@ -1,0 +1,19 @@
+/* Sections */
+.home__section-title {
+  @apply text-2xl font-bold;
+}
+.home__friend,
+.home__newride {
+  @apply flex flex-col gap-4 h-fit p-4;
+}
+.home__friend-content,
+.home__newride-content {
+  @apply flex flex-col gap-2;
+}
+.home__friend-cta,
+.home__newride-cta {
+  @apply flex justify-center items-center rounded-lg p-2 h-10 border border-black bg-white text-black;
+}
+.home__newride {
+  @apply bg-[var(--maincolor-light)] rounded-lg text-white;
+}

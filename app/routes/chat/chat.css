@@ -1,0 +1,7 @@
+.chat__title {
+    @apply p-4 border-b border-gray-300 text-xl font-semibold text-center bg-gray-50 text-gray-900;
+}
+
+.chat__content {
+    @apply flex flex-col w-full gap-4 p-4 overflow-y-auto flex-1 mt-4 pb-[var(--navbar-height)];
+}

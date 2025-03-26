@@ -1,0 +1,40 @@
+.login {
+  @apply w-full h-screen bg-[var(--cta-secondary)]  flex items-center justify-center;
+}
+.login__overlay {
+      @apply absolute top-0 left-0 w-full h-full bg-black opacity-50;
+    }
+.login__container {
+  @apply w-[90%] max-w-md h-auto bg-white rounded-lg shadow-2xl p-6 flex flex-col justify-center relative z-10;
+}
+
+.login__title {
+  @apply text-2xl text-[var(--maincolor-original)] font-bold text-center mb-4;
+}
+
+.login__form {
+  @apply flex flex-col gap-4;
+}
+
+.login__input-group {
+  @apply flex flex-col;
+}
+
+.login__input-group label {
+  @apply text-sm font-medium mb-1;
+}
+
+.login__input-group input {
+  @apply w-full px-4 py-2 border rounded-lg outline-[var(--maincolor-vibrant)];
+}
+.login__button {
+  @apply w-full bg-[var(--maincolor-original)] text-white py-2 rounded-lg hover:bg-[var(--maincolor-dark)] transition;
+}
+
+.login__footer {
+  @apply text-center text-sm mt-4;
+}
+
+.login__link {
+  @apply text-[var(--cta-secondary)] hover:underline;
+}

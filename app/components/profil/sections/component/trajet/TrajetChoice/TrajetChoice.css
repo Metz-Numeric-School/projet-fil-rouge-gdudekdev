@@ -1,0 +1,76 @@
+.trajet__choice {
+  @apply  h-screen w-full mb-[var(--navbar-height)];
+}
+.trajet__choice-form{
+      @apply flex flex-col gap-8
+}
+.trajet__choice-header {
+  @apply flex flex-col gap-2 w-full;
+}
+.trajet__choice-header h2 {
+  @apply text-[var(--maincolor-original)];
+}
+.trajet__choice-header p {
+  @apply size-3 w-full h-full;
+}
+.trajet__choice-main {
+  @apply flex flex-col gap-4 w-full;
+}
+.trajet__choice-main-header h3 {
+  @apply font-bold w-full text-[var(--maincolor-original)];
+}
+.trajet__choice-main-content {
+  @apply flex flex-wrap w-full gap-4 justify-center items-center;
+}
+.trajet__choice-main-content-item {
+  @apply flex justify-between flex-col gap-4 p-4 border border-gray-300 rounded-xl;
+}
+.trajet__choice-item-main-container{
+  @apply flex;
+}
+.trajet__choice-item-desc {
+  @apply flex flex-col gap-2 w-30;
+}
+.trajet__choice-item-desc-img {
+  @apply w-16 h-16 rounded-full bg-gray-300 overflow-hidden;
+}
+.trajet__choice-item-desc-img img {
+  @apply block w-16 h-16;
+}
+.trajet__choice-item-desc-main {
+  @apply flex flex-col gap-3 w-full;
+}
+.trajet__choice-item-desc-main-contact {
+  @apply flex flex-col gap-1 w-full;
+}
+.trajet__choice-item-desc-main-contact h4 {
+  @apply font-bold w-full;
+}
+.trajet__choice-item-desc-main-contact p {
+  @apply text-sm w-full h-full;
+}
+.trajet__choice-item-desc-main-contact h5 {
+  @apply font-bold w-full;
+}
+.trajet__choice-item-desc-main-info {
+  @apply flex items-center gap-2;
+}
+.trajet__choice-item-desc-main-info svg {
+  @apply block w-5 h-5;
+}
+.trajet__choice-item-desc-main-info p {
+  @apply font-extralight text-sm w-full h-full;
+}
+.trajet__choice-form input[type="checkbox"] {
+  @apply w-4 h-4 rounded;
+  accent-color: var(--maincolor-vibrant);
+}
+.trajet__choice-form input[type="submit"] {
+  @apply w-fit rounded px-4 py-2 bg-[var(--maincolor-original)] text-white hover:bg-[var(--maincolor-dark)];
+}
+.trajet__choice-form-submit {
+  @apply flex items-center;
+}
+.trajet__choice-detail{
+  @apply flex justify-center items-center bg-[var(--maincolor-original)] rounded text-white py-1 px-2 hover:bg-[var(--maincolor-dark)];
+}

@@ -1,0 +1,28 @@
+/* CONTENT */
+.privacy {
+  @apply flex flex-col h-auto w-full p-4 gap-4;
+}
+.privacy__main {
+  @apply flex flex-col w-full;
+}
+.privacy h2 {
+  @apply w-full text-[var(--maincolor-original)];
+}
+.privacy__content {
+  @apply flex flex-col gap-4;
+}
+.privacy__main-item {
+  @apply flex items-center relative py-3 border-b border-gray-300;
+}
+.privacy__main-item:last-child {
+  @apply border-b-0;
+}
+.privacy__main-item:hover {
+  @apply bg-gray-100;
+}
+.privacy__item-content {
+  @apply max-w-[70%];
+}
+.privacy__item-content h5 {
+  @apply text-[var(--maincolor-vibrant)] font-semibold;
+}

@@ -1,0 +1,24 @@
+/* --- COMPONENTS --- */
+@import "../sections/component/attestation/Attestation.css";
+@import "../sections/component/attestation/notif/Notif.css";
+@import "../sections/component/block/Block.css";
+@import "../sections/component/cgu/Cgu.css";
+@import "../sections/component/faq/Faq.css";
+@import "../sections/component/cookies/Cookie.css";
+@import "../sections/component/historique/Historique.css";
+@import "../sections/component/privacy/Privacy.css";
+@import "../sections/component/stats/Stats.css";
+@import "../sections/component/vehicule/Vehicule.css";
+@import "../sections/component/info/Info.css";
+
+@import "../sections/component/trajet/Trajet.css";
+@import "../sections/component/trajet/trajetDay/TrajetDay.css";
+@import "../sections/component/trajet/TrajetChoice/TrajetChoice.css";
+@import "../sections/component/trajet/TrajetChoice/TrajetChoiceDetail/TrajetChoiceDetail.css";
+@import "../sections/component/trajet/TrajetChoice/TrajetItineraire/TrajetItineraire.css";
+
+/* --- LAYOUT --- */
+@import "../sections/layout/ProfilLayout/user/UserProfil.css";
+
+@import "../sections/layout/ProfilLayout/ProfilSectionItem/ProfilSectionItem.css";
+@import "../sections/layout/ProfilLayout/ProfilSectionList/ProfilSectionList.css";

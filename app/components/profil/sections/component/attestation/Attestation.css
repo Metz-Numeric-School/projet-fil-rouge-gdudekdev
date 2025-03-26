@@ -1,0 +1,54 @@
+/* CONTENT */
+.attestation {
+  @apply flex flex-col h-fit w-full p-4 gap-4 mb-[var(--navbar-height)];
+}
+.attestation__main {
+  @apply flex flex-col w-full;
+}
+.attestation h2 {
+  @apply w-full text-[var(--maincolor-original)];
+}
+.attestation__content {
+  @apply flex flex-col gap-4;
+}
+.attestation__main-item {
+  @apply flex items-center relative py-3 border-b border-gray-300;
+}
+.attestation__main-item:last-child {
+  @apply border-b-0;
+}
+.attestation__main-item:hover {
+  @apply bg-gray-100;
+}
+.attestation__item-icon {
+  @apply flex items-center justify-center mr-4;
+}
+.attestation__item-icon img {
+  @apply w-5 h-auto block filter grayscale opacity-55;
+}
+.attestation__item-content {
+  @apply max-w-[70%];
+}
+.attestation__item-cta {
+  @apply flex items-center justify-center absolute right-0;
+}
+.attestation__item-cta span {
+  @apply font-semibold underline text-sm;
+}
+.attestation__item-cta svg {
+  @apply w-4 h-auto block;
+}
+
+/* BOUTON TOGGLE NOTIF */
+.attestation__notif-container {
+  @apply w-12 h-6 border border-black/60 rounded-full relative cursor-pointer bg-gray-300 transition-colors duration-300;
+}
+.toggle-circle {
+  @apply w-5 h-5 bg-white rounded-full absolute top-1/2 left-0.5 transform -translate-y-1/2 transition-transform duration-300;
+}
+.active {
+  @apply bg-black;
+}
+.active .toggle-circle {
+  @apply transform translate-x-6 bg-white;
+}

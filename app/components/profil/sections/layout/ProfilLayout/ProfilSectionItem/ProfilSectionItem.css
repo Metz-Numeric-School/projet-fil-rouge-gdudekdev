@@ -1,0 +1,27 @@
+.profil__item {
+  @apply flex items-center relative py-3 border-b border-gray-300;
+}
+.profil__item:last-child {
+  @apply border-b-0;
+}
+.profil__item:hover {
+  @apply bg-gray-100;
+}
+.profil__item-icon {
+  @apply flex items-center justify-center mr-4 stroke-[var(--maincolor-vibrant)];
+}
+.profil__item-icon svg {
+  @apply w-5 h-auto block;
+}
+.profil__item-content {
+  @apply max-w-1/2;
+}
+.profil__item-cta {
+  @apply flex items-center justify-center absolute right-0;
+}
+.profil__item-cta span {
+  @apply font-semibold underline text-sm;
+}
+.profil__item-cta svg {
+  @apply w-4 h-auto block;
+}

@@ -1,0 +1,34 @@
+/* CONTENT */
+.faq {
+  @apply flex flex-col h-fit w-full p-4 gap-4 mb-[var(--navbar-height)];
+}
+.faq__main {
+  @apply flex flex-col gap-3 w-full;
+}
+.faq h2 {
+  @apply w-full text-2xl mb-4 text-[var(--maincolor-original)];
+}
+.faq__content {
+  @apply flex flex-col gap-4;
+}
+.faq__main-item {
+  @apply flex flex-col relative py-2;
+}
+.faq__main-item:last-child {
+  @apply border-b-0;
+}
+
+.faq__item-content {
+  @apply max-w-[70%];
+}
+.faq__accordion {
+  @apply bg-[var(--maincolor-medium)] text-white cursor-pointer p-4 w-full text-left outline-none text-base transition-all duration-400 ease-out mb-2;
+}
+.faq__active,
+.faq__accordion:hover {
+  @apply bg-[var(--maincolor-original)];
+}
+.faq__panel {
+  @apply p-0 px-4 max-h-0 overflow-hidden bg-white transition-all duration-400 ease-out
+  border-b-gray-100 border-l-gray-100 border-r-gray-100;
+}

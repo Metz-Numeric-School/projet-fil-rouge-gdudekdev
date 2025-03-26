@@ -1,0 +1,28 @@
+/* Footer Navigation */
+.footer__nav {
+  @apply fixed bg-white bottom-0 left-0 right-0 shadow-md;
+  z-index: 1000; /* Assure que le footer soit au-dessus des autres éléments */
+  box-sizing: border-box; /* Inclut padding et border dans les dimensions */
+}
+
+/* Liste des éléments de la navigation */
+.footer__nav-list {
+  @apply h-[var(--navbar-height)] flex justify-between items-center;
+  box-sizing: border-box; /* Garantir que la hauteur ne soit pas modifiée par des marges internes */
+}
+
+
+.footer__nav-list-link {
+  @apply flex flex-col justify-center w-80 items-center;
+}
+
+.footer__nav-list-link svg {
+  @apply w-8 h-auto;
+  stroke-width: 1px;
+}
+.footer__active {
+  @apply rounded-full bg-[var(--maincolor-original)]  transition-colors duration-300; /* Transition plus rapide pour éviter des décalages visuels */
+}
+.footer__active svg{
+  @apply stroke-white  ;
+}
