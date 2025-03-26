@@ -1,9 +1,6 @@
 {
-  "workbench.colorCustomizations": {
-    "minimap.background": "#00000000",
-    "scrollbar.shadow": "#00000000"
-  },
-  "editor.fontFamily": "JetBrains Mono Light",
-  "editor.fontLigatures": true,
-  "liveServer.settings.port": 5501
+      "workbench.colorCustomizations": {
+            "minimap.background": "#FF9D4988",
+            "scrollbar.shadow": "#FF9D4988"
+      }
 }
