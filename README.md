@@ -1,6 +1,6 @@
 # 🚗 Carpool
 
-Bienvenue dans **Carpool Project**, une application de covoiturage moderne et performante ! 🚀
+Bienvenue dans **Carpool**, une application de covoiturage moderne et performante ! 🚀
 
 ---
 
