@@ -2,5 +2,6 @@
       "workbench.colorCustomizations": {
             "minimap.background": "#FF9D4988",
             "scrollbar.shadow": "#FF9D4988"
-      }
+      },
+      "php.version": "7.4"
 }

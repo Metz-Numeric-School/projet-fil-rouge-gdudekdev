@@ -1,17 +1,8 @@
-
 {
-    "require": {
-        "firebase/php-jwt": "^6.11",
-        "curl/curl": "^2.5"
-    },
-    "autoload": {
+  "require": {},
+  "autoload": {
     "psr-4": {
-        "App\\": "app/",
-        "Core\\": "core/",
-        "Middlewares\\":"middlewares/",
-        "Config\\":"config/",
-        "Controllers\\":"app/Controllers/",
-        "Views\\":"app/Views/"
+      "App\\": "src"
     }
-}
+  }
 }
