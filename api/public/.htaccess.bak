@@ -1,0 +1,11 @@
+Options -Indexes
+RewriteEngine On
+
+# Autoriser l'accès
+Order Allow,Deny
+Allow from all
+
+# Rediriger vers index.php sauf si c'est un fichier/dossier existant
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
