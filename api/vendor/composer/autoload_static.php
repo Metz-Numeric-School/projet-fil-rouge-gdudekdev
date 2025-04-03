@@ -13,6 +13,7 @@ class ComposerStaticInite91eae6b03aaae9136dc415539870da8
         ),
         'A' => 
         array (
+            'App\\Models\\' => 11,
             'App\\' => 4,
         ),
     );
@@ -21,6 +22,10 @@ class ComposerStaticInite91eae6b03aaae9136dc415539870da8
         'Framework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/framework',
+        ),
+        'App\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/models',
         ),
         'App\\' => 
         array (

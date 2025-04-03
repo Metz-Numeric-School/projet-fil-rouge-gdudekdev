@@ -1,11 +1,19 @@
 <?php
-
-use App\Class\Database;
 require_once '../vendor/autoload.php';
 
-$db = Database::getInstance();
-$users = $db->query("SELECT * FROM users");
+$page = $_GET['page'] ?? 'home';
 
-foreach($users as $user){
-      var_dump($user);
-};
+$allowed_pages = ['home', 'users'];
+
+if (!in_array($page, $allowed_pages)) {
+    $page = 'home'; // Redirection vers une page par défaut si la page n'est pas autorisée
+}
+
+// Charger le contenu de la page
+ob_start();
+include "../app/views/$page.php";
+$content = ob_get_clean();
+
+include './../template/basic.php';
+?>
+

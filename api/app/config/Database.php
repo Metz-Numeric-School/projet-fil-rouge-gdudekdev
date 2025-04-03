@@ -1,5 +1,5 @@
 <?php 
-namespace App\Class;
+namespace App\Config;
 use PDO, Exception;
 
 class Database
@@ -34,11 +34,20 @@ class Database
       public function __wakeup() {} // Empêche la désérialisation
       
       public function query($sql){
-            return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                  return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                  throw new Exception("Erreur lors de l'exécution de la requête : " . $e->getMessage());
+            }
       }
-      public function prepare($sql,$params=[]){
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$params]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      public function preparedQuery($sql, $params = []){
+            try {
+                  $stmt = $this->db->prepare($sql);
+                  $stmt->execute($params);
+                  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                  throw new Exception("Erreur lors de l'exécution de la requête préparée : " . $e->getMessage());
+            }
       }
 }
