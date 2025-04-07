@@ -35,9 +35,9 @@ class User
       }
 
 
-      // TODO ajout d'un manager pour faire les différnetes requeetes nécessaire pour la base de donneé : read / create / delete
+      // TODO ajout d'un manager pour faire les différentes requeetes nécessaire pour la base de donneé : read / create / delete
 
-      
+
       public function id(){
             return htmlspecialchars($this->id);
       }

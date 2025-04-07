@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/include/protect.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/class/User.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/class/UserManager.php";
 
 
 $db = Database::getInstance();
@@ -22,7 +23,7 @@ $recordset = $db->getAllFrom('users');
       <a href="/pages/index.php">
             <\Retour </a>
                   <h2>Page de gestion des utilisateurs</h2>
-
+                  <a href="form.php?table=users">Ajouter un utilisateur</a>
                   <div class="users__main">
                         <table>
                               <tr>
@@ -42,8 +43,8 @@ $recordset = $db->getAllFrom('users');
                                                 <td><?= $user->{$key}() ?></td>
                                           <?php endforeach ?>
                                           <td>
-                                                <a href=''>Modifier</a>
-                                                <a href="#">Suppprimer</a>
+                                                <a href="form.php?table=users?id=<?= $user->id()?>">Modifier</a>
+                                                <a href="delete.php?table=users?id=<?= $user->id() ?>">Suppprimer</a>
                                           </td>
                                     </tr>
                               <?php endforeach ?>
