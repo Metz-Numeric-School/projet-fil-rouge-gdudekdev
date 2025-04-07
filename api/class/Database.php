@@ -25,6 +25,7 @@ class Database{
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
+      // TODO rajouter un argument dans la fonction getOneFrom pour prendre le champ ciblé + la valeur associé et pas juste la valeur avec le champ en dur
       public function getOneFrom(string $table, $target_id=null){
             $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE email = :id OR (1=1)");
             $stmt->execute([":id"=>$target_id]);

@@ -1,5 +1,5 @@
 <?php 
-require_once "../class/Database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
 $id="";
 $password="";
 $db = Database::getInstance();
