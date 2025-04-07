@@ -1,5 +1,7 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Manager.php";
+
 
 class UserManager{
 
@@ -10,7 +12,7 @@ class UserManager{
       private function __construct(){
             
       }
-
+      // TODO fixer l'instantiation au moment de la création du manager
       public static function getInstance(){
             if(is_null(self::$instance)){
                   self::$instance = new self;
@@ -30,7 +32,17 @@ class UserManager{
             Database::getInstance()->delete('users',$value);
       }
 
-      public function update(array $object){
+      public function update(User $user){
+            $object =[
+                  'id'=>$user->id(),
+                  'name'=>$user->name(),
+                  'username'=>$user->username(),
+                  'password'=>$user->password(),
+                  'created_at'=>$user->id(),
+            ];
             Database::getInstance()->update('users',$object);
+      }
+      public function add(User $user){
+            
       }
 }

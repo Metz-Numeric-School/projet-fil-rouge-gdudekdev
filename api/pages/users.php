@@ -5,8 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/class/User.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/class/UserManager.php";
 
 
-$db = Database::getInstance();
-$recordset = $db->getAllFrom('users');
+$recordset = Database::getInstance()->getAllFrom('users');
 
 ?>
 
@@ -43,8 +42,8 @@ $recordset = $db->getAllFrom('users');
                                                 <td><?= $user->{$key}() ?></td>
                                           <?php endforeach ?>
                                           <td>
-                                                <a href="form.php?table=users?id=<?= $user->id()?>">Modifier</a>
-                                                <a href="delete.php?table=users?id=<?= $user->id() ?>">Suppprimer</a>
+                                                <a href="form.php?table=users&id=<?= $user->id()?>">Modifier</a>
+                                                <a href="delete.php?table=users&id=<?= $user->id() ?>">Suppprimer</a>
                                           </td>
                                     </tr>
                               <?php endforeach ?>

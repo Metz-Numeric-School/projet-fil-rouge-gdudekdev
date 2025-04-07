@@ -2,9 +2,9 @@
 
 class Database{
 
-      const DEFAULT_DSN="mysql:dbname=carpool;host=localhost";
-      const DEFAULT_HOST = "root";
-      const DEFAULT_PASS =""; 
+      private const DEFAULT_DSN="mysql:dbname=carpool;host=localhost";
+      private const DEFAULT_HOST = "root";
+      private const DEFAULT_PASS =""; 
 
       private static $instance = null;
       private  $PDOInstance = null;
@@ -20,12 +20,12 @@ class Database{
             }
             return self::$instance;
       }
-      public function getAllFrom(string $table){
-            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table");
+
+      public function getAllFrom(string $table, $desc='id'){
+            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table ORDER BY $desc DESC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
-      // TODO rajouter un argument dans la fonction getOneFrom pour prendre le champ ciblé + la valeur associé et pas juste la valeur avec le champ en dur
       public function getOneFrom(string $table, $champ ="", $value=null){
             $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE $champ = :value OR (1=1)");
             $stmt->execute([":value"=>$value]);
@@ -42,7 +42,7 @@ class Database{
             $values = "";
             $id = $object['id'];
             foreach($object as $key=>$value){
-                  $values .= $key . "=" . "'". $value . "',";
+                  $values .= htmlspecialchars($key) . "=" . "'". htmlspecialchars($value) . "',";
             }
             // On retire juste la dernière virgule qui est de trop
             $values =substr($values,0,-1);

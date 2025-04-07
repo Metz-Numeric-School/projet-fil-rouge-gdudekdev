@@ -33,10 +33,20 @@ class User
             $this->password = $data['password'];
             $this->created_at = $data['created_at'];
       }
-
-
-      // TODO ajout d'un manager pour faire les différentes requeetes nécessaire pour la base de donneé : read / create / delete
-
+      /**
+       * Retourne un tableau avec l'ensemble des champs permettant d'hydrater l'objet et leur valeur actuelle
+       */
+      public function getData(){
+            return ['id'=>$this->id(),'name'=>$this->name(),'username'=>$this->username(),'password'=>$this->password(),'created_at'=>$this->created_at];
+      }
+      /**
+       * @param $data: tableau associatif contenant au minimum les champs de l'utilisateur (issu d'un formulaire du CRUD à priori)
+       * 
+       * Renvoie un tableau associatif à l'image de l'utilisateur dans la base de données, permet des instanciations de User->hydrate($data) plus facile 
+       */
+      public static function setData(array $data){
+            return ['id'=>$data['id'],'name'=>$data['name'],'username'=>$data['username'],'password'=>$data['password'],'created_at'=>$data['created_at']];
+      }
 
       public function id(){
             return htmlspecialchars($this->id);

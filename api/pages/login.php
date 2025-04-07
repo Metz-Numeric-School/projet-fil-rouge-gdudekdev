@@ -1,14 +1,11 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
-$id="";
-$password="";
-$db = Database::getInstance();
-
+// TODO voir si on peut faire le login en full poo genre avec une class SESSION ou LOgin idk
 if(isset($_POST['id']) && isset($_POST['password'])){
-      $row = $db->getOneFrom('users',$_POST['id']);
+      $row = Database::getInstance()->getOneFrom('users',$_POST['id']);
 
       if($row){
-            if($row['password'] == $_POST['password']){
+            if($row['password'] == $_POST['password']){ //password_verify plus tard
                   session_start();
                   $_SESSION['is_logged'] = true;
                   header("Location: index.php");
