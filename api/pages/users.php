@@ -1,9 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/include/protect.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/User.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/UserManager.php";
-
 
 $recordset = Database::getInstance()->getAllFrom('users');
 

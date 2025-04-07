@@ -50,7 +50,6 @@ class Database{
             $stmt->execute();
       }
       public function add(string $table,array $value){
-            // TODO faire l'INSERT INTO
             $sql = '(';
             foreach($value as $k=>$v){
                   $sql.= htmlspecialchars($k) . ',';

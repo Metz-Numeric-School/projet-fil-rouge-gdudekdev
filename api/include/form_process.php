@@ -1,7 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/include/protect.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/User.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/UserManager.php";
 
  if(isset($_POST['form'])){
       // TODO lorsqu'il y aura plus de table à gerer, il faudrait pouvoir récupérer des données d'autres formulaires et donc éviter de mettre des if partout 

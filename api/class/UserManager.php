@@ -1,7 +1,4 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Database.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/class/Manager.php";
-
 
 class UserManager{
 
