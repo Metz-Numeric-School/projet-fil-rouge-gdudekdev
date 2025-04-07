@@ -1,4 +1,4 @@
 <?php
 spl_autoload_register(function ($class_name) {
-    include '/class/' . $class_name . '.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/class/' . $class_name . '.php';
 });

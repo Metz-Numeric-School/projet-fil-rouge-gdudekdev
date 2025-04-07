@@ -1,11 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/include/protect.php";
-// TODO faire la partie modifier un élément
+require_once $_SERVER['DOCUMENT_ROOT'] . "/include/autoloader.php";
+Auth::getInstance()->protect();
 
-// TODO voir si on fait une classe FORM pour gérer cette page , à méditer
 
-// Ajout
 if(isset($_GET['table'])){
+      // TODO enlever le switch et faire autrement , de préférnece faire un appel à une classe pour manager ce form
       switch ($_GET['table']){
             case 'users':
                   if(isset($_GET['id'])){
@@ -13,7 +12,6 @@ if(isset($_GET['table'])){
                   }else{
                         $obj = new User();
                         $obj = $obj->getData();
-                        // TODO cas de l'ajout
                   } 
       }
 }else{
@@ -24,6 +22,7 @@ if(isset($_GET['table'])){
 $pages = ['users' => 'utilisateurs'];
 $currentPage = $pages[$_GET['table']];
 
+$title = "formulaire CRUD";
 include_once '../template/form_template.php';
 ?>
 

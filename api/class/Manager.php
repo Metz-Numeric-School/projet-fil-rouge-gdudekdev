@@ -1,4 +1,5 @@
 <?php 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/include/autoloader.php";
 // TODO faire un manager de manager
 // TODO __sleep __wakeup
 // TODO need template.php + MVC
