@@ -10,6 +10,7 @@ if(isset($_GET['table'])){
                   if(isset($_GET['id'])){
                         $obj = Database::getInstance()->getOneFrom('users','id',$_GET['id']);
                   }else{
+                        // TODO le pb est ici plus précissement, il faut pouvoir init un nouvel Objet relatif a la BDD (cela implique de faire toutes les classes nécessaires au bon fonctionnement du tout)
                         $obj = new User();
                         $obj = $obj->getData();
                   } 

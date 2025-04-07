@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/include/autoloader.php";
 Auth::getInstance()->protect();
+//  TODO mettre le tout dans un Manager et renvoyer le Post sur lui meme
 
 // Processus d'ajout et de modification
 if (isset($_POST['form'])) {

@@ -1,12 +1,20 @@
-<?php 
+<?php
 include_once "../template/header_template.php";
 // TODO chercher à afficher l'interface crud pour n'importe quel table.
 ?>
+
+<!-- supososns qu'on ait une table, quel quelle soit, on veut afficher cela : 
+donner en PDO::FETCH_ASSOC a priori ,il faudrait changer le nom du fichier et passer une variable pour remplir le fichier
+$recordset puisqu'il s'agit d'une lecture de la base de données 
+Potentiellement créer un fichier config avec le nom de toutes les tables plus les jointures associés à des noms pour les titres idk
+-->
+
 <body>
       <a href="/pages/index.php">
             <\Retour </a>
-                  <h2>Page de gestion des utilisateurs</h2>
-                  <a href="form.php?table=users">Ajouter un utilisateur</a>
+                  <!-- il faudrait que le Manager gère le code d'ici , avec $table a priori -->
+                  <h2>Page de gestion des <?= strtolower($title) ?></h2>
+                  <a href="form.php?table=<?= $table ?>">Ajouter</a>
                   <div class="users__main">
                         <table>
                               <tr>
@@ -26,14 +34,15 @@ include_once "../template/header_template.php";
                                                 <td><?= $user->{$key}() ?></td>
                                           <?php endforeach ?>
                                           <td>
-                                                <a href="form.php?table=users&id=<?= $user->id() ?>">Modifier</a>
-                                                <a href="../include/form_process.php?delete=true&table=users&id=<?= $user->id() ?>">Suppprimer</a>
+                                                <a href="form.php?table=<?= $table ?>&id=<?= $user->id() ?>">Modifier</a>
+                                                <a href="../include/form_process.php?delete=true&table=<?= $table ?>&id=<?= $user->id() ?>">Suppprimer</a>
                                           </td>
                                     </tr>
                               <?php endforeach ?>
 
                         </table>
                   </div>
+                  <!-- jusqu'ici -->
 </body>
 
 </html>
