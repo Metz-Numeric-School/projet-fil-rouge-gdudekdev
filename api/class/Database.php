@@ -21,8 +21,8 @@ class Database{
             return self::$instance;
       }
 
-      public function getAllFrom(string $table, $desc='id'){
-            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table ORDER BY $desc DESC");
+      public function getAllFrom(string $table, $asc='id'){
+            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table ORDER BY $asc ASC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
@@ -47,6 +47,20 @@ class Database{
             // On retire juste la dernière virgule qui est de trop
             $values =substr($values,0,-1);
             $stmt = $this->PDOInstance->prepare("UPDATE $table SET $values WHERE id = $id");
+            $stmt->execute();
+      }
+      public function add(string $table,array $value){
+            // TODO faire l'INSERT INTO
+            $sql = '(';
+            foreach($value as $k=>$v){
+                  $sql.= htmlspecialchars($k) . ',';
+            }
+            $sql=substr($sql,0,-1);$sql.=') VALUES (';
+            foreach($value as $k=>$v){
+                  $sql.= "'" . htmlspecialchars($v) . "'" . ',';
+            }
+            $sql=substr($sql,0,-1);$sql.=')';
+            $stmt = $this->PDOInstance->prepare("INSERT INTO $table $sql");
             $stmt->execute();
       }
 

@@ -43,6 +43,7 @@ class UserManager{
             Database::getInstance()->update('users',$object);
       }
       public function add(User $user){
-            
+            $value = $user->getData();
+            Database::getInstance()->add('users',$value);
       }
 }

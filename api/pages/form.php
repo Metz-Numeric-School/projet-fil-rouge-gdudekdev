@@ -15,6 +15,8 @@ if(isset($_GET['table'])){
                   if(isset($_GET['id'])){
                         $obj = Database::getInstance()->getOneFrom('users','id',$_GET['id']);
                   }else{
+                        $obj = new User();
+                        $obj = $obj->getData();
                         // TODO cas de l'ajout
                   } 
       }

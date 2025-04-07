@@ -42,7 +42,7 @@ class User
       /**
        * @param $data: tableau associatif contenant au minimum les champs de l'utilisateur (issu d'un formulaire du CRUD à priori)
        * 
-       * Renvoie un tableau associatif à l'image de l'utilisateur dans la base de données, permet des instanciations de User->hydrate($data) plus facile 
+       * Renvoie un tableau associatif à l'image de l'utilisateur dans la base de données, permet des instanciations de User->hydrate($dat) plus facile 
        */
       public static function setData(array $data){
             return ['id'=>$data['id'],'name'=>$data['name'],'username'=>$data['username'],'password'=>$data['password'],'created_at'=>$data['created_at']];
