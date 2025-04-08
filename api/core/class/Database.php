@@ -1,5 +1,6 @@
 <?php 
-
+namespace Core\Class;
+use PDO;
 class Database{
 
       private const DEFAULT_DSN="mysql:dbname=carpool;host=localhost";

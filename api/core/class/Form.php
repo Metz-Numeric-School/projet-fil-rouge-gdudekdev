@@ -1,5 +1,5 @@
 <?php
-
+namespace Core\Class;
 /**
  * Exemple d'utilisation de la class Form pour créer un formulaire
  * 

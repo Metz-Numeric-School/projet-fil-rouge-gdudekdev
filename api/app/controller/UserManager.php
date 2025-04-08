@@ -1,16 +1,13 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/include/autoloader.php";
+namespace App\Controller;
+
+use App\class\User;
+use Core\Class\Database;
 
 class UserManager{
 
       private static $instance = null;
 
-      private  $listUser = [];//TODO est ce que c'est vraiment utile  ?? 
-
-      private function __construct(){
-            
-      }
-      // TODO fixer l'instantiation au moment de la création du manager
       public static function getInstance(){
             if(is_null(self::$instance)){
                   self::$instance = new self;
@@ -29,8 +26,14 @@ class UserManager{
       public function delete(int $value){
             Database::getInstance()->delete('users',$value);
       }
-
-      public function update(User $user){
+      public function save(User $user){
+            if($user['id'] == 0){
+                  $this->add($user);
+            }else{
+                  $this->update($user);
+            }
+      }
+      private function update(User $user){
             $object =[
                   'id'=>$user->id(),
                   'name'=>$user->name(),
@@ -40,8 +43,12 @@ class UserManager{
             ];
             Database::getInstance()->update('users',$object);
       }
-      public function add(User $user){
+      private function add(User $user){
             $value = $user->getData();
             Database::getInstance()->add('users',$value);
+      }
+
+      public function new($data=null){
+            return new User($data);
       }
 }

@@ -1,5 +1,6 @@
 <?php
-
+namespace Core\Class;
+use Throwable;
 class Auth
 {
 

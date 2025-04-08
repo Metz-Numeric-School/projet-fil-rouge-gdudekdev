@@ -1,7 +1,7 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/include/autoloader.php";
+use Core\Class\Form;
 
-$form = new Form("/include/form_process.php","post",ucfirst($currentPage));
+$form = new Form("/pages/crud.php?table={$_GET['table']}","post",ucfirst($currentPage));
 
  foreach($obj as $key=>$value){
       $form->input("text",$key,$value,($key=='id' ||$key=='created_at') ? true : false);

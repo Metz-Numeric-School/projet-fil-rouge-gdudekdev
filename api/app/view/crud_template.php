@@ -1,4 +1,7 @@
 <?php
+
+use App\class\User;
+
 include_once "../template/header_template.php";
 // TODO chercher à afficher l'interface crud pour n'importe quel table.
 ?>
@@ -18,14 +21,13 @@ Potentiellement créer un fichier config avec le nom de toutes les tables plus l
                   <div class="users__main">
                         <table>
                               <tr>
-                                    <td>id</td>
-                                    <td>name</td>
-                                    <td>username</td>
-                                    <td>password</td>
-                                    <td>created_at</td>
+                                    <?php foreach ($recordset[0]??[] as $key=>$value): ?>
+                                          <td> <?= $key ?></td>
+                                    <?php endforeach ?>
                               </tr>
 
                               <?php foreach ($recordset as $row):
+                              // TODO changer le new pour matcher la class qui se fait Manager
                                     $user = new User($row);
                               ?>
                                     <tr>
