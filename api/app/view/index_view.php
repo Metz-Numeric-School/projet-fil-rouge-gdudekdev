@@ -1,5 +1,6 @@
 <?php
-include_once "../template/header_template.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
+use Config\Config;
 ?>
 
 <body>
@@ -7,8 +8,8 @@ include_once "../template/header_template.php";
 
       <h2>Actions</h2>
       <div class="accueil__action">
-            <?php foreach (TABLE_CONFIG as $key => $value): ?>
-                  <?= "<a href='/pages/crud.php?table=" . $key . "'>" . $value . "</a>" ?>
+            <?php foreach (Config::TABLE_CONFIG as $key => $value): ?>
+                  <?= "<a href='/app/model/crud.php?table=" . $key . "'>" . $value . "</a>" ?>
                   <br />
             <?php endforeach ?>
             <a href="index.php?logout=true">Se déconnecter</a>

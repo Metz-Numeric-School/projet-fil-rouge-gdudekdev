@@ -4,8 +4,9 @@
         "psr-4": {
             "App\\Class\\": "app/class/",
             "App\\Controller\\": "app/controller/",
-            "Core\\Class\\": "core/class/",
-            "Core\\Controller\\": "core/controller/"
+            "Core\\Class\\": "core/class",
+            "Core\\Controller\\": "core/controller/",
+            "Config\\":"config/"
         }
     },
     "authors": [

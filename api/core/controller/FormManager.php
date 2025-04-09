@@ -51,7 +51,7 @@ class FormManager{
                         return $obj;
                   } 
             }else{
-                  header("Location: /pages/index.php");
+                  header("Location: /app/model/index.php");
                   exit();
             }
       }

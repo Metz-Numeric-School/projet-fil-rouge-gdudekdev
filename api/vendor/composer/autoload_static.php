@@ -11,6 +11,7 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
         array (
             'Core\\Controller\\' => 16,
             'Core\\Class\\' => 11,
+            'Config\\' => 7,
         ),
         'A' => 
         array (
@@ -27,6 +28,10 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
         'Core\\Class\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/class',
+        ),
+        'Config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/config',
         ),
         'App\\Controller\\' => 
         array (

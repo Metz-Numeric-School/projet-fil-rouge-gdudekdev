@@ -1,16 +1,15 @@
 <?php 
 use Core\Class\Form;
 
-$form = new Form("/pages/crud.php?table={$_GET['table']}","post",ucfirst($currentPage));
+$form = new Form("form.php?table={$_GET['table']}","POST",ucfirst($currentPage));
 
  foreach($obj as $key=>$value){
-      $form->input("text",$key,$value,($key=='id' ||$key=='created_at') ? true : false);
+      $form->input("text",$key,$value,(str_contains($key,'id') ||str_contains($key,'created_at')) ? true : false);
  }
- $form->hidden("form",$_GET['table']);
  $form->submit("Envoyer");
  $content = $form->render();
 
- include_once "../template/header_template.php";
+ include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
 ?>
 
 <style>

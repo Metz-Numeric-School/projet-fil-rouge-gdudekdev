@@ -1,8 +1,8 @@
 <?php
-
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/class/User.php";
 use App\class\User;
 
-include_once "../template/header_template.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
 // TODO chercher à afficher l'interface crud pour n'importe quel table.
 ?>
 
@@ -13,11 +13,11 @@ Potentiellement créer un fichier config avec le nom de toutes les tables plus l
 -->
 
 <body>
-      <a href="/pages/index.php">
+      <a href="/app/model/index.php">
             <\Retour </a>
                   <!-- il faudrait que le Manager gère le code d'ici , avec $table a priori -->
                   <h2>Page de gestion des <?= strtolower($title) ?></h2>
-                  <a href="form.php?table=<?= $table ?>">Ajouter</a>
+                  <a href="form.php?table=<?= $table ?>&mode=save">Ajouter</a>
                   <div class="users__main">
                         <table>
                               <tr>
@@ -32,12 +32,15 @@ Potentiellement créer un fichier config avec le nom de toutes les tables plus l
                               ?>
                                     <tr>
                                           <?php foreach ($row as $key => $value):
+                                          if(str_contains($key,$table)){
+                                                $key = str_replace($table.'_','',$key);
+                                          }
                                           ?>
                                                 <td><?= $user->{$key}() ?></td>
                                           <?php endforeach ?>
                                           <td>
-                                                <a href="form.php?table=<?= $table ?>&id=<?= $user->id() ?>">Modifier</a>
-                                                <a href="../include/form_process.php?delete=true&table=<?= $table ?>&id=<?= $user->id() ?>">Suppprimer</a>
+                                                <a href="form.php?table=<?= $table ?>&mode=save&id=<?= $user->id()?>">Modifier</a>
+                                                <a href="form.php?table=<?= $table ?>&mode=remove&id=<?= $user->id()?>">Suppprimer</a>
                                           </td>
                                     </tr>
                               <?php endforeach ?>

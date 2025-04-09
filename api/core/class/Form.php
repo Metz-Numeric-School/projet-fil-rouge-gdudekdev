@@ -48,7 +48,7 @@ class Form
 
             return $this->current;
       }
-      public function input(string $type, string $name, string $value = "", bool $readonly = false)
+      public function input(string $type, string $name, $value = "", bool $readonly = false)
       {
             $html = "
             <label for='" . strtolower($name) . "'>"
@@ -69,11 +69,5 @@ class Form
             <br/>
             ";
             $this->current .= $html;
-      }
-      public function hidden(string $name, string $value){
-            $html = "
-            <input type = 'hidden' name = '" . $name . "' value = '" . $value . "' />
-            ";
-            return $html;
       }
 }

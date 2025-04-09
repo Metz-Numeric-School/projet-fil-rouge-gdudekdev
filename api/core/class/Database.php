@@ -22,8 +22,8 @@ class Database{
             return self::$instance;
       }
 
-      public function getAllFrom(string $table, $asc='id'){
-            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table ORDER BY $asc ASC");
+      public function getAllFrom(string $table, $asc='_id'){
+            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table ORDER BY $table$asc ASC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
@@ -33,21 +33,21 @@ class Database{
             return $stmt->fetch(PDO::FETCH_ASSOC);
       }
       public function delete(string $table,  int $id){
-            $stmt = $this->PDOInstance->prepare("DELETE FROM $table WHERE id = :id");
+            $stmt = $this->PDOInstance->prepare("DELETE FROM $table WHERE " . $table. "_id = :id");
             $stmt ->execute([':id'=>$id]);
       }
       /**
        * @param $object : array relatif à sa structure dans la table $table de la BDD
        */
-      public function update(string $table , array $object){
+      public function update(string $table , array $data){
             $values = "";
-            $id = $object['id'];
-            foreach($object as $key=>$value){
+            $id = $data[$table . '_id'];
+            foreach($data as $key=>$value){
                   $values .= htmlspecialchars($key) . "=" . "'". htmlspecialchars($value) . "',";
             }
             // On retire juste la dernière virgule qui est de trop
             $values =substr($values,0,-1);
-            $stmt = $this->PDOInstance->prepare("UPDATE $table SET $values WHERE id = $id");
+            $stmt = $this->PDOInstance->prepare("UPDATE $table SET $values WHERE " . $table . "_id" . "=" . $id);
             $stmt->execute();
       }
       public function add(string $table,array $value){

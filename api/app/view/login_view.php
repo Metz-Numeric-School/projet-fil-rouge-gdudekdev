@@ -1,5 +1,5 @@
 <?php 
-include_once "../template/homepage_template.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
 ?>
 <body>
       <form action="login.php" method="post">
