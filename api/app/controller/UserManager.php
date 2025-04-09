@@ -1,8 +1,8 @@
 <?php 
 namespace App\Controller;
-require $_SERVER['DOCUMENT_ROOT'] . '/app/class/User.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\class\User;
+use App\Class\User;
 use Core\Class\Database;
 
 class UserManager{
@@ -18,7 +18,7 @@ class UserManager{
       // TODO regarder l'histoire du clonage, __clone , __set, __get
 
       public function getById($value){
-            return Database::getInstance()->getOneFrom("users","id",$value);
+            return Database::getInstance()->getOneFrom("users","users_id",$value);
       }
       
       /**
@@ -47,5 +47,8 @@ class UserManager{
       public function blank($data=null){
             $obj = new User($data);
             return $obj->getData();
+      }
+      public function createObj($data =null){
+            return new User($data);
       }
 }

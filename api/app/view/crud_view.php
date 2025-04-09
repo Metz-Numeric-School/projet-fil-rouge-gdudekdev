@@ -1,6 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/app/class/User.php";
 use App\class\User;
+use App\Controller\Manager;
+use App\Controller\UserManager;
 
 include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
 // TODO chercher à afficher l'interface crud pour n'importe quel table.
@@ -27,20 +29,20 @@ Potentiellement créer un fichier config avec le nom de toutes les tables plus l
                               </tr>
 
                               <?php foreach ($recordset as $row):
-                              // TODO changer le new pour matcher la class qui se fait Manager
-                                    $user = new User($row);
+                                    $class = Manager::getInstance()->createObj($table,$row);
+                                    $data = $class->getData();
                               ?>
                                     <tr>
-                                          <?php foreach ($row as $key => $value):
+                                          <?php foreach ($data as $key => $value):
                                           if(str_contains($key,$table)){
                                                 $key = str_replace($table.'_','',$key);
                                           }
                                           ?>
-                                                <td><?= $user->{$key}() ?></td>
+                                                <td><?= $class->{$key}() ?></td>
                                           <?php endforeach ?>
                                           <td>
-                                                <a href="form.php?table=<?= $table ?>&mode=save&id=<?= $user->id()?>">Modifier</a>
-                                                <a href="form.php?table=<?= $table ?>&mode=remove&id=<?= $user->id()?>">Suppprimer</a>
+                                                <a href="form.php?table=<?= $table ?>&mode=save&id=<?= $class->id()?>">Modifier</a>
+                                                <a href="form.php?table=<?= $table ?>&mode=remove&id=<?= $class->id()?>">Suppprimer</a>
                                           </td>
                                     </tr>
                               <?php endforeach ?>

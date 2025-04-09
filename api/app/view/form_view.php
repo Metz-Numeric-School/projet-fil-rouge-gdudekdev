@@ -2,9 +2,9 @@
 use Core\Class\Form;
 
 $form = new Form("form.php?table={$_GET['table']}","POST",ucfirst($currentPage));
-
+var_dump($obj);
  foreach($obj as $key=>$value){
-      $form->input("text",$key,$value,(str_contains($key,'id') ||str_contains($key,'created_at')) ? true : false);
+      $form->input("text",$key,$value,(str_contains($key,'_id') ||str_contains($key,'created_at')) ? true : false);
  }
  $form->submit("Envoyer");
  $content = $form->render();

@@ -3,10 +3,13 @@ namespace App\Controller;
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use App\Controller\UserManager;
+use App\Controller\RideManager;
 
 // TODO faire un manager de manager
 // TODO __sleep __wakeup
 // TODO need template.php + MVC
+// TODO voir comment gérer les clés étrangères dans l'ajout d'un champ de trajet
+
 /**
  * Pour que le Manager fonctionne, il faut que chaque sous Manager soit instatiable via singleton, il faut aussi qu'il ait tous la méthode new
  */
@@ -17,6 +20,7 @@ class Manager{
       private function __construct()
       {     
             $this->controllers['users'] = UserManager::getInstance();
+            $this->controllers['rides'] = RideManager::getInstance();
       }
 
       public static function getInstance(){
@@ -47,6 +51,9 @@ class Manager{
       }
       public function save(string $table, array $data){
             $this->getManagerFrom($table)->save($data);
+      }
+      public function createObj(string $table, $data = null){
+            return $this->getManagerFrom($table)->createObj($data);
       }
 
 }

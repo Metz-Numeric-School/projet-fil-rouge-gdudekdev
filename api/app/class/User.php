@@ -1,6 +1,6 @@
 <?php
 
-namespace App\class;
+namespace App\Class;
 class User
 {
       private $id = 0;

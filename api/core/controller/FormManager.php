@@ -2,7 +2,7 @@
 namespace Core\Controller;
 
 use App\class\User;
-use App\Controller\UserManager;
+use App\Controller\Manager;
 use Core\Class\Database;
 
 /**
@@ -30,12 +30,7 @@ class FormManager{
 
       public function initGET(){
             if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['table']) && $_GET['delete'] == true) {
-                  // TODO faire un appel à <Obj>Manager de manière dynamique
-                  if ($_GET['table'] == 'users') {
-                        if ($_GET['table'] == 'users') {
-                              UserManager::getInstance()->delete($_GET['id']);
-                        }
-                  }
+                  Manager::getInstance()->delete($_GET['table'],$_GET['id']);
             }
             
       }
