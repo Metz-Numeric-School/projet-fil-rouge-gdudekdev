@@ -1,11 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/app/class/User.php";
-use App\class\User;
 use App\Controller\Manager;
-use App\Controller\UserManager;
 
 include_once $_SERVER['DOCUMENT_ROOT'] . "/template/header_template.php";
-// TODO chercher à afficher l'interface crud pour n'importe quel table.
 ?>
 
 <!-- supososns qu'on ait une table, quel quelle soit, on veut afficher cela : 
@@ -13,6 +10,8 @@ donner en PDO::FETCH_ASSOC a priori ,il faudrait changer le nom du fichier et pa
 $recordset puisqu'il s'agit d'une lecture de la base de données 
 Potentiellement créer un fichier config avec le nom de toutes les tables plus les jointures associés à des noms pour les titres idk
 -->
+<!-- TODO on pourrait considérer que certaines informations ne sont pas censés passer par l'admin, des messages, informations trop personnelles ou innaproprié,
+ il faut donc introduire un statut sur chaque donnée pour controler l'affichage de ces derniers, avec un affichage conditionnel sur le statut de l'admin (son role) -->
 
 <body>
       <a href="/app/model/index.php">

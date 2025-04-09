@@ -13,6 +13,7 @@ use Config\Config;
                   <br />
             <?php endforeach ?>
             <a href="index.php?logout=true">Se déconnecter</a>
+            <a href="/test.php">Test</a>
       </div>
 </body>
 

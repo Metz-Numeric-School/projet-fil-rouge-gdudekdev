@@ -5,9 +5,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 use App\Controller\UserManager;
 use App\Controller\RideManager;
 
-// TODO faire un manager de manager
 // TODO __sleep __wakeup
-// TODO need template.php + MVC
 // TODO voir comment gérer les clés étrangères dans l'ajout d'un champ de trajet
 
 /**
