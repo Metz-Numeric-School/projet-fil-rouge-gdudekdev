@@ -27,7 +27,7 @@ class MessageManager {
 
     public function save(array $data){
         $obj = new Message($data);
-        if ($obj->id() == 0) {
+        if ($obj->messages_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);

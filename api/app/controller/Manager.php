@@ -2,23 +2,18 @@
 namespace App\Controller;
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Controller\UserManager;
-use App\Controller\RideManager;
-
-// TODO __sleep __wakeup
-// TODO voir comment gérer les clés étrangères dans l'ajout d'un champ de trajet
-
-/**
- * Pour que le Manager fonctionne, il faut que chaque sous Manager soit instatiable via singleton, il faut aussi qu'il ait tous la méthode new
- */
+use Config\Config;
+// TODO extends Manager sur les managers basiques
 class Manager{
       private static $instance = null;
       private $controllers = [];
 
       private function __construct()
       {     
-            $this->controllers['users'] = UserManager::getInstance();
-            $this->controllers['rides'] = RideManager::getInstance();
+            foreach(array_keys(Config::TABLE_CONFIG) as $table){
+                  $manager  = 'App\\Controller\\' . ucfirst(substr($table,0,-1)) . 'Manager';
+                  $this->controllers[$table] = $manager::getInstance();
+            }
       }
 
       public static function getInstance(){
@@ -27,16 +22,6 @@ class Manager{
             }
             return self::$instance;
       }
-      /**
-       * Instancie un objet en  correspondance à la table passée en paramètre (possiblité de l'hydrater via $data)
-       */
-      public function initClass(string $table,$data = null){
-            $obj = ucfirst($table);
-            return new $obj($data);
-      }
-      /**
-       * Supprime l'enregistrement correspondant à la clé primaire de ce dernier via le Manager de la table associée
-       */
       private function getManagerFrom(string $table){
             return $this->controllers[$table];
       }

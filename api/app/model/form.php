@@ -18,11 +18,11 @@ if (isset($_GET['mode']) && $_GET['mode'] == "remove" && isset($_GET['table']) &
 // Soit dans le cas d'un ajout/modification, il faut dans cette situation pouvoir afficher les données correspondantes dans le formulaire
 if (isset($_GET['mode']) && $_GET['mode'] == "save" && isset($_GET['table'])) {
       if (isset($_GET['id'])) {
-            $obj = Database::getInstance()->getOneFrom($_GET['table'], $_GET['table'] . '_' . 'id', $_GET['table'] . '_' . $_GET['id']);
-            echo "Modification d'un élément";
+            $table = $_GET['table'];
+            $obj = Database::getInstance()->getOneFrom($table , $table .'_id', $_GET['id']);
+            var_dump($obj);
       } else {
             $obj = Manager::getInstance()->blankObjFrom($_GET['table']);
-            echo "Ajout d'un élément";
       }
 }
 

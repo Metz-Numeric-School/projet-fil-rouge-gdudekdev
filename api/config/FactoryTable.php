@@ -20,14 +20,14 @@ class FactoryTable
 
       private function __construct()
       {
-            $this->handleTable();
+            $this->handleTables();
       }
 
       public static function getInstance()
       {
             return self::$instance ?? new self;
       }
-      private function handleTable()
+      private function handleTables()
       {
             $to_verify  = array_keys(Config::TABLE_CONFIG);
 
@@ -43,62 +43,74 @@ class FactoryTable
                   }
             }
       }
-
+      // TODO ajouter des parametres au niveau de la gestion via les setters de certains attributs, à voir
       private function createClass(string $table, string $class)
       {
             $path = $_SERVER['DOCUMENT_ROOT'] . '/app/class/' . $class . '.php';
-
             $fields = Database::getInstance()->getFields($table);
+            $newFields = [];
 
+            // On retire les champs que fournit de base sql sur la table accounts
+            foreach($fields as $field){
+                  if(!ctype_upper($field['COLUMN_NAME'][0])){
+                        $newFields[] = $field ;
+                  }
+            }
+            $fields = $newFields;
+
+            // start of file
             $content = "<?php\n\n";
             $content .= "namespace App\\Class;\n\n";
             $content .= "class $class\n{\n";
 
+            // defining attributes
             foreach ($fields as $field) {
-                  foreach ($field as $value) {
-                        $fieldName = str_replace($table . '_', '', $value);
-                        $fieldType = gettype($value);
-                        $defaultValue = $this->getDefaultValueForType($fieldType);
-                        $content .= "    private \$$fieldName = $defaultValue;\n";
-                  }
+                  $fieldName = $field['COLUMN_NAME'];
+                  $fieldType = $field['COLUMN_TYPE'];
+                  $defaultValue = $this->getDefaultValueForType($fieldType);
+                  $content .= "    private \$$fieldName = $defaultValue;\n";
             }
 
+            // function construct($data)
             $content .= "\n    public function __construct(\$data = null)\n    {\n";
             $content .= "        if (\$data) {\n";
             $content .= "            \$this->hydrate(\$data);\n";
             $content .= "        }\n";
             $content .= "    }\n";
 
+            // function hydrate($data)
             $content .= "\n    private function hydrate(\$data)\n    {\n";
             foreach ($fields as $field) {
-                  foreach ($field as $value) {
-                        $fieldName = str_replace($table . '_', '', $value);
-                        $content .= "        \$this->set" . ucfirst($fieldName) . "(\$data['$fieldName']);\n";
-                  }
+                  $fieldName = $field['COLUMN_NAME'];
+                  $content .= "        \$this->set" . ucfirst($fieldName) . "(\$data['{$field['COLUMN_NAME']}']);\n";
             }
             $content .= "    }\n";
 
+            // function setters and getters
+            //    FIXME Ajouter un traitement via la config si nécessaire
+            /**
+             *  Comparaison en chaine de character  :  '>0' de l'attribut et valeur par défaut associé si la condition n'est pas remplie
+             */
             foreach ($fields as $field) {
-                  foreach ($field as $value) {
-                        $fieldName = str_replace($table . '_', '', $value);
-                        $content .= "\n    public function " . $fieldName . "()\n    {\n";
-                        $content .= "        return htmlspecialchars(\$this->$fieldName);\n";
-                        $content .= "    }\n";
+                  $fieldName = $field['COLUMN_NAME'];
+                  $content .= "\n    public function " . $fieldName . "()\n    {\n";
+                  $content .= "        return htmlspecialchars(\$this->$fieldName);\n";
+                  $content .= "    }\n";
 
-                        $content .= "\n    public function set" . ucfirst($fieldName) . "(\$$fieldName)\n    {\n";
-                        $content .= "        \$this->$fieldName = \$$fieldName;\n";
-                        $content .= "    }\n";
-                  }
+                  $content .= "\n    public function set" . ucfirst($fieldName) . "(\$$fieldName)\n    {\n";
+                  $content .= "        \$this->$fieldName = \$$fieldName;\n";
+                  $content .= "    }\n";
             }
 
+            // function getData()
             $content .= "\n    public function getData()\n    {\n";
             $content .= "        return [\n";
             foreach ($fields as $field) {
-                  foreach ($field as $value) {
-                        $fieldName = str_replace($table . '_', '', $value);
-                        $content .= "            '$fieldName' => \$this->$fieldName,\n";
-                  }
+                  $fieldName = $field['COLUMN_NAME'];
+                  $content .= "            '$fieldName' => \$this->$fieldName,\n";
             }
+
+            // end of file
             $content .= "        ];\n";
             $content .= "    }\n";
 
@@ -108,24 +120,25 @@ class FactoryTable
       }
 
       /**
-       * Retourne la valeur par défaut en fonction du type de la colonne
+       * Retourne la valeur par défaut en fonction du type de la colonne, à étoffer si nécessaire
        */
       private function getDefaultValueForType($type)
       {
-            if (strpos($type, 'int') !== false) {
+            if ($type == 'int') {
                   return 0;
-            } elseif (strpos($type, 'varchar') !== false || strpos($type, 'text') !== false) {
+            } elseif (in_array($type, ['string', 'varchar(50)','varchar(20)', 'text'])) {
                   return "''";
-            } elseif (strpos($type, 'datetime') !== false) {
-                  return "''";
+            } elseif (in_array($type, ['date','datetime'])) {
+                  return 'null';
+            }else{
+                  return 0;
             }
-            return "null";
+            // return $type;
       }
 
-
+      // FIXME comment needed for maintenance
       private function createManager(string $table, string $manager)
       {
-            // Définir le chemin du fichier à créer
             $path = $_SERVER['DOCUMENT_ROOT'] . '/app/controller/' . $manager . '.php';
             $class = substr($table, 0, -1);
 
@@ -154,7 +167,7 @@ class FactoryTable
 
             $content .= "    public function save(array \$data){\n";
             $content .= "        \$obj = new " . ucfirst($class) . "(\$data);\n";
-            $content .= "        if (\$obj->id() == 0) {\n";
+            $content .= "        if (\$obj->" . $table ."_id() == 0) {\n";
             $content .= "            \$this->add(\$obj);\n";
             $content .= "        } else {\n";
             $content .= "            \$this->update(\$obj);\n";

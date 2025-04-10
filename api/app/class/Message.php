@@ -4,10 +4,10 @@ namespace App\Class;
 
 class Message
 {
-    private $id = null;
-    private $jsonb = null;
-    private $users_id = null;
-    private $users_id_1 = null;
+    private $messages_id = 0;
+    private $messages_jsonb = '';
+    private $accounts_id = 0;
+    private $accounts_id_1 = 0;
 
     public function __construct($data = null)
     {
@@ -18,59 +18,59 @@ class Message
 
     private function hydrate($data)
     {
-        $this->setId($data['id']);
-        $this->setJsonb($data['jsonb']);
-        $this->setUsers_id($data['users_id']);
-        $this->setUsers_id_1($data['users_id_1']);
+        $this->setMessages_id($data['messages_id']);
+        $this->setMessages_jsonb($data['messages_jsonb']);
+        $this->setAccounts_id($data['accounts_id']);
+        $this->setAccounts_id_1($data['accounts_id_1']);
     }
 
-    public function id()
+    public function messages_id()
     {
-        return htmlspecialchars($this->id);
+        return htmlspecialchars($this->messages_id);
     }
 
-    public function setId($id)
+    public function setMessages_id($messages_id)
     {
-        $this->id = $id;
+        $this->messages_id = $messages_id;
     }
 
-    public function jsonb()
+    public function messages_jsonb()
     {
-        return htmlspecialchars($this->jsonb);
+        return htmlspecialchars($this->messages_jsonb);
     }
 
-    public function setJsonb($jsonb)
+    public function setMessages_jsonb($messages_jsonb)
     {
-        $this->jsonb = $jsonb;
+        $this->messages_jsonb = $messages_jsonb;
     }
 
-    public function users_id()
+    public function accounts_id()
     {
-        return htmlspecialchars($this->users_id);
+        return htmlspecialchars($this->accounts_id);
     }
 
-    public function setUsers_id($users_id)
+    public function setAccounts_id($accounts_id)
     {
-        $this->users_id = $users_id;
+        $this->accounts_id = $accounts_id;
     }
 
-    public function users_id_1()
+    public function accounts_id_1()
     {
-        return htmlspecialchars($this->users_id_1);
+        return htmlspecialchars($this->accounts_id_1);
     }
 
-    public function setUsers_id_1($users_id_1)
+    public function setAccounts_id_1($accounts_id_1)
     {
-        $this->users_id_1 = $users_id_1;
+        $this->accounts_id_1 = $accounts_id_1;
     }
 
     public function getData()
     {
         return [
-            'id' => $this->id,
-            'jsonb' => $this->jsonb,
-            'users_id' => $this->users_id,
-            'users_id_1' => $this->users_id_1,
+            'messages_id' => $this->messages_id,
+            'messages_jsonb' => $this->messages_jsonb,
+            'accounts_id' => $this->accounts_id,
+            'accounts_id_1' => $this->accounts_id_1,
         ];
     }
 }

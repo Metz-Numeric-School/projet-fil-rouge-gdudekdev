@@ -19,3 +19,6 @@ FactoryTable::getInstance();
       <a href="/app/model/index.php"><\Retour</a>
 </body>
 </html>
+
+<!-- TODO desgin pattern observer + regarder pour les Middlewares from scratch ofc -->
+ <!-- TODO voir si on peut stocker sous forme de tableau les éléments issus des champs des tables de la bdd -->

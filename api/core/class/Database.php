@@ -32,9 +32,9 @@ class Database
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
-      public function getOneFrom(string $table, $champ = "", $value = null)
+      public function getOneFrom(string $table, $champ, $value)
       {
-            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE $champ = :value OR (1=1)");
+            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE ". $champ ."= :value");
             $stmt->execute([":value" => $value]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
       }
@@ -55,7 +55,7 @@ class Database
             }
             // On retire juste la dernière virgule qui est de trop
             $values = substr($values, 0, -1);
-            $stmt = $this->PDOInstance->prepare("UPDATE $table SET $values WHERE " . $table . "_id=:id" . $id);
+            $stmt = $this->PDOInstance->prepare("UPDATE $table SET $values WHERE " . $table . "_id=:id");
             $stmt->execute([':id' => $id]);
       }
       public function add(string $table, array $value)
@@ -81,8 +81,7 @@ class Database
       }
       public function getFields(string $table)
       {
-
-            $stmt = $this->PDOInstance->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '".$table ."'");
+            $stmt = $this->PDOInstance->prepare("SELECT COLUMN_NAME,COlUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '".$table ."'");
             $stmt->execute();
 
             return  $stmt->fetchAll(PDO::FETCH_ASSOC);

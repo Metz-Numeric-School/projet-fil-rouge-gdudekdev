@@ -1,7 +1,6 @@
 <?php
 namespace Core\Controller;
 
-use App\class\User;
 use App\Controller\Manager;
 use Core\Class\Database;
 
@@ -40,8 +39,7 @@ class FormManager{
                         $obj = Database::getInstance()->getOneFrom($_POST['form'],'id',$_POST['id']);
                         return $obj;
                   }else{
-                        // TODO le pb est ici plus précissement, il faut pouvoir init un nouvel Objet relatif a la BDD (cela implique de faire toutes les classes nécessaires au bon fonctionnement du tout)
-                        $obj = new User();// instanciation par rapport à $table
+                        $obj = Manager::getInstance()->createObj($_GET['table']);
                         $obj = $obj->getData();
                         return $obj;
                   } 
