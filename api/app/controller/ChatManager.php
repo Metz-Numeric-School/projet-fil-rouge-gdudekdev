@@ -27,7 +27,7 @@ class ChatManager {
 
     public function save(array $data){
         $obj = new Chat($data);
-        if ($obj->chats_id() == 0) {
+        if (empty($obj->chats_id())) {
             $this->add($obj);
         } else {
             $this->update($obj);

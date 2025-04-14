@@ -1,5 +1,6 @@
 <?php
 namespace Core\Class;
+
 /**
  * Exemple d'utilisation de la class Form pour créer un formulaire
  * 
@@ -14,7 +15,6 @@ namespace Core\Class;
  */
 class Form
 {
-
       private $current = "";
       private $method = "";
       private $action = "";
@@ -26,6 +26,7 @@ class Form
             $this->method = $method;
             $this->fieldset = $fieldset;
       }
+
       private function fieldset(string $content, string $name = '')
       {
             $html = "<fieldset>" .
@@ -34,11 +35,13 @@ class Form
                   . "</fieldset>";
             $this->current = $html;
       }
+
       private function form(string $content)
       {
             $html = "<form action = '" . $this->action . "' method = '" . $this->method . "'>" . $content . "</form>";
             $this->current = $html;
       }
+
       public function render()
       {
             if ($this->fieldset) {
@@ -48,26 +51,26 @@ class Form
 
             return $this->current;
       }
+
       public function input(string $type, string $name, $value = "", bool $readonly = false)
       {
-            $html = "
-            <label for='" . strtolower($name) . "'>"
-                  . ucfirst($name) . ":     "  .
-                  "<br/>
-                  <input type='" . $type . "' id='" . strtolower($name) . "' value ='" . $value . "'name ='" . strtolower($name) . "'
-            ";
-            $readonly ? $html .= "readonly='readonly' />" : '/>';
-            $html .= "</label>";
-            $html .= "<br/>";
+            $html = "<label for='" . strtolower($name) . "'>"
+                  . ucfirst($name) . ":<br/>
+                  <input type='" . $type . "' id='" . strtolower($name) . "' value='" . $value . "' name='" . strtolower($name) . "' ";
+            
+            if ($readonly) {
+                  $html .= "readonly='readonly'";
+            }
+            
+            $html .= " />";
+            $html .= "</label><br/>";  
 
             $this->current .= $html;
       }
+
       public function submit(string $value)
       {
-            $html = "<br/>
-            <input type = 'submit' value = '" . $value . "' />
-            <br/>
-            ";
+            $html = "<br/><input type='submit' value='" . $value . "' /><br/>";
             $this->current .= $html;
       }
 }

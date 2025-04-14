@@ -3,7 +3,7 @@ namespace App\Controller;
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use Config\Config;
-// TODO extends Manager sur les managers basiques
+// TODO extends Manager sur les managers basiques si nécessaire
 class Manager{
       private static $instance = null;
       private $controllers = [];

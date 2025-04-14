@@ -20,7 +20,6 @@ if (isset($_GET['mode']) && $_GET['mode'] == "save" && isset($_GET['table'])) {
       if (isset($_GET['id'])) {
             $table = $_GET['table'];
             $obj = Database::getInstance()->getOneFrom($table , $table .'_id', $_GET['id']);
-            var_dump($obj);
       } else {
             $obj = Manager::getInstance()->blankObjFrom($_GET['table']);
       }
@@ -28,7 +27,17 @@ if (isset($_GET['mode']) && $_GET['mode'] == "save" && isset($_GET['table'])) {
 
 // Enfin, il y a la logique de gestion du retour du formulaire, on vient sauvegarder la modification apportée, on les récupére dans le post;
 if (isset($_POST[$_GET['table'] . '_id'])) {
-      Manager::getInstance()->save($_GET['table'], $_POST);
+      date_default_timezone_set('Europe/Paris');
+      $data = [];
+      foreach($_POST as $k=>$v){
+            // permet, dans le cas où on veut passer une valeur null à notre champ, de bien renvoyer cette donnée et non une chaine vide
+            if(str_contains($k,'_at')){
+                  $data[$k] = date('Y-m-d h:m:s');
+            }else{
+                  $data[$k] = $v;
+            }
+      }
+      Manager::getInstance()->save($_GET['table'], $data);
       header("Location: crud.php?table={$_GET['table']}");
       exit();
 }

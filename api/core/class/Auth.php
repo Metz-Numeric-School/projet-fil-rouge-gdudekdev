@@ -41,10 +41,11 @@ class Auth
                   exit();
             }
       }
-      private function getPassword(string $email)
+      private function getPassword(string $id)
       {
             try {
-                  return Database::getInstance()->getOneFrom('users', 'users_email', $email)['users_password'];
+                  $user = Database::getInstance()->getOneFrom('accounts', 'accounts_email', $id);
+                  return $user['accounts_password'];
             } catch (Throwable $e) {
                   throw $e;
                   header("Location: login.php");

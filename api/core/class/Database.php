@@ -51,7 +51,7 @@ class Database
             $values = "";
             $id = $data[$table . '_id'];
             foreach ($data as $key => $value) {
-                  $values .= htmlspecialchars($key) . "=" . "'" . htmlspecialchars($value) . "',";
+                  $values .= $key . "=" . "'" . $value . "',";
             }
             // On retire juste la dernière virgule qui est de trop
             $values = substr($values, 0, -1);
@@ -62,16 +62,15 @@ class Database
       {
             $sql = '(';
             foreach ($value as $k => $v) {
-                  $sql .= htmlspecialchars($k) . ',';
+                  $sql .= $k . ',';
             }
             $sql = substr($sql, 0, -1);
             $sql .= ') VALUES (';
             foreach ($value as $k => $v) {
-                  $sql .= ":" . htmlspecialchars($k)  . ',';
+                  $sql .= ":" . $k  . ',';
             }
             $sql = substr($sql, 0, -1);
             $sql .= ')';
-            echo $sql;
             $execute  = [];
             foreach ($value as $k => $v) {
                   $execute[':' . $k] = $v;
