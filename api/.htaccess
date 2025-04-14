@@ -1,0 +1,4 @@
+DirectoryIndex public/index.php
+
+RewriteEngine on
+RewriteRule ^/(website_ink/.*)/$  /$1.php [L,QSA]
