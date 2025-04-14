@@ -24,7 +24,7 @@ class Car_color
 
     public function car_colors_id()
     {
-        return htmlspecialchars($this->car_colors_id);
+        return is_null($this->car_colors_id) ? '' : htmlspecialchars($this->car_colors_id);
     }
 
     public function setCar_colors_id($car_colors_id)
@@ -34,7 +34,7 @@ class Car_color
 
     public function car_colors_name()
     {
-        return htmlspecialchars($this->car_colors_name);
+        return is_null($this->car_colors_name) ? '' : htmlspecialchars($this->car_colors_name);
     }
 
     public function setCar_colors_name($car_colors_name)
@@ -44,7 +44,7 @@ class Car_color
 
     public function car_colors_hexa()
     {
-        return htmlspecialchars($this->car_colors_hexa);
+        return is_null($this->car_colors_hexa) ? '' : htmlspecialchars($this->car_colors_hexa);
     }
 
     public function setCar_colors_hexa($car_colors_hexa)

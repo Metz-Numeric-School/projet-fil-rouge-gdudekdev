@@ -28,7 +28,7 @@ class Chat
 
     public function chats_id()
     {
-        return htmlspecialchars($this->chats_id);
+        return is_null($this->chats_id) ? '' : htmlspecialchars($this->chats_id);
     }
 
     public function setChats_id($chats_id)
@@ -38,7 +38,7 @@ class Chat
 
     public function chats_created_at()
     {
-        return htmlspecialchars($this->chats_created_at);
+        return is_null($this->chats_created_at) ? '' : htmlspecialchars($this->chats_created_at);
     }
 
     public function setChats_created_at($chats_created_at)
@@ -48,7 +48,7 @@ class Chat
 
     public function chats_last_message()
     {
-        return htmlspecialchars($this->chats_last_message);
+        return is_null($this->chats_last_message) ? '' : htmlspecialchars($this->chats_last_message);
     }
 
     public function setChats_last_message($chats_last_message)
@@ -58,7 +58,7 @@ class Chat
 
     public function chats_last_message_at()
     {
-        return htmlspecialchars($this->chats_last_message_at);
+        return is_null($this->chats_last_message_at) ? '' : htmlspecialchars($this->chats_last_message_at);
     }
 
     public function setChats_last_message_at($chats_last_message_at)
@@ -68,7 +68,7 @@ class Chat
 
     public function messages_id()
     {
-        return htmlspecialchars($this->messages_id);
+        return is_null($this->messages_id) ? '' : htmlspecialchars($this->messages_id);
     }
 
     public function setMessages_id($messages_id)

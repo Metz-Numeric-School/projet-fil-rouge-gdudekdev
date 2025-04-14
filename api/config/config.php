@@ -26,12 +26,13 @@ class Config
             'accounts',
             'companies',
             'plannings',
-            'preferences'
+            'preferences',
+            'routes'
         ],
         'rides' => [
             'rides',
             'bookings',
-            'routes'
+            
         ],
         'chats' => [
             'chats',

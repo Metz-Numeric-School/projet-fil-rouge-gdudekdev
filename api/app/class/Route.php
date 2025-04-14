@@ -24,7 +24,7 @@ class Route
 
     public function routes_id()
     {
-        return htmlspecialchars($this->routes_id);
+        return is_null($this->routes_id) ? '' : htmlspecialchars($this->routes_id);
     }
 
     public function setRoutes_id($routes_id)
@@ -34,7 +34,7 @@ class Route
 
     public function routes_departure()
     {
-        return htmlspecialchars($this->routes_departure);
+        return is_null($this->routes_departure) ? '' : htmlspecialchars($this->routes_departure);
     }
 
     public function setRoutes_departure($routes_departure)
@@ -44,7 +44,7 @@ class Route
 
     public function routes_destination()
     {
-        return htmlspecialchars($this->routes_destination);
+        return is_null($this->routes_destination) ? '' : htmlspecialchars($this->routes_destination);
     }
 
     public function setRoutes_destination($routes_destination)

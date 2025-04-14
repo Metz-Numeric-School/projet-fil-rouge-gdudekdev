@@ -34,7 +34,7 @@ class Ride
 
     public function rides_id()
     {
-        return htmlspecialchars($this->rides_id);
+        return is_null($this->rides_id) ? '' : htmlspecialchars($this->rides_id);
     }
 
     public function setRides_id($rides_id)
@@ -44,7 +44,7 @@ class Ride
 
     public function rides_driver()
     {
-        return htmlspecialchars($this->rides_driver);
+        return is_null($this->rides_driver) ? '' : htmlspecialchars($this->rides_driver);
     }
 
     public function setRides_driver($rides_driver)
@@ -54,7 +54,7 @@ class Ride
 
     public function rides_departure()
     {
-        return htmlspecialchars($this->rides_departure);
+        return is_null($this->rides_departure) ? '' : htmlspecialchars($this->rides_departure);
     }
 
     public function setRides_departure($rides_departure)
@@ -64,7 +64,7 @@ class Ride
 
     public function rides_destination()
     {
-        return htmlspecialchars($this->rides_destination);
+        return is_null($this->rides_destination) ? '' : htmlspecialchars($this->rides_destination);
     }
 
     public function setRides_destination($rides_destination)
@@ -74,7 +74,7 @@ class Ride
 
     public function rides_departure_time()
     {
-        return htmlspecialchars($this->rides_departure_time);
+        return is_null($this->rides_departure_time) ? '' : htmlspecialchars($this->rides_departure_time);
     }
 
     public function setRides_departure_time($rides_departure_time)
@@ -84,7 +84,7 @@ class Ride
 
     public function rides_available_seats()
     {
-        return htmlspecialchars($this->rides_available_seats);
+        return is_null($this->rides_available_seats) ? '' : htmlspecialchars($this->rides_available_seats);
     }
 
     public function setRides_available_seats($rides_available_seats)
@@ -94,7 +94,7 @@ class Ride
 
     public function rides_created_at()
     {
-        return htmlspecialchars($this->rides_created_at);
+        return is_null($this->rides_created_at) ? '' : htmlspecialchars($this->rides_created_at);
     }
 
     public function setRides_created_at($rides_created_at)
@@ -104,7 +104,7 @@ class Ride
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)

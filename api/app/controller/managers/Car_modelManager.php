@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Companie;
+use App\Class\Car_model;
 use Core\Class\Database;
 
-class CompanieManager {
+class Car_modelManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class CompanieManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('companies', 'companies_id', $value);
+        return Database::getInstance()->getOneFrom('car_models', 'car_models_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('companies', $value);
+        Database::getInstance()->delete('car_models', $value);
     }
 
     public function save(array $data){
-        $obj = new Companie($data);
-        if ($obj->companies_id() == 0) {
+        $obj = new Car_model($data);
+        if ($obj->car_models_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Companie $obj){
+    private function update(Car_model $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('companies', $data);
+        Database::getInstance()->update('car_models', $data);
     }
 
-    private function add(Companie $obj){
+    private function add(Car_model $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('companies', $data);
+        Database::getInstance()->add('car_models', $data);
     }
 
     public function blank($data = null){
-        $obj = new Companie($data);
+        $obj = new Car_model($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Companie($data);
+        return new Car_model($data);
     }
 }

@@ -26,7 +26,7 @@ class Message
 
     public function messages_id()
     {
-        return htmlspecialchars($this->messages_id);
+        return is_null($this->messages_id) ? '' : htmlspecialchars($this->messages_id);
     }
 
     public function setMessages_id($messages_id)
@@ -36,7 +36,7 @@ class Message
 
     public function messages_jsonb()
     {
-        return htmlspecialchars($this->messages_jsonb);
+        return is_null($this->messages_jsonb) ? '' : htmlspecialchars($this->messages_jsonb);
     }
 
     public function setMessages_jsonb($messages_jsonb)
@@ -46,7 +46,7 @@ class Message
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)
@@ -56,7 +56,7 @@ class Message
 
     public function accounts_id_1()
     {
-        return htmlspecialchars($this->accounts_id_1);
+        return is_null($this->accounts_id_1) ? '' : htmlspecialchars($this->accounts_id_1);
     }
 
     public function setAccounts_id_1($accounts_id_1)

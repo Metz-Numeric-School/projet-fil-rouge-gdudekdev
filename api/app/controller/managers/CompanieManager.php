@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Ride;
+use App\Class\Companie;
 use Core\Class\Database;
 
-class RideManager {
+class CompanieManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class RideManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('rides', 'rides_id', $value);
+        return Database::getInstance()->getOneFrom('companies', 'companies_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('rides', $value);
+        Database::getInstance()->delete('companies', $value);
     }
 
     public function save(array $data){
-        $obj = new Ride($data);
-        if ($obj->rides_id() == 0) {
+        $obj = new Companie($data);
+        if ($obj->companies_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Ride $obj){
+    private function update(Companie $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('rides', $data);
+        Database::getInstance()->update('companies', $data);
     }
 
-    private function add(Ride $obj){
+    private function add(Companie $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('rides', $data);
+        Database::getInstance()->add('companies', $data);
     }
 
     public function blank($data = null){
-        $obj = new Ride($data);
+        $obj = new Companie($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Ride($data);
+        return new Companie($data);
     }
 }

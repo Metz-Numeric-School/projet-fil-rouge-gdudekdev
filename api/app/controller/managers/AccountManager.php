@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Preference;
+use App\Class\Account;
 use Core\Class\Database;
 
-class PreferenceManager {
+class AccountManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class PreferenceManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('preferences', 'preferences_id', $value);
+        return Database::getInstance()->getOneFrom('accounts', 'accounts_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('preferences', $value);
+        Database::getInstance()->delete('accounts', $value);
     }
 
     public function save(array $data){
-        $obj = new Preference($data);
-        if ($obj->preferences_id() == 0) {
+        $obj = new Account($data);
+        if ($obj->accounts_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Preference $obj){
+    private function update(Account $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('preferences', $data);
+        Database::getInstance()->update('accounts', $data);
     }
 
-    private function add(Preference $obj){
+    private function add(Account $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('preferences', $data);
+        Database::getInstance()->add('accounts', $data);
     }
 
     public function blank($data = null){
-        $obj = new Preference($data);
+        $obj = new Account($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Preference($data);
+        return new Account($data);
     }
 }

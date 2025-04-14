@@ -4,6 +4,8 @@
         "psr-4": {
             "App\\Class\\": "app/class/",
             "App\\Controller\\": "app/controller/",
+            "App\\Controller\\Managers\\": "app/controller/managers/",
+            "App\\Controller\\Observers\\": "app/controller/observers/",
             "Core\\Class\\": "core/class",
             "Core\\Controller\\": "core/controller/",
             "Config\\":"config/"

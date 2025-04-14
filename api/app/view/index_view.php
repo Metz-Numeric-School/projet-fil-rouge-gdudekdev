@@ -29,7 +29,6 @@ use Config\Config;
                                           <?php endforeach ?>
                                     </ul>
                               </li>
-
                         <?php endforeach ?>
                   </ul>
 

@@ -94,4 +94,7 @@ class Database
             }
             return  $return;
       }
+      public function getLastInserted(){
+            return intval($this->PDOInstance->lastInsertId());
+      }
 }

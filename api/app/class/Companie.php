@@ -24,7 +24,7 @@ class Companie
 
     public function companies_id()
     {
-        return htmlspecialchars($this->companies_id);
+        return is_null($this->companies_id) ? '' : htmlspecialchars($this->companies_id);
     }
 
     public function setCompanies_id($companies_id)
@@ -34,7 +34,7 @@ class Companie
 
     public function companies_name()
     {
-        return htmlspecialchars($this->companies_name);
+        return is_null($this->companies_name) ? '' : htmlspecialchars($this->companies_name);
     }
 
     public function setCompanies_name($companies_name)
@@ -44,7 +44,7 @@ class Companie
 
     public function companies_location()
     {
-        return htmlspecialchars($this->companies_location);
+        return is_null($this->companies_location) ? '' : htmlspecialchars($this->companies_location);
     }
 
     public function setCompanies_location($companies_location)

@@ -1,11 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
+use App\Controller\Manager;
 use Config\FactoryTable;
 
-
 FactoryTable::getInstance();
-
 ?>
 
 <!DOCTYPE html>

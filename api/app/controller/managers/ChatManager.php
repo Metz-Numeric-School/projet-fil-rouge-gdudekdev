@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Car_model;
+use App\Class\Chat;
 use Core\Class\Database;
 
-class Car_modelManager {
+class ChatManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class Car_modelManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('car_models', 'car_models_id', $value);
+        return Database::getInstance()->getOneFrom('chats', 'chats_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('car_models', $value);
+        Database::getInstance()->delete('chats', $value);
     }
 
     public function save(array $data){
-        $obj = new Car_model($data);
-        if ($obj->car_models_id() == 0) {
+        $obj = new Chat($data);
+        if ($obj->chats_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Car_model $obj){
+    private function update(Chat $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('car_models', $data);
+        Database::getInstance()->update('chats', $data);
     }
 
-    private function add(Car_model $obj){
+    private function add(Chat $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('car_models', $data);
+        Database::getInstance()->add('chats', $data);
     }
 
     public function blank($data = null){
-        $obj = new Car_model($data);
+        $obj = new Chat($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Car_model($data);
+        return new Chat($data);
     }
 }

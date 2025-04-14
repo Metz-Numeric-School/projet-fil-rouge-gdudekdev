@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Rating;
+use App\Class\Preference;
 use Core\Class\Database;
 
-class RatingManager {
+class PreferenceManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class RatingManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('ratings', 'ratings_id', $value);
+        return Database::getInstance()->getOneFrom('preferences', 'preferences_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('ratings', $value);
+        Database::getInstance()->delete('preferences', $value);
     }
 
     public function save(array $data){
-        $obj = new Rating($data);
-        if ($obj->ratings_id() == 0) {
+        $obj = new Preference($data);
+        if ($obj->preferences_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Rating $obj){
+    private function update(Preference $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('ratings', $data);
+        Database::getInstance()->update('preferences', $data);
     }
 
-    private function add(Rating $obj){
+    private function add(Preference $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('ratings', $data);
+        Database::getInstance()->add('preferences', $data);
     }
 
     public function blank($data = null){
-        $obj = new Rating($data);
+        $obj = new Preference($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Rating($data);
+        return new Preference($data);
     }
 }

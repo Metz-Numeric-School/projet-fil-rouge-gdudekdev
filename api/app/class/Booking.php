@@ -30,7 +30,7 @@ class Booking
 
     public function bookings_id()
     {
-        return htmlspecialchars($this->bookings_id);
+        return is_null($this->bookings_id) ? '' : htmlspecialchars($this->bookings_id);
     }
 
     public function setBookings_id($bookings_id)
@@ -40,7 +40,7 @@ class Booking
 
     public function bookings_passenger()
     {
-        return htmlspecialchars($this->bookings_passenger);
+        return is_null($this->bookings_passenger) ? '' : htmlspecialchars($this->bookings_passenger);
     }
 
     public function setBookings_passenger($bookings_passenger)
@@ -50,7 +50,7 @@ class Booking
 
     public function bookings_status()
     {
-        return htmlspecialchars($this->bookings_status);
+        return is_null($this->bookings_status) ? '' : htmlspecialchars($this->bookings_status);
     }
 
     public function setBookings_status($bookings_status)
@@ -60,7 +60,7 @@ class Booking
 
     public function bookings_created_at()
     {
-        return htmlspecialchars($this->bookings_created_at);
+        return is_null($this->bookings_created_at) ? '' : htmlspecialchars($this->bookings_created_at);
     }
 
     public function setBookings_created_at($bookings_created_at)
@@ -70,7 +70,7 @@ class Booking
 
     public function rides_id()
     {
-        return htmlspecialchars($this->rides_id);
+        return is_null($this->rides_id) ? '' : htmlspecialchars($this->rides_id);
     }
 
     public function setRides_id($rides_id)
@@ -80,7 +80,7 @@ class Booking
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)

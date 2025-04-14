@@ -22,7 +22,7 @@ class Planning
 
     public function plannings_id()
     {
-        return htmlspecialchars($this->plannings_id);
+        return is_null($this->plannings_id) ? '' : htmlspecialchars($this->plannings_id);
     }
 
     public function setPlannings_id($plannings_id)
@@ -32,7 +32,7 @@ class Planning
 
     public function plannings_jsonb()
     {
-        return htmlspecialchars($this->plannings_jsonb);
+        return is_null($this->plannings_jsonb) ? '' : htmlspecialchars($this->plannings_jsonb);
     }
 
     public function setPlannings_jsonb($plannings_jsonb)

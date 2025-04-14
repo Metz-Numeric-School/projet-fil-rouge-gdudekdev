@@ -23,6 +23,7 @@ class FactoryTable
       {
             return self::$instance ?? new self;
       }
+
       /**
        * This function maps the database tables and create the class and manager associated if they do not exist yet
        */
@@ -31,7 +32,7 @@ class FactoryTable
             $to_verify  = array_keys(Config::TABLE_CONFIG);
 
             foreach ($to_verify as $tableName) {
-                  // On retire le s à la fin des noms des tables présents systèmatiquement
+                  // Removing 's' at the end of the string 
                   $class = ucfirst(substr($tableName, 0, -1));
                   if (!file_exists($_SERVER['DOCUMENT_ROOT'] . "/app/class/" . $class . ".php")) {
                         $this->createClass($tableName, $class);
@@ -89,7 +90,7 @@ class FactoryTable
             foreach ($fields as $field) {
                   $fieldName = $field['COLUMN_NAME'];
                   $content .= "\n    public function " . $fieldName . "()\n    {\n";
-                  $content .= "        return htmlspecialchars(\$this->$fieldName);\n";
+                  $content .= "        return is_null(\$this->$fieldName) ? '' : htmlspecialchars(\$this->$fieldName);\n";
                   $content .= "    }\n";
 
                   $content .= "\n    public function set" . ucfirst($fieldName) . "(\$$fieldName)\n    {\n";
@@ -105,12 +106,13 @@ class FactoryTable
                   $content .= "            '$fieldName' => \$this->$fieldName,\n";
             }
 
-            // end of file
+            // End of file
             $content .= "        ];\n";
             $content .= "    }\n";
 
             $content .= "}\n";
 
+            // Creating, opening and writing in the desired file the constructed content
             file_put_contents($path, $content);
       }
 
@@ -137,11 +139,11 @@ class FactoryTable
        */
       private function createManager(string $table, string $manager)
       {
-            $path = $_SERVER['DOCUMENT_ROOT'] . '/app/controller/' . $manager . '.php';
+            $path = $_SERVER['DOCUMENT_ROOT'] . '/app/controller/managers/' . $manager . '.php';
             $class = substr($table, 0, -1);
             // File header     
             $content = "<?php\n\n";
-            $content .= "namespace App\\Controller;\n\n";
+            $content .= "namespace App\\Controller\\Managers;\n\n";
             $content .= "require \$_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';\n\n";
             $content .= "use App\\Class\\" . ucfirst($class) . ";\n";
             $content .= "use Core\\Class\\Database;\n\n";

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Route;
+use App\Class\Message;
 use Core\Class\Database;
 
-class RouteManager {
+class MessageManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class RouteManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('routes', 'routes_id', $value);
+        return Database::getInstance()->getOneFrom('messages', 'messages_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('routes', $value);
+        Database::getInstance()->delete('messages', $value);
     }
 
     public function save(array $data){
-        $obj = new Route($data);
-        if ($obj->routes_id() == 0) {
+        $obj = new Message($data);
+        if ($obj->messages_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Route $obj){
+    private function update(Message $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('routes', $data);
+        Database::getInstance()->update('messages', $data);
     }
 
-    private function add(Route $obj){
+    private function add(Message $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('routes', $data);
+        Database::getInstance()->add('messages', $data);
     }
 
     public function blank($data = null){
-        $obj = new Route($data);
+        $obj = new Message($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Route($data);
+        return new Message($data);
     }
 }

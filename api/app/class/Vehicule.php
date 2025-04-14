@@ -30,7 +30,7 @@ class Vehicule
 
     public function vehicules_id()
     {
-        return htmlspecialchars($this->vehicules_id);
+        return is_null($this->vehicules_id) ? '' : htmlspecialchars($this->vehicules_id);
     }
 
     public function setVehicules_id($vehicules_id)
@@ -40,7 +40,7 @@ class Vehicule
 
     public function vehicules_license_plate()
     {
-        return htmlspecialchars($this->vehicules_license_plate);
+        return is_null($this->vehicules_license_plate) ? '' : htmlspecialchars($this->vehicules_license_plate);
     }
 
     public function setVehicules_license_plate($vehicules_license_plate)
@@ -50,7 +50,7 @@ class Vehicule
 
     public function car_brands_id()
     {
-        return htmlspecialchars($this->car_brands_id);
+        return is_null($this->car_brands_id) ? '' : htmlspecialchars($this->car_brands_id);
     }
 
     public function setCar_brands_id($car_brands_id)
@@ -60,7 +60,7 @@ class Vehicule
 
     public function car_colors_id()
     {
-        return htmlspecialchars($this->car_colors_id);
+        return is_null($this->car_colors_id) ? '' : htmlspecialchars($this->car_colors_id);
     }
 
     public function setCar_colors_id($car_colors_id)
@@ -70,7 +70,7 @@ class Vehicule
 
     public function car_engine_id()
     {
-        return htmlspecialchars($this->car_engine_id);
+        return is_null($this->car_engine_id) ? '' : htmlspecialchars($this->car_engine_id);
     }
 
     public function setCar_engine_id($car_engine_id)
@@ -80,7 +80,7 @@ class Vehicule
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)

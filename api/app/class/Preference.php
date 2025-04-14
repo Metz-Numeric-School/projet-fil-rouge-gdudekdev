@@ -22,7 +22,7 @@ class Preference
 
     public function preferences_id()
     {
-        return htmlspecialchars($this->preferences_id);
+        return is_null($this->preferences_id) ? '' : htmlspecialchars($this->preferences_id);
     }
 
     public function setPreferences_id($preferences_id)
@@ -32,7 +32,7 @@ class Preference
 
     public function preferences_jsonb()
     {
-        return htmlspecialchars($this->preferences_jsonb);
+        return is_null($this->preferences_jsonb) ? '' : htmlspecialchars($this->preferences_jsonb);
     }
 
     public function setPreferences_jsonb($preferences_jsonb)

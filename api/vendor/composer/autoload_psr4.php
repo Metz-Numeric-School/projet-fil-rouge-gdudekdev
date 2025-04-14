@@ -9,6 +9,8 @@ return array(
     'Core\\Controller\\' => array($baseDir . '/core/controller'),
     'Core\\Class\\' => array($baseDir . '/core/class'),
     'Config\\' => array($baseDir . '/config'),
+    'App\\Controller\\Observers\\' => array($baseDir . '/app/controller/observers'),
+    'App\\Controller\\Managers\\' => array($baseDir . '/app/controller/managers'),
     'App\\Controller\\' => array($baseDir . '/app/controller'),
     'App\\Class\\' => array($baseDir . '/app/class'),
 );

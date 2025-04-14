@@ -24,7 +24,7 @@ class Car_brand
 
     public function car_brands_id()
     {
-        return htmlspecialchars($this->car_brands_id);
+        return is_null($this->car_brands_id) ? '' : htmlspecialchars($this->car_brands_id);
     }
 
     public function setCar_brands_id($car_brands_id)
@@ -34,7 +34,7 @@ class Car_brand
 
     public function car_brands_name()
     {
-        return htmlspecialchars($this->car_brands_name);
+        return is_null($this->car_brands_name) ? '' : htmlspecialchars($this->car_brands_name);
     }
 
     public function setCar_brands_name($car_brands_name)
@@ -44,7 +44,7 @@ class Car_brand
 
     public function car_brands_logo()
     {
-        return htmlspecialchars($this->car_brands_logo);
+        return is_null($this->car_brands_logo) ? '' : htmlspecialchars($this->car_brands_logo);
     }
 
     public function setCar_brands_logo($car_brands_logo)

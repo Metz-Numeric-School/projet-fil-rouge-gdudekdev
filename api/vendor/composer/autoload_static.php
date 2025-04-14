@@ -15,6 +15,8 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
         ),
         'A' => 
         array (
+            'App\\Controller\\Observers\\' => 25,
+            'App\\Controller\\Managers\\' => 24,
             'App\\Controller\\' => 15,
             'App\\Class\\' => 10,
         ),
@@ -32,6 +34,14 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
         'Config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/config',
+        ),
+        'App\\Controller\\Observers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controller/observers',
+        ),
+        'App\\Controller\\Managers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controller/managers',
         ),
         'App\\Controller\\' => 
         array (

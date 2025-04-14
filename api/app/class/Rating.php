@@ -30,7 +30,7 @@ class Rating
 
     public function ratings_id()
     {
-        return htmlspecialchars($this->ratings_id);
+        return is_null($this->ratings_id) ? '' : htmlspecialchars($this->ratings_id);
     }
 
     public function setRatings_id($ratings_id)
@@ -40,7 +40,7 @@ class Rating
 
     public function ratings_value()
     {
-        return htmlspecialchars($this->ratings_value);
+        return is_null($this->ratings_value) ? '' : htmlspecialchars($this->ratings_value);
     }
 
     public function setRatings_value($ratings_value)
@@ -50,7 +50,7 @@ class Rating
 
     public function ratings_created_at()
     {
-        return htmlspecialchars($this->ratings_created_at);
+        return is_null($this->ratings_created_at) ? '' : htmlspecialchars($this->ratings_created_at);
     }
 
     public function setRatings_created_at($ratings_created_at)
@@ -60,7 +60,7 @@ class Rating
 
     public function rides_id()
     {
-        return htmlspecialchars($this->rides_id);
+        return is_null($this->rides_id) ? '' : htmlspecialchars($this->rides_id);
     }
 
     public function setRides_id($rides_id)
@@ -70,7 +70,7 @@ class Rating
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)
@@ -80,7 +80,7 @@ class Rating
 
     public function accounts_id_1()
     {
-        return htmlspecialchars($this->accounts_id_1);
+        return is_null($this->accounts_id_1) ? '' : htmlspecialchars($this->accounts_id_1);
     }
 
     public function setAccounts_id_1($accounts_id_1)

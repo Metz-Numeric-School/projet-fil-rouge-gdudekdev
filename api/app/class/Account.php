@@ -40,7 +40,7 @@ class Account
 
     public function accounts_id()
     {
-        return htmlspecialchars($this->accounts_id);
+        return is_null($this->accounts_id) ? '' : htmlspecialchars($this->accounts_id);
     }
 
     public function setAccounts_id($accounts_id)
@@ -50,7 +50,7 @@ class Account
 
     public function accounts_name()
     {
-        return htmlspecialchars($this->accounts_name);
+        return is_null($this->accounts_name) ? '' : htmlspecialchars($this->accounts_name);
     }
 
     public function setAccounts_name($accounts_name)
@@ -60,7 +60,7 @@ class Account
 
     public function accounts_birthday()
     {
-        return htmlspecialchars($this->accounts_birthday);
+        return is_null($this->accounts_birthday) ? '' : htmlspecialchars($this->accounts_birthday);
     }
 
     public function setAccounts_birthday($accounts_birthday)
@@ -70,7 +70,7 @@ class Account
 
     public function accounts_email()
     {
-        return htmlspecialchars($this->accounts_email);
+        return is_null($this->accounts_email) ? '' : htmlspecialchars($this->accounts_email);
     }
 
     public function setAccounts_email($accounts_email)
@@ -80,7 +80,7 @@ class Account
 
     public function accounts_password()
     {
-        return htmlspecialchars($this->accounts_password);
+        return is_null($this->accounts_password) ? '' : htmlspecialchars($this->accounts_password);
     }
 
     public function setAccounts_password($accounts_password)
@@ -90,7 +90,7 @@ class Account
 
     public function accounts_phone()
     {
-        return htmlspecialchars($this->accounts_phone);
+        return is_null($this->accounts_phone) ? '' : htmlspecialchars($this->accounts_phone);
     }
 
     public function setAccounts_phone($accounts_phone)
@@ -100,7 +100,7 @@ class Account
 
     public function accounts_created_at()
     {
-        return htmlspecialchars($this->accounts_created_at);
+        return is_null($this->accounts_created_at) ? '' : htmlspecialchars($this->accounts_created_at);
     }
 
     public function setAccounts_created_at($accounts_created_at)
@@ -110,7 +110,7 @@ class Account
 
     public function plannings_id()
     {
-        return htmlspecialchars($this->plannings_id);
+        return is_null($this->plannings_id) ? '' : htmlspecialchars($this->plannings_id);
     }
 
     public function setPlannings_id($plannings_id)
@@ -120,7 +120,7 @@ class Account
 
     public function routes_id()
     {
-        return htmlspecialchars($this->routes_id);
+        return is_null($this->routes_id) ? '' : htmlspecialchars($this->routes_id);
     }
 
     public function setRoutes_id($routes_id)
@@ -130,7 +130,7 @@ class Account
 
     public function preferences_id()
     {
-        return htmlspecialchars($this->preferences_id);
+        return is_null($this->preferences_id) ? '' : htmlspecialchars($this->preferences_id);
     }
 
     public function setPreferences_id($preferences_id)
@@ -140,7 +140,7 @@ class Account
 
     public function companies_id()
     {
-        return htmlspecialchars($this->companies_id);
+        return is_null($this->companies_id) ? '' : htmlspecialchars($this->companies_id);
     }
 
     public function setCompanies_id($companies_id)

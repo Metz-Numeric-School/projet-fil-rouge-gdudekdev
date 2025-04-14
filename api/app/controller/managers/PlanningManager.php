@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Managers;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Class\Booking;
+use App\Class\Planning;
 use Core\Class\Database;
 
-class BookingManager {
+class PlanningManager {
     private static $instance = null;
 
     public static function getInstance(){
@@ -18,38 +18,38 @@ class BookingManager {
     }
 
     public function getById($value){
-        return Database::getInstance()->getOneFrom('bookings', 'bookings_id', $value);
+        return Database::getInstance()->getOneFrom('plannings', 'plannings_id', $value);
     }
 
     public function delete(int $value){
-        Database::getInstance()->delete('bookings', $value);
+        Database::getInstance()->delete('plannings', $value);
     }
 
     public function save(array $data){
-        $obj = new Booking($data);
-        if ($obj->bookings_id() == 0) {
+        $obj = new Planning($data);
+        if ($obj->plannings_id() == 0) {
             $this->add($obj);
         } else {
             $this->update($obj);
         }
     }
 
-    private function update(Booking $obj){
+    private function update(Planning $obj){
         $data = $obj->getData();
-        Database::getInstance()->update('bookings', $data);
+        Database::getInstance()->update('plannings', $data);
     }
 
-    private function add(Booking $obj){
+    private function add(Planning $obj){
         $data = $obj->getData();
-        Database::getInstance()->add('bookings', $data);
+        Database::getInstance()->add('plannings', $data);
     }
 
     public function blank($data = null){
-        $obj = new Booking($data);
+        $obj = new Planning($data);
         return $obj->getData();
     }
 
     public function createObj($data = null){
-        return new Booking($data);
+        return new Planning($data);
     }
 }
