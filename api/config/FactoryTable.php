@@ -6,12 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 use Config\Config;
 use Core\Class\Database;
-use Dom\Document;
 
-// TODO faire un fichier pour créer des classes plus rapidement
-
-// L'objectif de cette classe est de créer dans le directory class la classe, si elle n'existe pas encore de tous les éléments TABLE_CONFIG
-// Aussi, je cherche à créer une class qui crée les fichiers php des classes de manières dynamiques ainsi que leur manager, de manière dynamique et variant d'une table en fonction de ses champs en base de données  
+// The main purpose of this class is generating all the class and manager associated for each table of the database we're working with
 class FactoryTable
 {
 
@@ -27,6 +23,9 @@ class FactoryTable
       {
             return self::$instance ?? new self;
       }
+      /**
+       * This function maps the database tables and create the class and manager associated if they do not exist yet
+       */
       private function handleTables()
       {
             $to_verify  = array_keys(Config::TABLE_CONFIG);
@@ -44,26 +43,22 @@ class FactoryTable
             }
       }
       // TODO ajouter des parametres au niveau de la gestion via les setters de certains attributs, à voir
+      /**
+       * This function generate a class file content relative to a given table 
+       * @var table : the database table as written in the db
+       * @var class : the name core of the file (without .php)
+       */
       private function createClass(string $table, string $class)
       {
             $path = $_SERVER['DOCUMENT_ROOT'] . '/app/class/' . $class . '.php';
             $fields = Database::getInstance()->getFields($table);
-            $newFields = [];
 
-            // On retire les champs que fournit de base sql sur la table accounts
-            foreach($fields as $field){
-                  if(!ctype_upper($field['COLUMN_NAME'][0])){
-                        $newFields[] = $field ;
-                  }
-            }
-            $fields = $newFields;
-
-            // start of file
+            // File header 
             $content = "<?php\n\n";
             $content .= "namespace App\\Class;\n\n";
             $content .= "class $class\n{\n";
 
-            // defining attributes
+            // Defining attributes
             foreach ($fields as $field) {
                   $fieldName = $field['COLUMN_NAME'];
                   $fieldType = $field['COLUMN_TYPE'];
@@ -71,14 +66,14 @@ class FactoryTable
                   $content .= "    private \$$fieldName = $defaultValue;\n";
             }
 
-            // function construct($data)
+            // Function construct($data)
             $content .= "\n    public function __construct(\$data = null)\n    {\n";
             $content .= "        if (\$data) {\n";
             $content .= "            \$this->hydrate(\$data);\n";
             $content .= "        }\n";
             $content .= "    }\n";
 
-            // function hydrate($data)
+            // Function hydrate($data)
             $content .= "\n    private function hydrate(\$data)\n    {\n";
             foreach ($fields as $field) {
                   $fieldName = $field['COLUMN_NAME'];
@@ -86,7 +81,7 @@ class FactoryTable
             }
             $content .= "    }\n";
 
-            // function setters and getters
+            // Function setters and getters
             //    FIXME Ajouter un traitement via la config si nécessaire
             /**
              *  Comparaison en chaine de character  :  '>0' de l'attribut et valeur par défaut associé si la condition n'est pas remplie
@@ -120,7 +115,8 @@ class FactoryTable
       }
 
       /**
-       * Retourne la valeur par défaut en fonction du type de la colonne, à étoffer si nécessaire
+       * This function return the default value relative to the type
+       * @var type: the type we need the default value from
        */
       private function getDefaultValueForType($type)
       {
@@ -133,15 +129,17 @@ class FactoryTable
             }else{
                   return 0;
             }
-            // return $type;
       }
-
-      // FIXME comment needed for maintenance
+      /**
+       * This function generate a manager file content relative to a given table 
+       * @var table : the database table as written in the db
+       * @var manager : the name core of the file (without .php)
+       */
       private function createManager(string $table, string $manager)
       {
             $path = $_SERVER['DOCUMENT_ROOT'] . '/app/controller/' . $manager . '.php';
             $class = substr($table, 0, -1);
-
+            // File header     
             $content = "<?php\n\n";
             $content .= "namespace App\\Controller;\n\n";
             $content .= "require \$_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';\n\n";
@@ -149,6 +147,7 @@ class FactoryTable
             $content .= "use Core\\Class\\Database;\n\n";
             $content .= "class $manager {\n";
 
+            // Defining singleton instance
             $content .= "    private static \$instance = null;\n\n";
             $content .= "    public static function getInstance(){\n";
             $content .= "        if (is_null(self::\$instance)) {\n";
@@ -157,14 +156,16 @@ class FactoryTable
             $content .= "        return self::\$instance;\n";
             $content .= "    }\n\n";
 
+            //Defining basic managing functions
             $content .= "    public function getById(\$value){\n";
             $content .= "        return Database::getInstance()->getOneFrom('$table', '{$table}_id', \$value);\n";
             $content .= "    }\n\n";
 
+            // CRUD functions
             $content .= "    public function delete(int \$value){\n";
             $content .= "        Database::getInstance()->delete('$table', \$value);\n";
             $content .= "    }\n\n";
-
+            
             $content .= "    public function save(array \$data){\n";
             $content .= "        \$obj = new " . ucfirst($class) . "(\$data);\n";
             $content .= "        if (\$obj->" . $table ."_id() == 0) {\n";
@@ -184,17 +185,20 @@ class FactoryTable
             $content .= "        Database::getInstance()->add('$table', \$data);\n";
             $content .= "    }\n\n";
 
+            // Function returning an array with objects fields with blank value relative to the manager 
             $content .= "    public function blank(\$data = null){\n";
             $content .= "        \$obj = new " . ucfirst($class) . "(\$data);\n";
             $content .= "        return \$obj->getData();\n";
             $content .= "    }\n\n";
 
+            // Function to create an instance of the managed class
             $content .= "    public function createObj(\$data = null){\n";
             $content .= "        return new " . ucfirst($class) . "(\$data);\n";
             $content .= "    }\n";
 
             $content .= "}\n";
 
+            // Creating, opening and writing in the desired file the constructed content
             file_put_contents($path, $content);
       }
 }

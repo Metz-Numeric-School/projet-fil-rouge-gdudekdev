@@ -19,7 +19,6 @@ use Config\Config;
                   </div>
 
             </div>
-            <!-- TODO faire un système pour ranger les classes plus proprement sur l'index, genre les vehicules ensembles , les comptens ensembles , les trajets ... -->
             <div class="accueil__action">
                   <ul class="accueil__group-list">
                         <?php foreach (Config::TABLE_GROUP as $key => $value) : ?> <li>

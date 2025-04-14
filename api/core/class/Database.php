@@ -83,6 +83,15 @@ class Database
             $stmt = $this->PDOInstance->prepare("SELECT COLUMN_NAME,COlUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '".$table ."'");
             $stmt->execute();
 
-            return  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $return =[];
+            // Removing useless field name given by sql request on table names(they only contain uppercased char)
+            foreach($fields as $field){
+                  if(!ctype_upper($field['COLUMN_NAME'][0])){
+                        $return[] = $field ;
+                  }
+            }
+            return  $return;
       }
 }
