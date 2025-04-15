@@ -33,6 +33,29 @@ class Auth
                   exit();
             }
       }
+      public function verifyApiAccess(string $email, string $password)
+      {
+            header('Content-Type: application/json');
+
+            $user = Database::getInstance()->getOneFrom('accounts', 'accounts_email', $email);
+
+            if (!$user || $password !== $user['accounts_password']) {
+                  echo json_encode([
+                        'error' => "Nom d'utilisateur ou mot de passe incorrect"
+                  ]);
+                  exit;
+            }
+
+            // Login OK
+            $jwt = new JWT($user['accounts_id']);
+            $token = $jwt->encode();
+
+            echo json_encode([
+                  "token" => $token
+            ]);
+            exit;
+      }
+
       public function protect()
       {
             session_start();
@@ -50,6 +73,15 @@ class Auth
                   throw $e;
                   header("Location: login.php");
                   exit();
+            }
+      }
+      private function getId($email)
+      {
+            try {
+                  $user = Database::getInstance()->getOneFrom('accounts', 'accounts_email', $email);
+                  return $user['accounts_id'];
+            } catch (Throwable $e) {
+                  throw $e;
             }
       }
       public function disconnect()

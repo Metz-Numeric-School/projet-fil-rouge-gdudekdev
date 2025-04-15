@@ -1,27 +1,48 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const sendContactForm = async () => {
-      const response = await fetch('http://carpool', {
-        method: 'POST',
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://carpool?path=/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/json",
         },
-        body: new URLSearchParams({
-          name: 'Jean Dupont',
-          email: 'jean@email.fr'
-        }).toString()
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
       });
-    
-      const text = await response.text();
-      console.log('Réponse du serveur PHP:', text);
-    };
-    
-    sendContactForm();
-    // navigate("/?path=/home");
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la connexion");
+      }
+      const data = await response.json();
+      console.log(data);
+      if (data.error) {
+        console.error("Erreur de login :", data.error);
+        alert(data.error); // ou affiche ça proprement dans le UI
+        return;
+      }
+      const jwt = data.token;
+
+      Cookies.set("jwt", jwt, {
+        expires: 1 / 24,
+        sameSite: "Strict",
+      });
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du formulaire :", error);
+    }
   };
 
   return (
@@ -29,10 +50,17 @@ const Login = () => {
       <div className="login__overlay"></div>
       <div className="login__container">
         <h1 className="login__title">Connexion</h1>
-        <form className="login__form" method="post" action={"#"}>
+        <form className="login__form" method="post" onSubmit={handleSubmit}>
           <div className="login__input-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Votre email" required />
+            <input
+              type="text"
+              id="email"
+              placeholder="Votre email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="login__input-group">
@@ -42,14 +70,12 @@ const Login = () => {
               id="password"
               placeholder="Votre mot de passe"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button
-            type="submit"
-            className="login__button"
-            onClick={handleSubmit}
-          >
+          <button type="submit" className="login__button">
             Se connecter
           </button>
         </form>

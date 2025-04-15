@@ -4,6 +4,17 @@ namespace Config;
 
 class Config
 {
+    public const ROUTE_CONFIG = [
+        '/'=>[
+            'method'=>'home',
+        ],
+        '/login'=>[
+            'method'=>'login',
+        ],
+        '/backoffice'=>[
+            'method'=>'backoffice',
+        ]
+    ];
 
     public const TABLE_CONFIG = [
         'accounts' => 'Utilisateurs',
@@ -32,7 +43,7 @@ class Config
         'rides' => [
             'rides',
             'bookings',
-            
+
         ],
         'chats' => [
             'chats',
@@ -49,10 +60,10 @@ class Config
         ]
     ];
     public const TABLE_GROUP_NAME = [
-        'users'=>'Utilisateurs',
-        'rides'=>'Trajets',
-        'chats'=>'Conversations',
-        'car'=> 'Vehicules',
-        'others'=>'Autres',
+        'users' => 'Utilisateurs',
+        'rides' => 'Trajets',
+        'chats' => 'Conversations',
+        'car' => 'Vehicules',
+        'others' => 'Autres',
     ];
 }

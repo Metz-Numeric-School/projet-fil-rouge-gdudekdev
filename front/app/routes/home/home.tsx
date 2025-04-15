@@ -5,6 +5,7 @@ import ModalHomeTrajet from "~/components/home/modal/modalHomeTrajet/ModalHomeTr
 import HomeSection from "~/components/home/sections/HomeSection";
 import PlanningHome from "~/components/home/planning/PlanningHome/PlanningHome";
 import SectionHome from "~/components/home/import/ImportSectionHome";
+import Cookies from "js-cookie";
 
 const Home = () => {
   const [isOverlayTrajetVisible, setIsOverlayTrajetVisible] = useState(false);

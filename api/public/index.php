@@ -1,28 +1,25 @@
-<?php 
-$allowedOrigin = "http://localhost:5173";
-$requestOrigin = $_SERVER['HTTP_ORIGIN'] ?? null;
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-if ($requestOrigin === $allowedOrigin) {
-    header("Access-Control-Allow-Origin: $allowedOrigin");
-    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type,Authorization");
+use Core\Controller\Router;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        http_response_code(200);
-        exit();
-    }
+$allowedOrigin = 'http://localhost:5173';
+$requestOrigin = $_SERVER['HTTP_REFERER'] ?? null;
 
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        foreach ($_POST as $data) {
-            var_dump($data);
-        }
-    }
-
-
-} else {
-    header("Location: ../app/model/index.php");
-    exit();
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+      http_response_code(200);
+      exit();
 }
-?>
+
+$router = new Router();
+if (isset($_GET['path'])) {
+      $headers = getallheaders();
+      $body = json_decode(file_get_contents('php://input'), true);
+      $data =[
+            'headers'=>$headers,
+            'body'=>$body,
+      ];
+      $router->addCurrentRoute($_GET['path'], $data);
+}
+
+      

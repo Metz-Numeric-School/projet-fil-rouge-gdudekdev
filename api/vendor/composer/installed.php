@@ -3,7 +3,7 @@
         'name' => 'gdudek.dev/carpool',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '063cc7cd4ab318bf6323ba95c628e105a3b9bdba',
+        'reference' => 'b735ee82285a57819ce9e68a5e84d3c9f9f71b45',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'gdudek.dev/carpool' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '063cc7cd4ab318bf6323ba95c628e105a3b9bdba',
+            'reference' => 'b735ee82285a57819ce9e68a5e84d3c9f9f71b45',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
