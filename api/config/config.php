@@ -7,12 +7,15 @@ class Config
     public const ROUTE_CONFIG = [
         '/'=>[
             'method'=>'home',
+            'controller'=>'RouteLogin'
         ],
         '/login'=>[
             'method'=>'login',
+            'controller'=>'\\Api\\Controller\\RouteLogin'
         ],
         '/backoffice'=>[
             'method'=>'backoffice',
+            'controller'=>'RouteLogin'
         ]
     ];
 

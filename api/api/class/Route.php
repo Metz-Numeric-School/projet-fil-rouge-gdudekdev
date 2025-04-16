@@ -1,5 +1,5 @@
 <?php 
-namespace Core\Class;
+namespace Api\Class;
 
 
 class Route{

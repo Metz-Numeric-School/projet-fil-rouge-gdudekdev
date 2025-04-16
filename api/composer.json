@@ -8,7 +8,9 @@
             "App\\Controller\\Observers\\": "app/controller/observers/",
             "Core\\Class\\": "core/class",
             "Core\\Controller\\": "core/controller/",
-            "Config\\":"config/"
+            "Config\\":"config/",
+            "Api\\Class\\":"api/class",
+            "Api\\Controller\\":"api/controller"
         }
     },
     "authors": [

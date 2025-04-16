@@ -1,0 +1,68 @@
+{
+  "planning": {
+    "departure_time": [
+      {
+        "home": "8:00",
+        "work": "17:00"
+      },
+      {
+        "home": "8:00",
+        "work": "17:00"
+      },
+      {
+        "home": "8:00",
+        "work": "17:00"
+      },
+      {
+        "home": "8:00",
+        "work": "17:00"
+      },
+      {
+        "home": "8:00",
+        "work": "17:00"
+      },
+      {
+        "home": null,
+        "work": null
+      },
+      {
+        "home": null,
+        "work": null
+      }
+    ],
+    "ride_enabled": [
+      {
+        "home": true,
+        "work": true
+      },
+      {
+        "home": true,
+        "work": true
+      },
+      {
+        "home": true,
+        "work": true
+      },
+      {
+        "home": true,
+        "work": true
+      },
+      {
+        "home": true,
+        "work": true
+      },
+      {
+        "home": false,
+        "work": false
+      },
+      {
+        "home": false,
+        "work": false
+      }
+    ],
+    "route_enabled": true,
+    "driver": false,
+    "_comment1": "Les plannings sont découpés en jour (Lundi au Dimanche) et par demi-journée (home pour le matin et work pour le soir). Chaque créneau a une heure de départ et si il est activé ou non",
+    "_comment2": "Les propriéts route_enabled et driver correspondent respectivement à l'utilisation ou non du trajet et le choix du role (conducteur ou passager)"
+  }
+}

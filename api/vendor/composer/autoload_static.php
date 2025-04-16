@@ -23,6 +23,8 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
             'App\\Controller\\Managers\\' => 24,
             'App\\Controller\\' => 15,
             'App\\Class\\' => 10,
+            'Api\\Controller\\' => 15,
+            'Api\\Class\\' => 10,
         ),
     );
 
@@ -58,6 +60,14 @@ class ComposerStaticInite13cb617c3d7cec73c1ae774612473b3
         'App\\Class\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/class',
+        ),
+        'Api\\Controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api/controller',
+        ),
+        'Api\\Class\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api/class',
         ),
     );
 

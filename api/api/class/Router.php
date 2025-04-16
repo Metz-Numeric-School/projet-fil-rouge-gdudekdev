@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Controller;
+namespace Api\Class;
 
 use Config\Config;
 
@@ -8,35 +8,39 @@ class Router
 {
     private $availableRoutes = [];
     private $currentRoute;
+    private static $instance = null;
 
-    public function __construct()
+    private function __construct()
     {
         foreach (Config::ROUTE_CONFIG as $path => $params) {
-            $this->addRoute($path, \Core\Controller\RouteManager::class, $params['method']);
+            $this->addRoute($path, $params['method'],$params['controller']);
         }
+    }
+    public static function getInstance(){
+        if(is_null(self::$instance)){
+            self::$instance = new self;
+        }
+        return self::$instance;
     }
     public function addCurrentRoute($path,$params)
     {
         $this->currentRoute = $path;
         $this->handleCurrentRoute($params);
     }
-    private function addRoute($path, $controller, $method)
+    private function addRoute($path, $method,$controller)
     {
         $this->availableRoutes[] = [
             'path' => $path,
-            'controller' => $controller,
             'method' => $method,
+            'controller' => $controller,
         ];
     }
     private function handleCurrentRoute(array $params){
         foreach($this->availableRoutes as $route){
             if($route['path'] === $this->currentRoute){
-                $route['controller']::getInstance()->{$route['method']}($params);
+                $obj = new $route['controller']($params);
+                $obj->{$route['method']}();
             }
         }
-    }
-    public function getRoutes()
-    {
-        return $this->availableRoutes;
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-namespace Core\Controller;
+namespace Api\Controller;
 
 use Core\Class\Auth;
 use Core\Class\JWT;
 use Error;
-use Exception;
 
 class RouteManager
 {
@@ -21,17 +20,13 @@ class RouteManager
             return self::$instance;
       }
 
-      public function login($params)
-      {
-            $body = $params['body'];
-            if (isset($body['email']) && isset($body['password'])) {
-                  Auth::getInstance()->verifyApiAccess($body['email'], $body['password']);
-            } else {
-                  echo json_encode([
-                        'error' => "Erreur de la requête",
-                  ]);
+      public function dispatch($method , $params){
+            if($method == 'login'){
+                  $login = new RouteLogin($params);
+                  $login->login($params);
             }
       }
+  
 
       public function home($params)
       {

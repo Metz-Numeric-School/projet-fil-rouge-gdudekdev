@@ -1,7 +1,9 @@
 <?php
+
+use Api\Class\Router;
+
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use Core\Controller\Router;
 
 $allowedOrigin = 'http://localhost:5173';
 $requestOrigin = $_SERVER['HTTP_REFERER'] ?? null;
@@ -11,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
       exit();
 }
 
-$router = new Router();
 if (isset($_GET['path'])) {
       $headers = getallheaders();
       $body = json_decode(file_get_contents('php://input'), true);
@@ -19,7 +20,5 @@ if (isset($_GET['path'])) {
             'headers'=>$headers,
             'body'=>$body,
       ];
-      $router->addCurrentRoute($_GET['path'], $data);
+      Router::getInstance()->addCurrentRoute($_GET['path'], $data);
 }
-
-      

@@ -14,4 +14,6 @@ return array(
     'App\\Controller\\Managers\\' => array($baseDir . '/app/controller/managers'),
     'App\\Controller\\' => array($baseDir . '/app/controller'),
     'App\\Class\\' => array($baseDir . '/app/class'),
+    'Api\\Controller\\' => array($baseDir . '/api/controller'),
+    'Api\\Class\\' => array($baseDir . '/api/class'),
 );

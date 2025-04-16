@@ -25,11 +25,13 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Erreur lors de la connexion");
       }
+      // const raw = await response.text();
+      // console.log(raw);
       const data = await response.json();
       console.log(data);
       if (data.error) {
         console.error("Erreur de login :", data.error);
-        alert(data.error); // ou affiche ça proprement dans le UI
+        alert(data.error); // TODO faire l'UI lorsque le user et mdp sont incorrects
         return;
       }
       const jwt = data.token;
