@@ -1,6 +1,6 @@
 <?php
 
-use Api\Controller\ApiDataController;
+use Api\Controller\ApiFetchController;
 use Api\Controller\ApiLoginController;
 use Back\Controller\CrudController;
 use Back\Controller\CrudDetailController;
@@ -10,6 +10,7 @@ use Back\Controller\LogoutController;
 use Back\Controller\ProcessController;
 
 require '../vendor/autoload.php';
+include_once __DIR__ . "/../config/config.php";
 
 if (isset($_GET['page'])) {
       $page = $_GET['page'];
@@ -59,9 +60,9 @@ if (isset($_GET['api'])) {
                   $controller = new ApiLoginController;
                   $controller->handleLogin($data);
                   break;
-            case 'data':
-                  $controller = new ApiDataController;
-                  $controller->handleData($data);
+            case 'fetch':
+                  $controller = new ApiFetchController;
+                  $controller->handleFetch($data);
                   break;
 
             default:

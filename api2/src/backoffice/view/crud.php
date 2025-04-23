@@ -15,7 +15,11 @@ include_once __DIR__ . "/../../../template/header_template.php";
 
             </div>
             <div class="crud__main">
+                  
+                  <?php if(in_array($table, BACK_MANAGED_TABLE)){?>
                   <a href="index.php?page=process&table=<?= $table ?>&mode=save" class="crud__table-btn crud__table-btn--edit crud__main--add">Ajouter</a>
+                  <?php }?>
+
                   <table class="crud__table">
                         <tr>
                               <td class=" crud__table-cell crud__table-cell-header ">Actions</td>

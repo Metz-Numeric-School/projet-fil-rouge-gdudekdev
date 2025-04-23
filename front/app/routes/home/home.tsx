@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     const loadPlanningData = async () => {
       try {
-        const response = await fetch("http://carpool/index.php?api=data", {
+        const response = await fetch("http://carpool/index.php?api=fetch", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${Cookies.get("jwt")}`,
@@ -49,23 +49,16 @@ const Home = () => {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error("Erreur lors du chargement des plannings");
-        }
         const raw = await response.text();
         console.log(raw);
-        const plannings = await response.json();
-        // console.log(plannings);
-        if (plannings.error) {
-          console.error("Erreur de login :", plannings.error);
-          alert(plannings.error);
-          return;
-        }
-        if (plannings.acces || 1 == 1) {
-          setLoadPlanning(plannings.data.plannings_jsonb);
-        } else {
+        if(!response.ok){
           navigate("/login");
         }
+
+        
+        // const plannings = await response.json();
+        // console.log(plannings);
+    
       } catch (error) {
         console.error("Erreur lors de l'envoi du formulaire :", error);
       }

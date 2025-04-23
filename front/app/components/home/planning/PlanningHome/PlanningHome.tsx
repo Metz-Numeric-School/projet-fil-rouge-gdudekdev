@@ -25,7 +25,6 @@ const PlanningHome = ({
     "Dimanche",
   ];
   console.log(userPlanning);
-  // Vérifie si userPlanning et userPlanning.planning existent
   if (!userPlanning) {
     return <div>Chargement...</div>; // Affiche un message de chargement si les données sont absentes
   }

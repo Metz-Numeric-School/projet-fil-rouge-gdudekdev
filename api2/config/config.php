@@ -23,3 +23,6 @@ define( 'TABLE_GROUP' , [
             'ratings'
       ]
 ]);
+define('BACK_MANAGED_TABLE',[
+      'accounts',
+]);
