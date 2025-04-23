@@ -31,25 +31,29 @@ interface PlanningData {
 const Home = () => {
   const [isOverlayTrajetVisible, setIsOverlayTrajetVisible] = useState(false);
   const [isOverlayChoiceVisible, setIsOverlayChoiceVisible] = useState(false);
-  const [isModalHomeTrajetVisible, setIsModalHomeTrajetVisible] = useState(false);
+  const [isModalHomeTrajetVisible, setIsModalHomeTrajetVisible] =
+    useState(false);
   const [loadPlanning, setLoadPlanning] = useState<PlanningData | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadPlanningData = async () => {
       try {
-        const response = await fetch("http://carpool?path=/plannings", {
+        const response = await fetch("http://carpool/index.php?api=data", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${Cookies.get("jwt")}`,
           },
+          body: JSON.stringify({
+            table: "plannings",
+          }),
         });
 
         if (!response.ok) {
-          throw new Error("Erreur lors de la connexion");
+          throw new Error("Erreur lors du chargement des plannings");
         }
-        // const raw = await response.text();
-        // console.log(raw);
+        const raw = await response.text();
+        console.log(raw);
         const plannings = await response.json();
         // console.log(plannings);
         if (plannings.error) {
@@ -57,7 +61,7 @@ const Home = () => {
           alert(plannings.error);
           return;
         }
-        if (plannings.acces || 1==1) {
+        if (plannings.acces || 1 == 1) {
           setLoadPlanning(plannings.data.plannings_jsonb);
         } else {
           navigate("/login");

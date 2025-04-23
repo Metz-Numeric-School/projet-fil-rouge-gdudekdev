@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://carpool?path=/login", {
+      const response = await fetch("http://carpool/index.php?api=login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

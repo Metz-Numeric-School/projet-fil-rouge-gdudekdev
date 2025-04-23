@@ -7,72 +7,60 @@ namespace Composer\Autoload;
 class ComposerStaticInit4ad04f04741d8b913b894c5b731e6f75
 {
     public static $prefixLengthsPsr4 = array (
-        'M' => 
+        'F' => 
         array (
-            'Model\\' => 6,
+            'Firebase\\JWT\\' => 13,
         ),
         'C' => 
         array (
+            'Core\\Model\\' => 11,
             'Core\\Controller\\' => 16,
-            'Core\\Class\\' => 11,
-            'Controller\\' => 11,
             'Config\\' => 7,
+        ),
+        'B' => 
+        array (
+            'Back\\Model\\' => 11,
+            'Back\\Controller\\' => 16,
         ),
         'A' => 
         array (
-            'App\\Controller\\Observers\\' => 25,
-            'App\\Controller\\Managers\\' => 24,
-            'App\\Controller\\' => 15,
-            'App\\Class\\' => 10,
+            'Api\\Model\\' => 10,
             'Api\\Controller\\' => 15,
-            'Api\\Class\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Model\\' => 
+        'Firebase\\JWT\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src/model',
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Core\\Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/model',
         ),
         'Core\\Controller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/controller',
         ),
-        'Core\\Class\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/core/class',
-        ),
-        'Controller\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/controller',
-        ),
         'Config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/config',
         ),
-        'App\\Controller\\Observers\\' => 
+        'Back\\Model\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/controller/observers',
+            0 => __DIR__ . '/../..' . '/src/backoffice/model',
         ),
-        'App\\Controller\\Managers\\' => 
+        'Back\\Controller\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/controller/managers',
+            0 => __DIR__ . '/../..' . '/src/backoffice/controller',
         ),
-        'App\\Controller\\' => 
+        'Api\\Model\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/controller',
-        ),
-        'App\\Class\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/class',
+            0 => __DIR__ . '/../..' . '/src/api/model',
         ),
         'Api\\Controller\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/api/controller',
-        ),
-        'Api\\Class\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/api/class',
+            0 => __DIR__ . '/../..' . '/src/api/controller',
         ),
     );
 

@@ -6,15 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Model\\' => array($baseDir . '/src/model'),
+    'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
+    'Core\\Model\\' => array($baseDir . '/core/model'),
     'Core\\Controller\\' => array($baseDir . '/core/controller'),
-    'Core\\Class\\' => array($baseDir . '/core/class'),
-    'Controller\\' => array($baseDir . '/src/controller'),
     'Config\\' => array($baseDir . '/config'),
-    'App\\Controller\\Observers\\' => array($baseDir . '/app/controller/observers'),
-    'App\\Controller\\Managers\\' => array($baseDir . '/app/controller/managers'),
-    'App\\Controller\\' => array($baseDir . '/app/controller'),
-    'App\\Class\\' => array($baseDir . '/app/class'),
-    'Api\\Controller\\' => array($baseDir . '/api/controller'),
-    'Api\\Class\\' => array($baseDir . '/api/class'),
+    'Back\\Model\\' => array($baseDir . '/src/backoffice/model'),
+    'Back\\Controller\\' => array($baseDir . '/src/backoffice/controller'),
+    'Api\\Model\\' => array($baseDir . '/src/api/model'),
+    'Api\\Controller\\' => array($baseDir . '/src/api/controller'),
 );
