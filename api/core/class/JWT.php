@@ -1,6 +1,8 @@
-<?php 
+<?php
+
 namespace Core\Class;
 
+use Error;
 use Exception;
 use Firebase\JWT\JWT as JWTJWT;
 use Firebase\JWT\Key;
@@ -11,13 +13,14 @@ class JWT
     private $publicKey;   // Clé publique pour vérifier les tokens
 
     private $payload = array(
-        "iss" => "http://carpool",  
+        "iss" => "http://carpool",
         "aud" => "http://localhost:5173",
-        "iat" => null,          
-        "exp" => null           
+        "iat" => null,
+        "exp" => null
     );
 
-    public function __construct($user_id = null) {
+    public function __construct($user_id = null)
+    {
         $this->privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/privkey.pem');  // Charger la clé privée
         $this->publicKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/pubkey.pem');    // Charger la clé publique
 
@@ -35,7 +38,7 @@ class JWT
     public function encode()
     {
         try {
-            $header = ['kid' => 'carpool-key-id']; 
+            $header = ['kid' => 'carpool-key-id'];
             return JWTJWT::encode($this->payload, $this->privateKey, 'RS256', null, $header);
         } catch (Exception $e) {
             echo "Erreur lors de l'encodage du JWT : " . $e->getMessage();
@@ -47,11 +50,9 @@ class JWT
     public function decode($jwt)
     {
         try {
-            $decoded = JWTJWT::decode($jwt, new Key($this->publicKey, 'RS256'));
-            return $decoded;
+            return JWTJWT::decode($jwt, new Key($this->publicKey, 'RS256'));
         } catch (Exception $e) {
-            echo "Erreur de validation du token : " . $e->getMessage();
-            return null;
+            return "Erreur de validation du token : " . $e->getMessage();
         }
     }
 }

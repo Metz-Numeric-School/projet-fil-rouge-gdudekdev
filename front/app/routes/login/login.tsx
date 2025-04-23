@@ -40,7 +40,7 @@ const Login = () => {
         expires: 1 / 24,
         sameSite: "Strict",
       });
-
+      
       navigate("/home");
     } catch (error) {
       console.error("Erreur lors de l'envoi du formulaire :", error);

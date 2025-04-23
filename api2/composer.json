@@ -1,0 +1,25 @@
+{
+  "name": "stagiaire/api2",
+  "autoload": {
+    "psr-4": {
+      "Controller\\":"src/controller/",
+      "Model\\":"src/model/",
+      "App\\Class\\": "app/class/",
+      "App\\Controller\\": "app/controller/",
+      "App\\Controller\\Managers\\": "app/controller/managers/",
+      "App\\Controller\\Observers\\": "app/controller/observers/",
+      "Core\\Class\\": "core/class",
+      "Core\\Controller\\": "core/controller/",
+      "Config\\": "config/",
+      "Api\\Class\\": "api/class",
+      "Api\\Controller\\": "api/controller"
+    }
+  },
+  "authors": [
+    {
+      "name": "gdudek",
+      "email": "gdudek.dev@gmail.com"
+    }
+  ],
+  "require": {}
+}

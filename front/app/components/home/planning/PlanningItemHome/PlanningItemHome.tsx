@@ -2,7 +2,7 @@ import BtnPrimary from "~/components/main/button/BtnPrimary/BtnPrimary";
 import CtaVerticalDots from "~/src/assets/icon/cta/CtaVerticalDots";
 
 interface PlanningItemProps {
-  time: string;
+  time: string|null;
   direction: string;
   onClickModal: () => void;
   onClickChoice: () => void;
