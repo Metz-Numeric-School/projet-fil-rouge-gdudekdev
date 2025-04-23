@@ -3,6 +3,7 @@
 use Api\Controller\ApiDataController;
 use Api\Controller\ApiLoginController;
 use Back\Controller\CrudController;
+use Back\Controller\CrudDetailController;
 use Back\Controller\HomeController;
 use Back\Controller\LoginController;
 use Back\Controller\LogoutController;
@@ -28,6 +29,10 @@ if (isset($_GET['page'])) {
             case 'crud':
                   $controller = new CrudController;
                   $controller->handleCrud($_GET);
+                  break;
+            case 'crud-detail':
+                  $controller = new CrudDetailController;
+                  $controller->handleCrudDetail($_GET);
                   break;
             case 'process':
                   $controller = new ProcessController;

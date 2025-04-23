@@ -2,35 +2,8 @@
 $title = "Page d'accueil";
 include_once __DIR__ . "/../../../template/header_template.php";
 
-const TABLE_GROUP = [
-      'users' => [
-            'accounts',
-            'companies',
-            'plannings',
-            'preferences',
-            'routes'
-      ],
-      'rides' => [
-            'rides',
-            'bookings',
-
-      ],
-      'chats' => [
-            'chats',
-            'messages'
-      ],
-      'car' => [
-            'vehicules',
-            'car_brands',
-            'car_colors',
-            'car_models'
-      ],
-      'others' => [
-            'ratings'
-      ]
-];
 const TABLE_GROUP_NAME = [
-      'users' => 'Utilisateurs',
+      'accounts' => 'Utilisateurs',
       'rides' => 'Trajets',
       'chats' => 'Conversations',
       'car' => 'Vehicules',
@@ -73,12 +46,9 @@ const TABLE_CONFIG = [
             </div>
             <div class="accueil__action">
                   <ul class="accueil__group-list">
-                        <?php foreach (TABLE_GROUP as $key => $value) : ?> <li>
+                        <?php foreach (TABLE_GROUP_NAME as $key => $value) : ?> <li>
                                     <ul class="accueil__group-item">
-                                          <h3><?= TABLE_GROUP_NAME[$key] ?></h3>
-                                          <?php foreach ($value as $table): ?>
-                                                <li><?= "<a href='/index.php?page=crud&table=" . $table . "'>" . TABLE_CONFIG[$table] . "</a>" ?></li>
-                                          <?php endforeach ?>
+                                                <li><?= "<a href='/index.php?page=crud&table=" . $key . "'>" . $value . "</a>" ?></li>
                                     </ul>
                               </li>
                         <?php endforeach ?>
