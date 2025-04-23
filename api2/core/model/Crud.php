@@ -14,6 +14,7 @@ class Crud
                   $this->add($table, $data);
             }
       }
+      
       protected function update($table, $data)
       {
             Database::getInstance()->update($table, $data);
@@ -27,7 +28,7 @@ class Crud
       {
             Database::getInstance()->delete($table, $id);
       }
-      protected function defaultValue(string $type)
+      public static function defaultValue(string $type)
       {
             date_default_timezone_set('Europe/Paris');
             $type = strtolower($type);
@@ -47,7 +48,12 @@ class Crud
             if ($type === 'datetime' || $type === 'timestamp') {
                   return date('Y-m-d H:i:s');
             }
+            
+            if($type ==='json' ){
+                  return null;
+            }
 
             return '';
       }
+      
 }

@@ -7,7 +7,7 @@ use PDO;
 class Database
 {
       private const DEFAULT_DBNAME = "carpool";
-      private const DEFAULT_DSN = "mysql:dbname=". self::DEFAULT_DBNAME .";host=localhost";
+      private const DEFAULT_DSN = "mysql:dbname=" . self::DEFAULT_DBNAME . ";host=localhost";
       private const DEFAULT_HOST = "root";
       private const DEFAULT_PASS = "";
 
@@ -34,7 +34,7 @@ class Database
       }
       public function getOneFrom(string $table, $champ, $value)
       {
-            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE ". $champ ."= :value");
+            $stmt = $this->PDOInstance->prepare("SELECT * FROM $table WHERE " . $champ . "= :value");
             $stmt->execute([":value" => $value]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
       }
@@ -79,21 +79,31 @@ class Database
       }
       public function getFields(string $table)
       {
-            $stmt = $this->PDOInstance->prepare("SELECT COLUMN_NAME,COlUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '".$table ."'");
+            $stmt = $this->PDOInstance->prepare("SELECT COLUMN_NAME,COlUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '" . $table . "'");
             $stmt->execute();
 
-            
+
             $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $return =[];
+            $return = [];
             // Removing useless field name given by sql request on table names(they only contain uppercased char)
-            foreach($fields as $field){
-                  if(!ctype_upper($field['COLUMN_NAME'][0])){
-                        $return[] = $field ;
+            foreach ($fields as $field) {
+                  if (!ctype_upper($field['COLUMN_NAME'][0])) {
+                        $return[] = $field;
                   }
             }
             return  $return;
       }
-      public function getLastInserted(){
+      public function getLastInserted()
+      {
             return intval($this->PDOInstance->lastInsertId());
+      }
+      public function getBlankInput($table)
+      {
+            $formFields = Database::getInstance()->getFields($table);
+            $recordset = [];
+            foreach ($formFields as $field) {
+                  $recordset[$field['COLUMN_NAME']] = Crud::defaultValue($field['COLUMN_TYPE']);
+            }
+            return $recordset;
       }
 }
