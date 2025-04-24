@@ -1,6 +1,6 @@
 <?php
-
 namespace Core\Model;
+include __DIR__ .'/../../config/plannings_json.php';
 
 use Core\Model\Database;
 
@@ -28,7 +28,7 @@ class Crud
       {
             Database::getInstance()->delete($table, $id);
       }
-      public static function defaultValue(string $type)
+      public static function defaultValue(string $type,$table=null)
       {
             date_default_timezone_set('Europe/Paris');
             $type = strtolower($type);
@@ -50,6 +50,12 @@ class Crud
             }
             
             if($type ==='json' ){
+                  if($table){
+                        switch($table){
+                              case 'plannings':
+                                    return json_encode(DEFAULT_PLANNING);
+                        }
+                  }
                   return null;
             }
 

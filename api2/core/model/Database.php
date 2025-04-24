@@ -102,7 +102,7 @@ class Database
             $formFields = Database::getInstance()->getFields($table);
             $recordset = [];
             foreach ($formFields as $field) {
-                  $recordset[$field['COLUMN_NAME']] = Crud::defaultValue($field['COLUMN_TYPE']);
+                  $recordset[$field['COLUMN_NAME']] = Crud::defaultValue($field['COLUMN_TYPE'],$table);
             }
             return $recordset;
       }

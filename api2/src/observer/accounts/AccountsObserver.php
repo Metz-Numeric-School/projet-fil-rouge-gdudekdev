@@ -23,7 +23,6 @@ class AccountsObserver
                         $this->delete($params);
                         break;
                   case 'add':
-                        echo "cas de l'ajout";
                         $this->add();
                         break;
             }
