@@ -1,6 +1,5 @@
 <?php
 namespace Core\Model;
-include __DIR__ .'/../../config/plannings_json.php';
 
 use Core\Model\Database;
 

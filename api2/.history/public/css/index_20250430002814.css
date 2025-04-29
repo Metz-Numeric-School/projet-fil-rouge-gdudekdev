@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+  color: black;
+}
+a:hover {
+  color: currentColor;
+}
+.container {
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* Accueil */
+.accueil__header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.137);
+  padding: 16px 8px;
+}
+.accueil__header-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.accueil__header-link {
+  color: red;
+  font-weight: bold;
+}
+
+.accueil__action {
+  display: flex;
+  gap: 16px;
+}
+.accueil__group-list {
+  margin-top: 24px;
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.accueil__group-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  min-width: 130px;
+  border: 1px solid black ;
+  border-radius: 5px;
+  background-color: grey;
+}
+
+/* CRUD */
+.crud__header {
+  display: flex;
+  align-items: center;
+  padding: 16px 0px;
+  margin-top: 24px;
+  gap: 24px;
+}
+.crud__main {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.crud__main--add {
+  width: fit-content;
+}
+.crud__back {
+  font-weight: 600;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.crud__back:hover {
+  color: red;
+}
+.crud__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.crud__table-cell-header {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.crud__table-header {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+.crud__table-body .crud__table-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.crud__table-body .crud__table-row:hover {
+  background-color: #f1f1f1;
+}
+
+.crud__table-cell {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.crud__table-btn {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.crud__table-btn--edit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.crud__table-btn--edit:hover {
+  background-color: #45a049;
+}
+
+.crud__table-btn--delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.crud__table-btn--delete:hover {
+  background-color: #e53935;
+}
+.crud__table-cta {
+  display: flex;
+  gap: 8px;
+}
+
+.form__header {
+  width: 100%;
+  padding: 16px 0;
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+.form__main{
+      display: flex;
+      justify-content: center;
+}
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+}
+
+fieldset {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+legend {
+  font-size: 1.2em;
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: 1em;
+  color: #333;
+  display: block;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: white;
+  transition: border 0.3s ease;
+}
+
+input[readonly] {
+  background-color: lightgray;
+}
+
+input[type="text"]:focus {
+  border: 1px solid #5c9ded;
+  outline: none;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
