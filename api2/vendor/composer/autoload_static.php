@@ -25,6 +25,8 @@ class ComposerStaticInit4ad04f04741d8b913b894c5b731e6f75
         array (
             'Back\\Model\\' => 11,
             'Back\\Controller\\' => 16,
+            'Back\\Accounts\\Model\\' => 20,
+            'Back\\Accounts\\Controller\\' => 25,
         ),
         'A' => 
         array (
@@ -61,6 +63,14 @@ class ComposerStaticInit4ad04f04741d8b913b894c5b731e6f75
         'Back\\Controller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/backoffice/controller',
+        ),
+        'Back\\Accounts\\Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/backoffice/accounts/model',
+        ),
+        'Back\\Accounts\\Controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/backoffice/accounts/controller',
         ),
         'Api\\Model\\' => 
         array (

@@ -1,0 +1,26 @@
+{
+  "name": "stagiaire/api2",
+  "autoload": {
+    "psr-4": {
+      "Back\\Controller\\":"src/backoffice/controller/",
+      "Back\\Model\\":"src/backoffice/model/",
+      "Back\\Controller\\":"src/backoffice/controller/",
+      "Back\\Model\\":"src/backoffice/model/",
+      "Core\\Model\\":"core/model/",
+      "Core\\Controller\\": "core/controller/",
+      "Config\\": "config/",
+      "Api\\Model\\": "src/api/model/",
+      "Api\\Controller\\": "src/api/controller/",
+      "Observer\\Accounts\\":"src/observer/accounts/"
+    }
+  },
+  "authors": [
+    {
+      "name": "gdudek",
+      "email": "gdudek.dev@gmail.com"
+    }
+  ],
+  "require": {
+    "firebase/php-jwt": "^6.11"
+  }
+}

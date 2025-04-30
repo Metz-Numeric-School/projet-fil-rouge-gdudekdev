@@ -13,6 +13,8 @@ return array(
     'Config\\' => array($baseDir . '/config'),
     'Back\\Model\\' => array($baseDir . '/src/backoffice/model'),
     'Back\\Controller\\' => array($baseDir . '/src/backoffice/controller'),
+    'Back\\Accounts\\Model\\' => array($baseDir . '/src/backoffice/accounts/model'),
+    'Back\\Accounts\\Controller\\' => array($baseDir . '/src/backoffice/accounts/controller'),
     'Api\\Model\\' => array($baseDir . '/src/api/model'),
     'Api\\Controller\\' => array($baseDir . '/src/api/controller'),
 );
