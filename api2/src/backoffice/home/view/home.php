@@ -1,15 +1,6 @@
 <?php
 $title = "Page d'accueil";
-include_once __DIR__ . "/../../../template/header_template.php";
-
-const TABLE_GROUP_NAME = [
-      'accounts' => 'Utilisateurs',
-      'rides' => 'Trajets',
-      'messages' => 'Conversations',
-      'vehicules' => 'Vehicules',
-      'others' => 'Autres',
-];
-
+include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
 ?>
 
 <body>
@@ -18,7 +9,7 @@ const TABLE_GROUP_NAME = [
                   <h1>Accueil du Back-office Carpool</h1>
                   <div class="accueil__header-links">
 
-                        <a href="index.php?page=logout" class="accueil__header-link">
+                        <a href="index.php?page=authentificate&logout=true" class="accueil__header-link">
                               <p>Se déconnecter</p>
                         </a>
                         <a href="/test.php" class="accueil__header-link">
@@ -46,8 +37,8 @@ const TABLE_GROUP_NAME = [
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Preferences</h4>
-                                          <a href="">Gérer les Utilisateurs</a>
-                                          <a href="">Ajouter un Utilisateur</a>
+                                          <a href="/index.php?page=preferences">Gérer les Préférences</a>
+                                          <a href="/index.php?page=preferences&mode=create">Ajouter une Préférence</a>
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Reactions</h4>

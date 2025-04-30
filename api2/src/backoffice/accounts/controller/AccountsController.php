@@ -1,8 +1,8 @@
 <?php
 
-namespace Back\Accounts\Controller;
+namespace Back\Accounts;
 
-use Back\Accounts\Model\AccountsModel;
+use Back\Accounts\AccountsModel;
 use Core\Model\Auth;
 
 class AccountsController
@@ -11,6 +11,7 @@ class AccountsController
       public function handle($params)
       {
             Auth::getInstance()->protect();
+            $table = 'accounts';
             $model = new AccountsModel;
             $recordset = $model->handle($params);
             if(isset($params['id'])){

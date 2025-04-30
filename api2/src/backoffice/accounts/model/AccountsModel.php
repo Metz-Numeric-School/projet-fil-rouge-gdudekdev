@@ -1,60 +1,60 @@
 <?php
 
-namespace Back\Accounts\Model;
+namespace Back\Accounts;
 
 use Core\Model\Database;
-// TODO potentiellemnt extends d'un modele abstract qui contiendrait le handle et les infos de config
+// TODO potentiellemnt extends d'un modele abstract qui contiendrait le handle et les infos de config pour lorsque que l'on devra traiter les autres table du crud qui nous interesse
 class AccountsModel
 {
       const array_accepted_key = [
             'accounts_id' => [
                   'title' => 'Numéro d\'identifiant',
                   'readonly' => true,
-                  'crud_show'=>true,
-                  'detail_show'=>false,
-                  'create_show'=>false,
+                  'crud_show' => true,
+                  'detail_show' => false,
+                  'create_show' => false,
                   'type' => "number",
             ],
             'accounts_fullname' => [
                   'title' => 'Nom complet',
-                  'detail_show'=>true,
-                  'create_show'=>true,
-                  'crud_show'=>true,
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
                   'readonly' => false,
             ],
             'accounts_email' => [
                   'title' => 'Email',
-                  'detail_show'=>true,
-                  'create_show'=>true,
-                  'crud_show'=>true,
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
                   'readonly' => false,
             ],
             'accounts_birthday' => [
                   'title' => 'Date d\'anniversaire',
-                  'detail_show'=>true,
-                  'create_show'=>true,
-                  'crud_show'=>false,
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => false,
                   'readonly' => false,
             ],
             'accounts_phone' => [
                   'title' => 'Numéro de téléphone',
-                  'detail_show'=>true,
-                  'create_show'=>true,
-                  'crud_show'=>false,
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => false,
                   'readonly' => false,
             ],
             'accounts_created_at' => [
                   'title' => 'Date de création',
-                  'detail_show'=>true,
-                  'create_show'=>false,
-                  'crud_show'=>false,
+                  'detail_show' => true,
+                  'create_show' => false,
+                  'crud_show' => false,
                   'readonly' => true,
             ],
             'accounts_password' => [
                   'title' => 'Mot de passe',
-                  'detail_show'=>false,
-                  'create_show'=>true,
-                  'crud_show'=>false,
+                  'detail_show' => false,
+                  'create_show' => true,
+                  'crud_show' => false,
                   'readonly' => false,
             ],
       ];
@@ -62,31 +62,20 @@ class AccountsModel
       {
             // Updating an account
             if (isset($params['id'])) {
-                  $recordset = Database::getInstance()->getOneFrom('accounts', 'accounts_id', $params['id']);
-                  $roles = $this->fetchRoles();
-                  $divisions = $this->fetchDivisions();
-                  $preferences = $this->fetchPreferences();
-                  $accountPreferences = [];
-                  foreach($this->fetchAccountPreferences($params['id']) as $accountPreference){
-                        $accountPreferences[] = $this->fetchPreferencesById($accountPreference['preferences_id']);
-                  }
                   $recordset = [
-                        "accounts" => $recordset,
-                        "roles" => $roles,
-                        "divisions" => $divisions,
-                        "preferences"=>$preferences,
-                        "accountPreferences" => $accountPreferences,
+                        "accounts" => Database::getInstance()->getOneFrom('accounts', 'accounts_id', $params['id']),
+                        "roles" => Database::getInstance()->getAllFrom('roles'),
+                        "divisions" => Database::getInstance()->getAllFrom('divisions'),
+                        "preferences" => Database::getInstance()->getAllFrom('preferences'),
+                        "accountPreferences" => $this->fetchAccountPreferences($params['id']),
                   ];
                   // Creating an account
             } else if (isset($params['mode']) && $params['mode'] == 'create') {
-                  $recordset = Database::getInstance()->getBlankInput("accounts");
-                  $roles = $this->fetchRoles();
-                  $divisions = $this->fetchDivisions();
-                 
                   $recordset = [
-                        "accounts" => $recordset,
-                        "roles" => $roles,
-                        "divisions" => $divisions,
+                        "accounts" => Database::getInstance()->getBlankInput("accounts"),
+                        "roles" => Database::getInstance()->getAllFrom('roles'),
+                        "divisions" => Database::getInstance()->getAllFrom('divisions'),
+                        "preferences" => Database::getInstance()->getAllFrom('preferences'),
                   ];
                   // Displaying all the accounts
             } else {
@@ -94,21 +83,21 @@ class AccountsModel
             }
             return $recordset;
       }
-      private function fetchRoles()
+    
+      private function fetchAccountsPreferencesData($id)
       {
-            return Database::getInstance()->getAllFrom('roles');
+            return Database::getInstance()->getAllFromWhere('accounts_preferences', ['stmt' => "accounts_id =:id", 'params' => [':id' => intval($id)]]);
       }
-      private function fetchDivisions()
+      private function fetchPreferencesById($id)
       {
-            return Database::getInstance()->getAllFrom('divisions');
+            return Database::getInstance()->getOneFrom('preferences', 'preferences_id', $id);
       }
-      private function fetchAccountPreferences($id){
-            return Database::getInstance()->getAllFromWhere('accounts_preferences',['stmt'=>"accounts_id =:id",'params'=>[':id'=>intval($id)]]);
-      }
-      private function fetchPreferencesById($id){
-            return Database::getInstance()->getOneFrom('preferences','preferences_id',$id);
-      }
-      private function fetchPreferences(){
-            return Database::getInstance()->getAllFrom('preferences');
+      private function fetchAccountPreferences($id)
+      {
+            $accountPreferences = [];
+            foreach ($this->fetchAccountsPreferencesData($id) as $accountPreference) {
+                  $accountPreferences[] = $this->fetchPreferencesById($accountPreference['preferences_id']);
+            }
+            return $accountPreferences;
       }
 }

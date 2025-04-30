@@ -2,26 +2,25 @@
 
 use Api\Controller\ApiFetchController;
 use Api\Controller\ApiLoginController;
-use Back\Accounts\Controller\AccountsController;
-use Back\Controller\HomeController;
-use Back\Controller\LoginController;
-use Back\Controller\LogoutController;
+use Back\Accounts\AccountsController;
+use Back\Authentificate\AuthentificateController;
 use Back\Controller\ProcessController;
+use Back\Home\HomeController;
+use Back\Preferences\PreferencesController;
 
 require '../vendor/autoload.php';
 include_once __DIR__ . "/../config/config.php";
-include_once __DIR__ .'/../config/plannings_json.php';
+
+
+
 
 if (isset($_GET['page'])) {
       $page = $_GET['page'];
       switch ($page) {
-            case 'login':
-                  $controller = new LoginController;
-                  $controller->handleLogin($_POST);
-                  break;
-            case 'logout':
-                  $controller = new LogoutController;
-                  $controller->handleLogout();
+            
+            case 'authentificate':
+                  $controller = new AuthentificateController;
+                  $controller->handleAuthentificate($_POST,$_GET);
                   break;
             case 'home':
                   $controller = new HomeController;
@@ -31,10 +30,15 @@ if (isset($_GET['page'])) {
                   $controller = new AccountsController;
                   $controller->handle($_GET);
                   break;
+            case 'preferences':
+                  $controller = new PreferencesController;
+                  $controller->handle($_GET);
+                  break;
             case 'process':
                   $controller = new ProcessController;
                   $controller->handleProcess($_GET, $_POST);
                   break;
+            
             default:
                   http_response_code(404);
                   die("page non trouvée");

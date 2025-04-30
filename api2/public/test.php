@@ -19,8 +19,6 @@ FactoryTable::getInstance();
 </body>
 </html>
 
-<!-- TODO desgin pattern observer + regarder pour les Middlewares from scratch ofc -->
- <!-- TODO voir si on peut stocker sous forme de tableau les éléments issus des champs des tables de la bdd -->
   <!-- TODO système de log lors de la connexion , ajout, modification et suppresion dans la bdd -->
 
 

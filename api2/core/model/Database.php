@@ -117,4 +117,10 @@ class Database
             $stmt->execute($bool['params']);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
+      public function deleteFromWhere($table,$bool){
+            var_dump("DELETE FROM $table WHERE " . $bool['stmt'] );
+            $stmt = $this->PDOInstance->prepare("DELETE FROM $table WHERE " . $bool['stmt'] );
+            $stmt->execute($bool['params']);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }
 }

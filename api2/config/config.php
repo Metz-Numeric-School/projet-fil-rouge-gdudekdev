@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 define( 'TABLE_GROUP' , [
       'accounts' => [
             'companies',
@@ -26,3 +26,4 @@ define( 'TABLE_GROUP' , [
 define('BACK_MANAGED_TABLE',[
       'accounts',
 ]);
+define('REDIRECT_PROTECT_PATH', 'index.php?page=authentificate');

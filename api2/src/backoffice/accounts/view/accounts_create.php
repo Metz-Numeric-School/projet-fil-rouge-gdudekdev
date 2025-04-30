@@ -1,14 +1,9 @@
 <?php
 
-use Back\Accounts\Model\AccountsModel;
+use Back\Accounts\AccountsModel;
 
 $title = "Page de création d'un compte";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
-$table = "accounts";
-$roles = $recordset['roles'];
-$divisions = $recordset['divisions'];
-$recordset = $recordset['accounts'];
-
 ?>
 <!-- TODO mettre tous les champs dans une grid pour bien les espacer (enlever les br)-->
 
@@ -33,7 +28,7 @@ $recordset = $recordset['accounts'];
                                                 type="<?= $value['create_show'] ? ($value['type'] ?? "text") : "hidden" ?>"
                                                 name="<?= $key ?>"
                                                 id="<?= $key ?>"
-                                                value="<?= $recordset[$key] ?>"
+                                                value="<?= $recordset['accounts'][$key] ?>"
                                                 class="form-control"
                                                 <?= $value['readonly'] ? "readonly='readonly'" : "" ?> />
                                     </div>
@@ -43,8 +38,8 @@ $recordset = $recordset['accounts'];
                               <!-- Gestion des clés étrangères -->
                               <h5>Role</h5>
                               <select name="roles_id" id="roles" class="form-control">
-                                    <?php foreach ($roles as $role): ?>
-                                          <option value="<?= htmlspecialchars($role['roles_id']) ?>" <?= ($role['roles_id'] === $recordset['roles_id']) ? 'selected' : '' ?>>
+                                    <?php foreach ($recordset['roles'] as $role): ?>
+                                          <option value="<?= htmlspecialchars($role['roles_id']) ?>" <?= ($role['roles_id'] === $recordset['accounts']['roles_id']) ? 'selected' : '' ?>>
                                                 <?= htmlspecialchars($role['roles_name']) ?>
                                           </option>
                                     <?php endforeach; ?>
@@ -52,8 +47,8 @@ $recordset = $recordset['accounts'];
                               <br>
                               <h5>Département de travail</h5>
                               <select name="divisions_id" id="divisions" class="form-control">+
-                                    <?php foreach ($divisions as $division): ?>
-                                          <option value="<?= htmlspecialchars($division['divisions_id']) ?>" <?= ($division['divisions_id'] === $recordset['divisions_id']) ? 'selected' : '' ?>>
+                                    <?php foreach ($recordset['divisions'] as $division): ?>
+                                          <option value="<?= htmlspecialchars($division['divisions_id']) ?>" <?= ($division['divisions_id'] === $recordset['accounts']['divisions_id']) ? 'selected' : '' ?>>
                                                 <?= htmlspecialchars($division['divisions_name']) ?>
                                           </option>
                                     <?php endforeach; ?>

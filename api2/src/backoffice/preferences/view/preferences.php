@@ -1,10 +1,9 @@
 <?php
 
-use Back\Accounts\AccountsModel;
+use Back\Preferences\PreferencesModel;
 
 $title = "Page de gestion des Utilisateurs";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
-
 ?>
 
 <body>
@@ -20,7 +19,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
                   <table class="crud__table">
                         <tr>
                               <td class=" crud__table-cell crud__table-cell-header ">Actions</td>
-                              <?php foreach (AccountsModel::array_accepted_key as $field): 
+                              <?php foreach (PreferencesModel::array_accepted_key as $field): 
                                     if($field['crud_show']){?>
                                     <td class=" crud__table-cell crud__table-cell-header "> <?= $field['title'] ?></td>
                                     <?php }?>
@@ -30,11 +29,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
-                                                <a href="index.php?page=accounts&id=<?= $row[$table . '_id']?>" class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
+                                                <a href="index.php?page=preferences&id=<?= $row[$table . '_id']?>" class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
                                                 <a href="index.php?page=process&table=<?= $table ?>&mode=remove&id=<?= $row[$table . '_id'] ?>" class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>
-                                    <?php foreach (AccountsModel::array_accepted_key as $key=>$value):  
+                                    <?php foreach (PreferencesModel::array_accepted_key as $key=>$value):  
                                           if($value['crud_show']){?>
                                           
                                           <td class="crud__table-cell"><?= $row[$key] ?></td>

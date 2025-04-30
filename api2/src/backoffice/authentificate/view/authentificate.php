@@ -1,9 +1,9 @@
 <?php 
-$title = "Login";
-include_once __DIR__ . "/../../../template/header_template.php";
+$title = "Connexion";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
 ?>
 <body>
-      <form action="/index.php?page=login" method="post">
+      <form action="/index.php?page=authentificate" method="post">
             <fieldset>
                   <label for="username">Utilisateur</label>
                   <input type="text" id="username"  name="username" placeholder="Utilisateur">

@@ -23,10 +23,12 @@ class ComposerStaticInit4ad04f04741d8b913b894c5b731e6f75
         ),
         'B' => 
         array (
+            'Back\\Preferences\\' => 17,
             'Back\\Model\\' => 11,
+            'Back\\Home\\' => 10,
             'Back\\Controller\\' => 16,
-            'Back\\Accounts\\Model\\' => 20,
-            'Back\\Accounts\\Controller\\' => 25,
+            'Back\\Authentificate\\' => 20,
+            'Back\\Accounts\\' => 14,
         ),
         'A' => 
         array (
@@ -56,21 +58,33 @@ class ComposerStaticInit4ad04f04741d8b913b894c5b731e6f75
         array (
             0 => __DIR__ . '/../..' . '/config',
         ),
+        'Back\\Preferences\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/backoffice/preferences/model',
+            1 => __DIR__ . '/../..' . '/src/backoffice/preferences/controller',
+        ),
         'Back\\Model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/backoffice/model',
+        ),
+        'Back\\Home\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/backoffice/home/model',
+            1 => __DIR__ . '/../..' . '/src/backoffice/home/controller',
         ),
         'Back\\Controller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/backoffice/controller',
         ),
-        'Back\\Accounts\\Model\\' => 
+        'Back\\Authentificate\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/backoffice/authentificate/model',
+            1 => __DIR__ . '/../..' . '/src/backoffice/authentificate/controller',
+        ),
+        'Back\\Accounts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/backoffice/accounts/model',
-        ),
-        'Back\\Accounts\\Controller\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/backoffice/accounts/controller',
+            1 => __DIR__ . '/../..' . '/src/backoffice/accounts/controller',
         ),
         'Api\\Model\\' => 
         array (

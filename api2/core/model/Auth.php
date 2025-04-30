@@ -9,7 +9,7 @@ use Throwable;
 class Auth
 {
       private static $instance = null;
-
+      private static $redirect_protect_path = REDIRECT_PROTECT_PATH ?? "";
       public static function getInstance()
       {
             if (is_null(self::$instance)) {
@@ -18,14 +18,12 @@ class Auth
             return self::$instance;
       }
       public function verify(string $email, string $password)
-      {
+      {     var_dump($email);
+            var_dump($password);
             if ($password == $this->getPassword($email)) {
-                  session_start();
                   $_SESSION['is_logged'] = true;
             } else {
-                  throw new Exception("Nom d'utilisateur ou mot de passe incorrect");
-                  header("Location: index.php?page=login");
-                  exit();
+                  $this->redirect();
             }
       }
 
@@ -53,10 +51,8 @@ class Auth
 
       public function protect()
       {
-            session_start();
             if (!isset($_SESSION['is_logged']) || $_SESSION['is_logged'] != true) {
-                  header("Location: index.php?page=login");
-                  exit();
+                  $this->redirect();
             }
       }
       public function protectApiAccess($data)
@@ -83,16 +79,18 @@ class Auth
                   return $user['accounts_password'];
             } catch (Throwable $e) {
                   throw $e;
-                  header("Location: login.php");
-                  exit();
+                  $this->redirect();
             }
       }
       public function disconnect()
-      {
-            session_start();
+      {     
+            echo'here';
             $_SESSION['is_logged'] = false;
             session_destroy();
-            header("Location: /index.php?page=login");
+            $this->redirect();
+      }
+      private function redirect(){
+            header("Location: " . self::$redirect_protect_path);
             exit();
       }
 }

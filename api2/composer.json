@@ -2,16 +2,30 @@
   "name": "stagiaire/api2",
   "autoload": {
     "psr-4": {
-      "Back\\Controller\\":"src/backoffice/controller/",
-      "Back\\Model\\":"src/backoffice/model/",
-      "Back\\Accounts\\Controller\\":"src/backoffice/accounts/controller/",
-      "Back\\Accounts\\Model\\":"src/backoffice/accounts/model/",
-      "Core\\Model\\":"core/model/",
+      "Back\\Controller\\": "src/backoffice/controller/",
+      "Back\\Model\\": "src/backoffice/model/",
+      "Back\\Accounts\\": [
+        "src/backoffice/accounts/model/",
+        "src/backoffice/accounts/controller/"
+      ],
+      "Back\\Preferences\\": [
+        "src/backoffice/preferences/model/",
+        "src/backoffice/preferences/controller/"
+      ],
+      "Back\\Home\\": [
+        "src/backoffice/home/model/",
+        "src/backoffice/home/controller/"
+      ],
+      "Back\\Authentificate\\": [
+        "src/backoffice/authentificate/model/",
+        "src/backoffice/authentificate/controller/"
+      ],
+      "Core\\Model\\": "core/model/",
       "Core\\Controller\\": "core/controller/",
       "Config\\": "config/",
       "Api\\Model\\": "src/api/model/",
       "Api\\Controller\\": "src/api/controller/",
-      "Observer\\Accounts\\":"src/observer/accounts/"
+      "Observer\\Accounts\\": "src/observer/accounts/"
     }
   },
   "authors": [

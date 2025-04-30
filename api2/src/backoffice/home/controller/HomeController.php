@@ -1,6 +1,6 @@
 <?php 
 
-namespace Back\Controller;
+namespace Back\Home;
 
 use Core\Model\Auth;
 
