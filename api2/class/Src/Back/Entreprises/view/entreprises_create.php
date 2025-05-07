@@ -1,8 +1,8 @@
 <?php
 
-use Src\Entity\Accounts;
+use Src\Entity\Entreprises;
 
-$title = "Page de création d'un compte";
+$title = "Page d'ajout d'une entreprise";
 include_once ROOT . "/view/template/header_template.php";
 ?>
 
@@ -11,14 +11,14 @@ include_once ROOT . "/view/template/header_template.php";
 
             <div class="crud__header">
                   <div class="crud__header-cta">
-                        <a href="index.php?page=accounts" class="crud__table-btn">
+                        <a href="index.php?page=entreprises" class="crud__table-btn">
                               <\Retour </a>
                   </div>
                               <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=accounts">
-                        <?php foreach (Accounts::$array_accepted_key as $key => $value): ?>
+                  <form method="post" action="index.php?page=handlers&table=entreprises">
+                        <?php foreach (Entreprises::$array_accepted_key as $key => $value): ?>
                               <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>
                               <div class="form-group">
                                           <?php if (str_contains($key, "_id")) { ?>
@@ -29,14 +29,14 @@ include_once ROOT . "/view/template/header_template.php";
                                                                   $obj = new $class($value);
                                                             ?>
                                                              <option value="<?= $obj->id()?>"
-                                                                        <?= ($obj->id() === $account->{$key .'_id'}()) ? 'selected' : '' ?>>
+                                                                        <?= ($obj->id() === $entreprise->{$key .'_id'}()) ? 'selected' : '' ?>>
                                                                         <?= $obj->name() ?>
                                                                         </option>
                                                       <?php endforeach; ?>
                                                 </select>
                                           <?php } else { ?>
                                                 <input type="<?= $value['create_show'] ? ($value['type'] ?? "text") : "hidden" ?>"
-                                                      name="<?= 'accounts_' . $key ?>" id="<?= $key ?>" value="<?= $account->{$key}() ?>"
+                                                      name="<?= 'entreprises_' . $key ?>" id="<?= $key ?>" value="<?= $entreprise->{$key}() ?>"
                                                       class="form-control" <?= $value['readonly'] ? "readonly='readonly'" : "" ?>
                                                       <?= $value['required'] ?? false ? 'required' : ''?>>
                                           <?php } ?>

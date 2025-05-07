@@ -10,20 +10,20 @@ include_once ROOT . "/view/template/header_template.php";
       <div class="container">
 
             <div class="crud__header">
-                  <a href="index.php?page=accounts" class="crud__back">
-                        <\Retour </a>
-                              <h2><?= ucfirst($title) ?></h2>
+                  <div class="crud__header-cta">
+                        <a href="index.php?page=accounts" class="crud__table-btn">
+                              <\Retour </a>
                               <a href="index.php?page=handlers&table=accounts&remove&id=<?= $account->id()?>" 
-                                    class="crud__table-btn crud__table-btn--delete">Supprimer le compte</a>
-                              <a href="" style="text-decoration: underline">Faire une demande de récupération de mot de
-                                    passe</a>
+                              class="crud__table-btn crud__table-btn--delete">Supprimer</a>
+                        </div>
+                        <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
                   <form method="post" action="index.php?page=handlers&table=accounts">
                         <?php foreach (Accounts::$array_accepted_key as $key => $value): ?>
                               <?= $value['detail_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>
                               <div class="form-group">
-                                          <?php if (str_contains($key, "_id") && $key !=='preferences_id') { ?>
+                                          <?php if (str_contains($key, "_id")) { ?>
                                                 <select name="<?= $key?>" id="<?= $key?>" class="form-control">
                                                       <?php $key = str_replace('_id', '', $key);
                                                             foreach ($$key as $value):

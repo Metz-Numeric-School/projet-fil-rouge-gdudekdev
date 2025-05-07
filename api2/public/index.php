@@ -19,6 +19,10 @@ if (isset($_GET['page'])) {
                   $controller = new \Src\Back\Accounts\Controller\Accounts;
                   $controller->handle(array('GET'=>$_GET,'POST'=>$_POST));
                   break;
+            case 'entreprises':
+                  $controller = new \Src\Back\Entreprises\Controller\Entreprises;
+                  $controller->handle(array('GET'=>$_GET,'POST'=>$_POST));
+                  break;
             case 'handlers':
                   \Src\Handlers\Handlers::instance()->handle($_GET,$_POST);
                   break;

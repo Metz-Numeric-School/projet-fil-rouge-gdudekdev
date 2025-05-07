@@ -2,19 +2,19 @@
 
 namespace Src\Entity;
 
-class Divisions
+class Entreprises
 {
       public static $array_accepted_key = [
             'id' => [
-                  'title' => 'Identifiant de la division',
+                  'title' => 'Identifiant de l\'entreprise',
                   'readonly' => true,
-                  'crud_show' => false,
+                  'crud_show' => true,
                   'detail_show' => false,
                   'create_show' => false,
                   'type' => "number",
             ],
             'name' => [
-                  'title' => 'Nom de la division',
+                  'title' => 'Nom de l\'entreprise',
                   'detail_show' => true,
                   'create_show' => true,
                   'crud_show' => true,
@@ -31,9 +31,10 @@ class Divisions
             ],
             
       ];
+
       private $id = 0;
       private $name = "";
-      private $entreprises_id = 0;
+      private $location = "";
 
 
       public function __construct($data = null)
@@ -45,9 +46,9 @@ class Divisions
       }
       private function hydrate($data)
       {
-            $this->id = $data['divisions_id'];
-            $this->name = $data['divisions_name'];
-            $this->entreprises_id = $data['entreprises_id'];
+            $this->id = $data['entreprises_id'];
+            $this->name = $data['entreprises_name'];
+            $this->location = $data['entreprises_location'];
             
       }
 
@@ -69,14 +70,12 @@ class Divisions
       {
             $this->name = $value;
       }
-      public function entreprises_id()
+      public function location()
       {
-            return htmlspecialchars( $this->entreprises_id);
+            return htmlspecialchars( $this->location);
       }
-      public function setEntreprises_id(int $value)
+      public function setLocation(string $value)
       {
-            if (is_numeric($value) && $value !== 0) {
-                  $this->entreprises_id = $value;
-            }
+            $this->location = $value;
       }
 }

@@ -7,7 +7,6 @@ use Src\Controller\Auth;
 
 class Accounts
 {
-      private $table = 'accounts';
       public function handle($params)
       {
             Auth::getInstance()->protect();

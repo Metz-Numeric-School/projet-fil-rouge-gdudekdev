@@ -1,9 +1,7 @@
 <?php
 $title = "Page d'accueil";
 require ROOT . '/view/template/header_template.php';
-var_dump(ROOT);
 ?>
-
 <body>
       <div class="container">
             <div class="accueil__header">
@@ -22,15 +20,15 @@ var_dump(ROOT);
                                     <div class="accueil__group-item">
                                           <h4>Utilisateurs</h4>
                                           <a href="/index.php?page=accounts">Gérer les Utilisateurs</a>
-                                          <a href="/index.php?page=accounts&mode=create">Ajouter un Utilisateur</a>
-                                    </div>
-                                    <div class="accueil__group-item">
-                                          <h4>Vehicules</h4>
-                                          <a href="">Gérer les Utilisateurs</a>
-                                          <a href="">Ajouter un Utilisateur</a>
+                                          <a href="/index.php?page=accounts&add">Ajouter un Utilisateur</a>
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Entreprises</h4>
+                                          <a href="/index.php?page=entreprises">Gérer les Entreprises</a>
+                                          <a href="/index.php?page=entreprises&add">Ajouter une Entreprise</a>
+                                    </div>
+                                    <div class="accueil__group-item">
+                                          <h4>Vehicules</h4>
                                           <a href="">Gérer les Utilisateurs</a>
                                           <a href="">Ajouter un Utilisateur</a>
                                     </div>

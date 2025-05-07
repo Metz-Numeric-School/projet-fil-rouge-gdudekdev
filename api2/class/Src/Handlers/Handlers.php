@@ -4,7 +4,7 @@ namespace Src\Handlers;
 
 use Src\Controller\Auth;
 
-class Handlers extends \Core\Model\Handlers
+class Handlers
 {
       private static $instance;
 
@@ -17,7 +17,7 @@ class Handlers extends \Core\Model\Handlers
       }
       public function handle($url, $data)
       {
-            var_dump($url,$data);
+            
             Auth::getInstance()->protect();
             if (isset($url['table'])) {
                   switch ($url['table']) {
@@ -27,6 +27,13 @@ class Handlers extends \Core\Model\Handlers
                         case 'accounts_preferences':
                               Accounts_Preferences::instance()->handle($url, $data);
                               break;
+                        case 'entreprises':
+                              Entreprises::instance()->handle($url, $data);
+                              break;
+                        case 'divisions':
+                              Divisions::instance()->handle($url, $data);
+                              break;
+
                   }
             }
       }

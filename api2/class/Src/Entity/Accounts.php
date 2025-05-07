@@ -61,14 +61,14 @@ class Accounts
             'roles_id' => [
                   'title' => 'Roles',
                   'detail_show' => true,
-                  'create_show' => false,
+                  'create_show' => true,
                   'crud_show' => false,
                   'readonly' => false,
             ],
             'divisions_id' => [
                   'title' => 'Divisions',
                   'detail_show' => true,
-                  'create_show' => false,
+                  'create_show' => true,
                   'crud_show' => false,
                   'readonly' => false,
             ],
