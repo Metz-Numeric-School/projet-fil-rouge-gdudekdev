@@ -1,44 +1,31 @@
 <?php
-
-use Api\Controller\ApiFetchController;
-use Api\Controller\ApiLoginController;
-use Back\Accounts\AccountsController;
-use Back\Authentificate\AuthentificateController;
-use Back\Controller\ProcessController;
-use Back\Home\HomeController;
-use Back\Preferences\PreferencesController;
-
-require '../vendor/autoload.php';
-include_once __DIR__ . "/../config/config.php";
-
-
+require dirname(__DIR__). '/class/src/App.php';
+App::_init();
 
 
 if (isset($_GET['page'])) {
       $page = $_GET['page'];
       switch ($page) {
             
-            case 'authentificate':
-                  $controller = new AuthentificateController;
-                  $controller->handleAuthentificate($_POST,$_GET);
+            case 'authenticate':
+                  $controller = new \Src\Back\Authenticate\Controller\Authenticate;
+                  $controller->authenticate($_POST,$_GET);
                   break;
             case 'home':
-                  $controller = new HomeController;
-                  $controller->handleHome();
+                  $controller = new \Src\Back\Home\Controller\Home;
+                  $controller->handleHome();    
                   break;
             case 'accounts':
-                  $controller = new AccountsController;
-                  $controller->handle($_GET);
+                  $controller = new \Src\Back\Accounts\Controller\Accounts;
+                  $controller->handle(array('GET'=>$_GET,'POST'=>$_POST));
+                  break;
+            case 'handlers':
+                  \Src\Handlers\Handlers::instance()->handle($_GET,$_POST);
                   break;
             case 'preferences':
                   $controller = new PreferencesController;
                   $controller->handle($_GET);
                   break;
-            case 'process':
-                  $controller = new ProcessController;
-                  $controller->handleProcess($_GET, $_POST);
-                  break;
-            
             default:
                   http_response_code(404);
                   die("page non trouvée");

@@ -1,29 +1,8 @@
 <?php 
 session_start();
-define( 'TABLE_GROUP' , [
-      'accounts' => [
-            'companies',
-            'plannings',
-            'preferences',
-            'routes'
-      ],
-      'rides' => [
-            'bookings',
 
-      ],
-      'messages' => [
-            'messages'
-      ],
-      'vehicules' => [
-            'car_brands',
-            'car_colors',
-            'car_models'
-      ],
-      'others' => [
-            'ratings'
-      ]
-]);
-define('BACK_MANAGED_TABLE',[
-      'accounts',
-]);
-define('REDIRECT_PROTECT_PATH', 'index.php?page=authentificate');
+define('ROOT', dirname(__DIR__));
+define('REDIRECT_PROTECT_PATH', 'index.php?page=authenticate');
+define("DEFAULT_DSN","mysql:dbname=carpool;host=localhost");
+define("DEFAULT_HOST","root");
+define("DEFAULT_PASS","");
