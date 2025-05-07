@@ -17,6 +17,7 @@ class Accounts extends Handlers
       }
       public function handle($url, $data)
       {     
+            
             if (sizeof($data) == 0) {
                   if (isset($url['remove']) && isset($url['id'])) {
                         $this->delete('accounts', $url['id']);
@@ -44,7 +45,7 @@ class Accounts extends Handlers
                         $acc_pref_data['accounts_id'] = $acc_data['accounts_id'];
                         \Src\Handlers\Handlers::instance()->handle(['table'=>'accounts_preferences'],$acc_pref_data);
                         $this->save('accounts', $acc_data);
-      
+                        var_dump($acc_data);
                         header("Location: index.php?page=accounts&id=" . $acc_data['accounts_id']);
                         exit();
                   }

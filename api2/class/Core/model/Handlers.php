@@ -7,9 +7,10 @@ use App;
 class Handlers
 {
       protected function save(string $table, array $data)
-      {     
+      {           
             if (isset($data[$table . '_id'])) {
                   if ($data[$table . '_id'] !== "0") {
+                        var_dump($data);
                         $this->update($table, $data);
                   } else {
                         $this->add($table, $data);

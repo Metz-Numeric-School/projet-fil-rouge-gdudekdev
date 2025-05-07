@@ -17,7 +17,7 @@ if (isset($_GET['page'])) {
                   break;
             case 'accounts':
                   $controller = new \Src\Back\Accounts\Controller\Accounts;
-                  $controller->handle(array('GET'=>$_GET,'POST'=>$_POST));
+                  $controller->handle($_GET);
                   break;
             case 'entreprises':
                   $controller = new \Src\Back\Entreprises\Controller\Entreprises;
@@ -27,7 +27,7 @@ if (isset($_GET['page'])) {
                   \Src\Handlers\Handlers::instance()->handle($_GET,$_POST);
                   break;
             case 'preferences':
-                  $controller = new PreferencesController;
+                  $controller = new \Src\Back\Preferences\Controller\Preferences;
                   $controller->handle($_GET);
                   break;
             default:

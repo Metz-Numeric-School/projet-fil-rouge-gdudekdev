@@ -64,35 +64,6 @@ class Database
             $stmt = self::$PDOInstance->prepare("INSERT INTO $table $sql");
             $stmt->execute($execute);
       }
-      public function getFields(string $table)
-      {
-            $stmt = self::$PDOInstance->prepare("SELECT COLUMN_NAME,COlUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE  TABLE_NAME = '" . $table . "'");
-            $stmt->execute();
-
-
-            $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $return = [];
-            // Removing useless field name given by sql request on table names(they only contain uppercased char)
-            foreach ($fields as $field) {
-                  if (!ctype_upper($field['COLUMN_NAME'][0])) {
-                        $return[] = $field;
-                  }
-            }
-            return  $return;
-      }
-      public function getLastInserted()
-      {
-            return intval($this->PDOInstance->lastInsertId());
-      }
-      public function getBlankInput($table)
-      {
-            $formFields = $this->getFields($table);
-            $recordset = [];
-            foreach ($formFields as $field) {
-                  $recordset[$field['COLUMN_NAME']] = Crud::defaultValue($field['COLUMN_TYPE'],$table);
-            }
-            return $recordset;
-      }
       /**
        * @var table : table name
        * @var bool  : associative array formated as follow

@@ -35,7 +35,7 @@ require ROOT . '/view/template/header_template.php';
                                     <div class="accueil__group-item">
                                           <h4>Preferences</h4>
                                           <a href="/index.php?page=preferences">Gérer les Préférences</a>
-                                          <a href="/index.php?page=preferences&mode=create">Ajouter une Préférence</a>
+                                          <a href="/index.php?page=preferences&add">Ajouter une Préférence</a>
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Reactions</h4>

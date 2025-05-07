@@ -33,6 +33,9 @@ class Handlers
                         case 'divisions':
                               Divisions::instance()->handle($url, $data);
                               break;
+                        case 'preferences':
+                              Preferences::instance()->handle($url, $data);
+                              break;
 
                   }
             }

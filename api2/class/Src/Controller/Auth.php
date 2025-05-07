@@ -18,8 +18,7 @@ class Auth
             return self::$instance;
       }
       public function verify(string $email, string $password)
-      {     var_dump($email);
-            var_dump($password);
+      {    
             if ($password == $this->getPassword($email)) {
                   $_SESSION['is_logged'] = true;
             } else {

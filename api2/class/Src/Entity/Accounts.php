@@ -58,20 +58,6 @@ class Accounts
                   'readonly' => false,
                   'required' => true,
             ],
-            'roles_id' => [
-                  'title' => 'Roles',
-                  'detail_show' => true,
-                  'create_show' => true,
-                  'crud_show' => false,
-                  'readonly' => false,
-            ],
-            'divisions_id' => [
-                  'title' => 'Divisions',
-                  'detail_show' => true,
-                  'create_show' => true,
-                  'crud_show' => false,
-                  'readonly' => false,
-            ],
       ];
 
       private $id = 0;

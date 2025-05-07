@@ -4,8 +4,28 @@ namespace Src\Entity;
 
 class Preferences
 {
+      public static $array_accepted_key = [
+            'id' => [
+                  'title' => 'Identifiant de la preférence',
+                  'readonly' => true,
+                  'crud_show' => true,
+                  'detail_show' => false,
+                  'create_show' => false,
+                  'type' => "number",
+            ],
+            'name' => [
+                  'title' => 'Nom de la preférence',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ]
+      ];
+
       private $id = 0;
       private $name = "";
+
 
       public function __construct($data = null)
       {

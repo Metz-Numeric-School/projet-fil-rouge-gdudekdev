@@ -1,43 +1,50 @@
 <?php
 
-use Back\Preferences\PreferencesModel;
+use Src\Entity\Preferences;
 
-$title = "Page de gestion des Utilisateurs";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/../template/header_template.php";
+include_once ROOT . "/view/template/header_template.php";
 ?>
 
 <body>
       <div class="container">
 
             <div class="crud__header">
-                  <a href="index.php?page=home" class="crud__back">
-                        <\Retour </a>
-                              <h2><?= ucfirst($title) ?></h2>
+                  <div class="crud__header-cta">
+                        <a href="index.php?page=home" class="crud__table-btn">
+                              <\Retour </a>
+                                    <a href="/index.php?page=preferences&add" class="crud__table-btn crud__table-btn--edit">Ajouter</a>
+
+                  </div>
+                  <h2><?= ucfirst($title) ?></h2>
 
             </div>
             <div class="crud__main">
                   <table class="crud__table">
                         <tr>
                               <td class=" crud__table-cell crud__table-cell-header ">Actions</td>
-                              <?php foreach (PreferencesModel::array_accepted_key as $field): 
-                                    if($field['crud_show']){?>
-                                    <td class=" crud__table-cell crud__table-cell-header "> <?= $field['title'] ?></td>
-                                    <?php }?>
+                              <?php foreach (Preferences::$array_accepted_key as $field):
+                                    if ($field['crud_show']) { ?>
+                                          <td class=" crud__table-cell crud__table-cell-header "> <?= $field['title'] ?></td>
+                                    <?php } ?>
                               <?php endforeach ?>
                         </tr>
-                        <?php foreach ($recordset as $row): ?>
+                        <?php foreach ($preferences as $preference): 
+                              $preference = new Preferences($preference)?>
+                              
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
-                                                <a href="index.php?page=preferences&id=<?= $row[$table . '_id']?>" class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
-                                                <a href="index.php?page=process&table=<?= $table ?>&mode=remove&id=<?= $row[$table . '_id'] ?>" class="crud__table-btn crud__table-btn--delete">X</a>
+                                                <a href="index.php?page=preferences&id=<?= $preference->id() ?>"
+                                                      class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
+                                                <a href="index.php?page=handlers&table=preferences&remove&id=<?= $preference->id() ?>"
+                                                      class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>
-                                    <?php foreach (PreferencesModel::array_accepted_key as $key=>$value):  
-                                          if($value['crud_show']){?>
-                                          
-                                          <td class="crud__table-cell"><?= $row[$key] ?></td>
-                                          <?php }?>
+                                    <?php foreach (Preferences::$array_accepted_key as $key => $value):  
+                                          if ($value['crud_show']) { 
+                                                $method = str_replace('preferences_' , '', $key)?>
+                                                <td class="crud__table-cell"><?= $preference->$method() ?></td>
+                                          <?php } ?>
                                     <?php endforeach ?>
                               </tr>
                         <?php endforeach ?>

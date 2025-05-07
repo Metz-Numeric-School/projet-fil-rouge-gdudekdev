@@ -20,8 +20,8 @@ class Entreprises extends Handlers
             if (sizeof($data) == 0) {
                   if (isset($url['remove']) && isset($url['id'])) {
                         $this->delete('entreprises', $url['id']);
-                        // \Src\Handlers\Handlers::instance()->handle(['table'=>'entreprises_preferences'],['entreprises_id'=>$url['id']]);
-                        header("Location: index.php?page=" . 'entreprises');
+                        \Src\Handlers\Handlers::instance()->handle(['table'=>'divisions','entreprises_id'=>$url['id']],[]);
+                        header("Location: index.php?page=entreprises");
                         exit();
                   }
             } else {

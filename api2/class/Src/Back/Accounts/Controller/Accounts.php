@@ -7,15 +7,15 @@ use Src\Controller\Auth;
 
 class Accounts
 {
-      public function handle($params)
+      public function handle($url)
       {
             Auth::getInstance()->protect();
             $title = "Page de gestion des Utilisateurs";
             $model = new \Src\Back\Accounts\Model\Accounts;
-            extract($model->handle($params));
-            if (isset($params['GET']['id'])) {
+            extract($model->handle($url));
+            if (isset($url['id'])) {
                   include __DIR__ . '/../view/accounts_detail.php';
-            } else if (isset($params['GET']['add'])) {
+            } else if (isset($url['add'])) {
                   include __DIR__ . '/../view/accounts_create.php';
             } else {
                   include __DIR__ . '/../view/accounts.php';
