@@ -18,6 +18,7 @@ class Routes
       {
             // Case where the account associated is deleted
             if (isset($data['account_id'])) {
+                  \Src\Handlers\Handlers::instance()->handle(['table'=>'rides'],['account_id'=>$data['account_id']]);
                   App::$db->deleteFromWhere('routes', ['stmt' => 'accounts_id = :accounts_id', 'params' => [':accounts_id' => $data['account_id']]]);
             } else {
                   if (sizeof($data) == 0) {
