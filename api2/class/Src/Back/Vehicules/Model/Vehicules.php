@@ -44,7 +44,15 @@ class Vehicules
       {
             $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id=:accounts_id', 'params' => [':accounts_id' => $id]]);
             $account_id = htmlspecialchars($id);
+            foreach($vehicules as $vehicule){
+                  $vehicule = new \Src\Entity\Vehicules($vehicule);
+                  $models[] =  App::$db->getOneFrom('car_models','car_models_id',$vehicule->car_models_id())['car_models_name'];
+                  $brandId =  App::$db->getOneFrom('car_models','car_models_id',$vehicule->car_models_id())['car_brands_id'];
+                  $brands[] =  App::$db->getOneFrom('car_brands','car_brands_id',$brandId)['car_brands_name'];
+                  $colors[] =  App::$db->getOneFrom('car_colors','car_colors_id',$vehicule->car_colors_id())['car_colors_name'];
+                  $engines[] =  App::$db->getOneFrom('car_engines','car_engines_id',$vehicule->car_engines_id())['car_engines_name'];
+            }
             return
-                  compact(["vehicules", "account_id"], ["vehicules", "account_id"]);
+                  compact(["vehicules","models","brands","colors","engines", "account_id"], ["vehicules","models","brands","colors","engines", "account_id"]);
       }
 }

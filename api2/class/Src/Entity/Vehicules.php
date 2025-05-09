@@ -8,7 +8,7 @@ class Vehicules
             'id' => [
                   'title' => 'Identifiant du véhicule',
                   'readonly' => true,
-                  'crud_show' => true,
+                  'crud_show' => false,
                   'detail_show' => false,
                   'create_show' => false,
                   'type' => "number",

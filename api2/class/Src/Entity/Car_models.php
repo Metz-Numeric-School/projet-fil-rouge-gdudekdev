@@ -4,6 +4,24 @@ namespace Src\Entity;
 
 class Car_models
 {
+      public static $array_accepted_key = [
+            'id' => [
+                  'title' => 'Identifiant du modèle',
+                  'readonly' => true,
+                  'crud_show' => false,
+                  'detail_show' => false,
+                  'create_show' => false,
+                  'type' => "number",
+            ],
+            'name' => [
+                  'title' => 'Nom du modèle',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ],
+      ];
       private $id = 0;
       private $name = "";
       private $car_brands_id = 0;

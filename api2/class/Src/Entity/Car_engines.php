@@ -4,6 +4,24 @@ namespace Src\Entity;
 
 class Car_engines
 {
+      public static $array_accepted_key = [
+            'id' => [
+                  'title' => 'Identifiant de la motorisation',
+                  'readonly' => true,
+                  'crud_show' => false,
+                  'detail_show' => false,
+                  'create_show' => false,
+                  'type' => "number",
+            ],
+            'name' => [
+                  'title' => 'Nom de la motorisation',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ],
+      ];
       private $id = 0;
       private $name = "";
 

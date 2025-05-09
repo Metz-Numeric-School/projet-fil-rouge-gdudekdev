@@ -4,6 +4,33 @@ namespace Src\Entity;
 
 class Car_colors
 {
+      public static $array_accepted_key = [
+            'id' => [
+                  'title' => 'Identifiant de la couleur',
+                  'readonly' => true,
+                  'crud_show' => false,
+                  'detail_show' => false,
+                  'create_show' => false,
+                  'type' => "number",
+            ],
+            'name' => [
+                  'title' => 'Nom de la couleur',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ],
+            'hexa' => [
+                  'title' => 'Hexa de la couleur',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => false,
+            ],
+            
+      ];
       private $id = 0;
       private $name = "";
       private $hexa = "";

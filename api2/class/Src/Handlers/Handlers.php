@@ -39,6 +39,9 @@ class Handlers
                         case 'vehicules':
                               Vehicules::instance()->handle($url, $data);
                               break;
+                        case 'cars':
+                              Cars::instance()->handle($url, $data);
+                              break;
 
                   }
             }

@@ -8,7 +8,7 @@ class Accounts
             'id' => [
                   'title' => 'Numéro d\'identifiant',
                   'readonly' => true,
-                  'crud_show' => true,
+                  'crud_show' => false,
                   'detail_show' => false,
                   'create_show' => false,
                   'type' => "number",

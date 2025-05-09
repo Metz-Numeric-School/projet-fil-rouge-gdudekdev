@@ -43,6 +43,7 @@ if (isset($_GET['page'])) {
                   die("page non trouvée");
       }
 }
+// TODO refarie le logout qui ne marche plus
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
       http_response_code(200);
       exit();

@@ -4,6 +4,33 @@ namespace Src\Entity;
 
 class Car_brands
 {
+      public static $array_accepted_key = [
+            'id' => [
+                  'title' => 'Identifiant de la marque',
+                  'readonly' => true,
+                  'crud_show' => false,
+                  'detail_show' => false,
+                  'create_show' => false,
+                  'type' => "number",
+            ],
+            'name' => [
+                  'title' => 'Nom de la marque',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ],
+            'logo' => [
+                  'title' => 'Logo de la marque',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => false,
+                  'readonly' => false,
+                  'required' => false,
+            ],
+            
+      ];
       private $id = 0;
       private $name = "";
       private $logo = "";
