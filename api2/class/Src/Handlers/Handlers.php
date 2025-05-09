@@ -36,6 +36,9 @@ class Handlers
                         case 'preferences':
                               Preferences::instance()->handle($url, $data);
                               break;
+                        case 'vehicules':
+                              Vehicules::instance()->handle($url, $data);
+                              break;
 
                   }
             }

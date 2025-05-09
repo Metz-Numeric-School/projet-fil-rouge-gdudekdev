@@ -22,6 +22,7 @@ const savedDivisionId = <?= $account->divisions_id()?>;
                               class="crud__table-btn crud__table-btn--delete">Supprimer</a>
                         </div>
                         <h2><?= ucfirst($title) ?></h2>
+                        <a href="index.php?page=vehicules&accounts_id=<?= $account->id()?>" class='crud__table-btn'>Voir les véhicules de l'utilisateur</a>
             </div>
             <div class="form__main">
                   <form method="post" action="index.php?page=handlers&table=accounts">

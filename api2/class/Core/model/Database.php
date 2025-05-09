@@ -85,4 +85,8 @@ class Database
             $stmt->execute($bool['params']);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
+      public function getLastInserted()
+      {
+            return intval($this->PDOInstance->lastInsertId());
+      }
 }

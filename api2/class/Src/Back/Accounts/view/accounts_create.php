@@ -9,7 +9,6 @@ include_once ROOT . "/view/template/header_template.php";
 ?>
 <script>
 const allDivisions = <?= json_encode($divisions) ?>;
-const allEntreprises = <?= json_encode($entreprises) ?>;
 </script>
 <body>
       <div class="container">

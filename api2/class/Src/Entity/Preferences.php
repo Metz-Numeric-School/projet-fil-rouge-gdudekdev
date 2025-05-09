@@ -8,7 +8,7 @@ class Preferences
             'id' => [
                   'title' => 'Identifiant de la preférence',
                   'readonly' => true,
-                  'crud_show' => true,
+                  'crud_show' => false,
                   'detail_show' => false,
                   'create_show' => false,
                   'type' => "number",

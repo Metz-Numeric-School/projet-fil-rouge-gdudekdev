@@ -69,6 +69,7 @@ class Accounts
       private $password = "";
       private $roles_id = 0;
       private $divisions_id = 0;
+      private $vehicules_id = 0;
 
 
 
@@ -168,6 +169,16 @@ class Accounts
       {
             if (is_numeric($value) && $value !== 0) {
                   $this->divisions_id = $value;
+            }
+      }
+      public function vehicules_id()
+      {
+            return htmlspecialchars( $this->vehicules_id);
+      }
+      public function setVehicules_id(int $value)
+      {
+            if (is_numeric($value) && $value !== 0) {
+                  $this->vehicules_id = $value;
             }
       }
 

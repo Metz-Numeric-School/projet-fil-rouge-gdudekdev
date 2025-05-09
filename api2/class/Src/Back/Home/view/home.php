@@ -29,8 +29,7 @@ require ROOT . '/view/template/header_template.php';
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Vehicules</h4>
-                                          <a href="">Gérer les Utilisateurs</a>
-                                          <a href="">Ajouter un Utilisateur</a>
+                                          <a href="/index.php?page=cars">Gérer les Véhicules</a>
                                     </div>
                                     <div class="accueil__group-item">
                                           <h4>Preferences</h4>
