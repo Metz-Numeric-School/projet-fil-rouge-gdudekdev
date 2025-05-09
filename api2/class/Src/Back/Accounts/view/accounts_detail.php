@@ -23,6 +23,7 @@ const savedDivisionId = <?= $account->divisions_id()?>;
                         </div>
                         <h2><?= ucfirst($title) ?></h2>
                         <a href="index.php?page=vehicules&accounts_id=<?= $account->id()?>" class='crud__table-btn'>Voir les véhicules de l'utilisateur</a>
+                        <a href="index.php?page=routes&accounts_id=<?= $account->id()?>" class='crud__table-btn'>Voir les itinéraires de l'utilisateur</a>
             </div>
             <div class="form__main">
                   <form method="post" action="index.php?page=handlers&table=accounts">
