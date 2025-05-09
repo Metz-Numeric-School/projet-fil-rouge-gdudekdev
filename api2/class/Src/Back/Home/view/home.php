@@ -47,10 +47,16 @@ require ROOT . '/view/template/header_template.php';
                                           <a href="">Ajouter un Utilisateur</a>
                                     </div>
                                     <div class="accueil__group-item">
+                                          <h4>Planifications</h4>
+                                          <a href="">Gérer les Utilisateurs</a>
+                                          <a href="">Ajouter un Utilisateur</a>
+                                    </div>
+                                    <div class="accueil__group-item">
                                           <h4>Reactions</h4>
                                           <a href="">Gérer les Utilisateurs</a>
                                           <a href="">Ajouter un Utilisateur</a>
                                     </div>
+                                    <!-- TODO on peut considérer que les reccurecne communes et pré enristré on un nom (e.g : Tous les lundis) et ceux qui ne le sont pas sont enregistrés à la volée si il n'existe pas, on peut créer un champ de paramètrage sous la forme d'un tablleau et les comparer au moment de la création d'un trajet pour trouver l'identifiant de la récurrence -->
                               </div>
             </div>
       </div>

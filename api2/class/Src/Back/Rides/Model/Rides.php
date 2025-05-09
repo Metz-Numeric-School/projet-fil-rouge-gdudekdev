@@ -69,13 +69,16 @@ class Rides
       private function all_show($url)
       {
             $routes= App::$db->getAllFromWhere('routes',['stmt'=>'accounts_id =:accounts_id','params'=>[':accounts_id'=>$url['accounts_id']]]);
-           
+            $rides =[];
             foreach($routes as $route){
-                  $rides[] =  App::$db->getAllFromWhere("rides",['stmt'=> 'routes_id =:routes_id','params'=>[':routes_id'=>$route['routes_id']]]);
+                  $corresponding_rides = App::$db->getAllFromWhere("rides",['stmt'=> 'routes_id =:routes_id','params'=>[':routes_id'=>$route['routes_id']]]);
+                  foreach($corresponding_rides as $ride){
+                        array_push($rides,$ride);
+                  }
             }
             return
                   [
-                       "rides" => $rides[0],
+                       "rides" => $rides,
                         "account_id"=>$url['accounts_id'],
                   ];
       }

@@ -23,6 +23,7 @@ class Routes
             } else {
                   if (sizeof($data) == 0) {
                         if (isset($url['remove']) && isset($url['id'])) {
+                              \Src\Handlers\Handlers::instance()->handle(['table'=>'rides'],['route_id'=>$url['id']]);
                               $account_id = App::$db->getOneFrom('routes', 'routes_id', $url['id'])['accounts_id'];
                               // TODO delete all rides related to the routes
                               App::$db->delete('routes', $url['id']);
