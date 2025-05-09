@@ -78,7 +78,6 @@ class Database
       public function deleteFromWhere($table,$bool){
             $stmt = self::$PDOInstance->prepare("DELETE FROM $table WHERE " . $bool['stmt'] );
             $stmt->execute($bool['params']);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
       public function updateFromWhere($table,$bool){
             $stmt = self::$PDOInstance->prepare("UPDATE $table SET $bool WHERE " . $bool['stmt'] );

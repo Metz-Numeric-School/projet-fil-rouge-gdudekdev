@@ -45,6 +45,9 @@ class Handlers
                         case 'routes':
                               Routes::instance()->handle($url, $data);
                               break;
+                        case 'rides':
+                              Rides::instance()->handle($url, $data);
+                              break;
                   }
             }
       }

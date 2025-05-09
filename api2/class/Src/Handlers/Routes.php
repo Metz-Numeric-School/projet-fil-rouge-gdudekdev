@@ -23,6 +23,7 @@ class Routes
                   if (sizeof($data) == 0) {
                         if (isset($url['remove']) && isset($url['id'])) {
                               $account_id = App::$db->getOneFrom('routes', 'routes_id', $url['id'])['accounts_id'];
+                              // TODO delete all rides related to the routes
                               App::$db->delete('routes', $url['id']);
                               header("Location: index.php?page=routes&accounts_id=" . $account_id);
                               exit();

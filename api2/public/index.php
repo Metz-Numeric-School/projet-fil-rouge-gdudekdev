@@ -39,6 +39,10 @@ if (isset($_GET['page'])) {
                   $controller = new \Src\Back\Routes\Controller\Routes;
                   $controller->handle($_GET);
                   break;
+            case 'rides':
+                  $controller = new \Src\Back\Rides\Controller\Rides;
+                  $controller->handle($_GET);
+                  break;
             case 'handlers':
                   \Src\Handlers\Handlers::instance()->handle($_GET, $_POST);
                   break;

@@ -40,7 +40,7 @@ class routes
       {     
             return
                   [
-                        "routes" => App::$db->getAllFrom("routes"),
+                        "routes" => App::$db->getAllFromWhere("routes",['stmt'=> 'accounts_id =:accounts_id','params'=>[':accounts_id'=>$url['accounts_id']]]),
                         "account_id"=> $url['accounts_id'],
                   ];
       }

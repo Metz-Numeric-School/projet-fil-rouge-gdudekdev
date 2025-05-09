@@ -20,10 +20,11 @@ class Accounts extends Handlers
             
             if (sizeof($data) == 0) {
                   if (isset($url['remove']) && isset($url['id'])) {
-                        $this->delete('accounts', $url['id']);
-                        \Src\Handlers\Handlers::instance()->handle(['table'=>'accounts_preferences'],['accounts_id'=>$url['id']]);
-                        \Src\Handlers\Handlers::instance()->handle(['table'=>'vehicules'],['account_id'=>$url['id']]);
+                        \Src\Handlers\Handlers::instance()->handle(['table'=>'rides'],['account_id'=>$url['id']]);
                         \Src\Handlers\Handlers::instance()->handle(['table'=>'routes'],['account_id'=>$url['id']]);
+                        \Src\Handlers\Handlers::instance()->handle(['table'=>'vehicules'],['account_id'=>$url['id']]);
+                        \Src\Handlers\Handlers::instance()->handle(['table'=>'accounts_preferences'],['accounts_id'=>$url['id']]);
+                        $this->delete('accounts', $url['id']);
                         header("Location: index.php?page=" . 'accounts');
                         exit();
                   }
