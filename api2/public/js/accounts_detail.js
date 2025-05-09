@@ -30,4 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
         populateDivisions(this.value);
       });
     });
-
+console.log('test');

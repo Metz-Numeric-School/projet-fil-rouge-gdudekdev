@@ -7,12 +7,12 @@ use Src\Entity\Roles;
 $title = "Page de détail du compte n° " . $account->id();
 include_once ROOT . "/view/template/header_template.php";
 ?>
-<script>
+<body>
+      <script>
 const allDivisions = <?= json_encode($divisions) ?>;
 let entrepriseId = <?= $division_entreprises['entreprises_id']?>;
 const savedDivisionId = <?= $account->divisions_id()?>;
 </script>
-<body>
       <div class="container">
             <div class="crud__header">
                   <div class="crud__header-cta">

@@ -121,7 +121,7 @@ class Accounts
       }
       public function birthday()
       {
-            return htmlspecialchars( $this->birthday);
+            return htmlspecialchars( $this->birthday ?? "");
       }
       public function setBirthday(string $value)
       {
@@ -129,7 +129,7 @@ class Accounts
       }
       public function phone()
       {
-            return htmlspecialchars( $this->phone);
+            return htmlspecialchars( $this->phone ?? "");
       }
       public function setPhone(string $value)
       {
@@ -137,7 +137,7 @@ class Accounts
       }
       public function created_at()
       {
-            return $this->created_at === null ? null : htmlspecialchars($this->created_at);
+            return $this->created_at === null ? null : htmlspecialchars($this->created_at ?? "");
       }
       public function setCreated_at(string $value)
       {

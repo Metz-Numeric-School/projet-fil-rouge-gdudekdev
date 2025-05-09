@@ -44,6 +44,10 @@ class Vehicules
       {
             $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id=:accounts_id', 'params' => [':accounts_id' => $id]]);
             $account_id = htmlspecialchars($id);
+            $models = [];
+            $brands = [];
+            $colors = [];
+            $engines = [];
             foreach($vehicules as $vehicule){
                   $vehicule = new \Src\Entity\Vehicules($vehicule);
                   $models[] =  App::$db->getOneFrom('car_models','car_models_id',$vehicule->car_models_id())['car_models_name'];
