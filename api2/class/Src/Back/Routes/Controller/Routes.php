@@ -15,7 +15,7 @@ class routes
             $title = "Itinéraires de l'utilisateur"  ;
             if (isset($url['id'])) {
                   include __DIR__ . '/../view/routes_detail.php';
-            } else if (isset($url['add'])) {
+            } else if (isset($url['accounts_id']) && isset($url['add'])) {
                   include __DIR__ . '/../view/routes_create.php';
             } else {
                   include __DIR__ . '/../view/routes.php';

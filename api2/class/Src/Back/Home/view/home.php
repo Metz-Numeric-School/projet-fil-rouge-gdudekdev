@@ -8,7 +8,7 @@ require ROOT . '/view/template/header_template.php';
                   <h1>Accueil du Back-office Carpool</h1>
                   <div class="accueil__header-links">
 
-                        <a href="index.php?page=authentificate&logout=true" class="accueil__header-link">
+                        <a href="index.php?page=authenticate&logout=true" class="accueil__header-link">
                               <p>Se déconnecter</p>
                         </a>
                         
@@ -37,11 +37,21 @@ require ROOT . '/view/template/header_template.php';
                                           <a href="/index.php?page=preferences&add">Ajouter une Préférence</a>
                                     </div>
                                     <div class="accueil__group-item">
+                                          <h4>Instances de trajet</h4>
+                                          <a href="">Gérer les Utilisateurs</a>
+                                          <a href="">Ajouter un Utilisateur</a>
+                                    </div>
+                                    <div class="accueil__group-item">
+                                          <h4>Reservations</h4>
+                                          <a href="">Gérer les Utilisateurs</a>
+                                          <a href="">Ajouter un Utilisateur</a>
+                                    </div>
+                                    <div class="accueil__group-item">
                                           <h4>Reactions</h4>
                                           <a href="">Gérer les Utilisateurs</a>
                                           <a href="">Ajouter un Utilisateur</a>
                                     </div>
-                  </div>
+                              </div>
             </div>
       </div>
 </body>

@@ -37,7 +37,7 @@ class routes
             
       }
       private function all_show($url)
-      {
+      {     
             return
                   [
                         "routes" => App::$db->getAllFrom("routes"),
