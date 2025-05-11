@@ -1,10 +1,11 @@
 <?php
 
-namespace Src\Handlers;
+namespace Src\Handlers\Back;
 
 use App;
+use Core\Interfaces\Handler;
 
-class Routes
+class Routes implements Handler
 {
       private static $instance;
       public static function instance()
@@ -25,7 +26,6 @@ class Routes
                         if (isset($url['remove']) && isset($url['id'])) {
                               \Src\Handlers\Handlers::instance()->handle(['table'=>'rides'],['route_id'=>$url['id']]);
                               $account_id = App::$db->getOneFrom('routes', 'routes_id', $url['id'])['accounts_id'];
-                              // TODO delete all rides related to the routes
                               App::$db->delete('routes', $url['id']);
                               header("Location: index.php?page=routes&accounts_id=" . $account_id);
                               exit();

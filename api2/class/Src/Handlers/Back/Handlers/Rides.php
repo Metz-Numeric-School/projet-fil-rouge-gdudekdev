@@ -1,10 +1,11 @@
 <?php
 
-namespace Src\Handlers;
+namespace Src\Handlers\Back;
 
 use App;
+use Core\Interfaces\Handler;
 
-class Rides
+class Rides implements Handler
 {
       private static $instance;
       public static function instance()

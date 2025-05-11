@@ -1,4 +1,6 @@
 <?php
+
+
 require dirname(__DIR__) . '/class/src/App.php';
 App::_init();
 
@@ -44,7 +46,7 @@ if (isset($_GET['page'])) {
                   $controller->handle($_GET);
                   break;
             case 'handlers':
-                  \Src\Handlers\Handlers::instance()->handle($_GET, $_POST);
+                  Src\Handlers\Back\HandlersDispatcher::dispatch($_GET,$_POST);
                   break;
             default:
                   http_response_code(404);

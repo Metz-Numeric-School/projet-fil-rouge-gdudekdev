@@ -42,12 +42,12 @@ class Vehicules
       private function hydrate($data)
       {
             // TODO utiliser les setters et getters pour l'hydration de toutes les entités 
-            $this->id = $data['vehicules_id'];
-            $this->license_plate = $data['vehicules_license_plate'];
-            $this->car_models_id = $data['car_models_id'];
-            $this->car_colors_id = $data['car_colors_id'];
-            $this->car_engines_id = $data['car_engines_id'];
-            $this->accounts_id = $data['accounts_id'];
+            $this->setId($data['vehicules_id']) ;
+            $this->setLicense_plate($data['vehicules_license_plate']) ;
+            $this->setCar_models_id($data['car_models_id']) ;
+            $this->setCar_colors_id($data['car_colors_id']) ;
+            $this->setCar_engines_id($data['car_engines_id']) ;
+            $this->setAccounts_id($data['accounts_id']) ;
       }
 
       public function id()
