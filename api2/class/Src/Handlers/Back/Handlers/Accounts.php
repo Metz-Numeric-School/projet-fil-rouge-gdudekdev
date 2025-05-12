@@ -54,12 +54,15 @@ class Accounts implements Handler
 
     private function handleUpdateAccount(array $data): void
     {
+        var_dump($data);
         $account_data = $this->extractAccountData($data);
-        $prerence_data = $this->extractPreferencesData($data, $account_data['accounts_id']);
-
+        $preference_data = [];
+        if(isset($data['preferences'])){
+              $preference_data = $this->extractPreferencesData($data, $account_data['accounts_id']);
+        }
         $this->accountService->updateAccount($account_data);
-        $this->accountPreferencesService->updateAccountPreferences($prerence_data);
-      
+        $this->accountPreferencesService->updateAccountPreferences($preference_data,$account_data['accounts_id']);
+
         header("Location: index.php?page=accounts&id=" . $account_data['accounts_id']);
         exit();
     }
@@ -77,13 +80,12 @@ class Accounts implements Handler
 
     private function extractPreferencesData(array $data, int $accountId): array
     {
-        $prerence_data = [];
-        foreach ($data as $key => $value) {
-            if (!str_contains($key, 'accounts')) {
-                $prerence_data[$key] = $value;
-            }
+
+        $preference_data = [];
+        foreach($data['preferences'] as $pref){
+            $preference_data[] = ['accounts_id'=>$accountId,'preferences_id'=>$pref];
         }
-        $prerence_data['accounts_id'] = $accountId;
-        return $prerence_data;
+    
+        return $preference_data;
     }
 }

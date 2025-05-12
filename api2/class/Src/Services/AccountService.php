@@ -6,16 +6,18 @@ use App;
 class AccountService
 {
       private AccountPreferencesService $accountPreferencesService;
-      // private RouteService $routeService;
-      // private VehicleService $vehicleService;
+      private RouteService $routeService;
+      private VehiculeService $vehiculeService;
       public function __construct()
       {
             $this->accountPreferencesService = new AccountPreferencesService();
+            $this->vehiculeService = new VehiculeService();
+            $this->routeService = new RouteService();
       }
       public function deleteAccount(int $accountId): void
       {
-            // App::$db->deleteFromWhere('routes', ['stmt' => 'accounts_id =:id', 'params' => [':id' => $accountId]]);
-            // App::$db->deleteFromWhere('vehicules', ['stmt' => 'accounts_id =:id', 'params' => [':id' => $accountId]]);
+            $this->routeService->deleteByAccountId( $accountId);
+            $this->vehiculeService->deleteByAccountId( $accountId);
             $this->accountPreferencesService->deleteByAccountId( $accountId);
             App::$db->delete('accounts', $accountId);
       }

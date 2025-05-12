@@ -20,11 +20,12 @@ class AccountPreferencesService
                   'params' => [':id' => $preferenceId]
             ]);
       }
-      public function updateAccountPreferences(array $data): void
+      public function updateAccountPreferences(array $data,int $accountId): void
       {
-            !empty($data) ? $accountId = $data[0]['accounts_id'] : exit();
             $this->deleteByAccountId($accountId);
-            $this->createAccountPreferences($data);
+            if(!empty($data)){
+                  $this->createAccountPreferences($data);
+            }
       }
       public function createAccountPreferences(array $data): void
       {

@@ -1,13 +1,19 @@
 <?php
 
-namespace Src\Handlers\Back;
+namespace Src\Handlers\Back\Handlers;
 
 use App;
 use Core\Interfaces\Handler;
+use Src\Services\RideService;
 
 class Rides implements Handler
 {
       private static $instance;
+      private RideService $rideService;
+      public function __construct()
+      {
+            $this->rideService = new RideService();
+      }
       public static function instance()
       {
             if (is_null(self::$instance)) {
@@ -16,43 +22,39 @@ class Rides implements Handler
             return self::$instance;
       }
       public function handle($url, $data)
-      {     
-            if (isset($data['route_id'])) {
-                  App::$db->deleteFromWhere('rides', ['stmt' => 'routes_id = :routes_id', 'params' => [':routes_id' => $data['route_id']]]);
-            } else {
-                  echo'test';
-                  // Case where the account associated is deleted
-                  if (isset($data['account_id'])) {
-                        $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $data['account_id']]]);
-                        foreach ($routes as $route) {
-                              App::$db->deleteFromWhere('rides', ['stmt' => 'routes_id = :routes_id', 'params' => [':routes_id' => $route['routes_id']]]);
-                        }
+      {
+            var_dump($url,$data);
 
-                  } else {
-                        if (sizeof($data) == 0) {
-                              if (isset($url['remove']) && isset($url['id'])) {
-                                    $vehicule_id = App::$db->getOneFrom('rides', 'rides_id', $url['id'])['vehicules_id'];
-                                    $account_id = App::$db->getOneFrom('vehicules', 'vehicules_id', $vehicule_id)['accounts_id'];
-
-                                    App::$db->delete('rides', $url['id']);
-                                    header("Location: index.php?page=rides&accounts_id=" . $account_id);
-                                    exit();
-                              }
-                        } else {
-                              $account_id = App::$db->getOneFrom('vehicules', 'vehicules_id', $data['vehicules_id'])['accounts_id'];
-                              if (empty($data['rides_id'])) {
-                                    App::$db->add('rides', $data);
-                                    header("Location: index.php?page=rides&accounts_id=" . $account_id);
-                                    exit();
-                              } else {
-                                    App::$db->update('rides', $data);
-                                    header("Location: index.php?page=rides&accounts_id=" . $account_id);
-                                    exit();
-                              }
-                        }
-                  }
+            if (isset($url['remove']) && isset($url['id'])) {
+                  $this->handleDeleteRide((int) $url['id']);
             }
+            if (empty($data['rides_id'])) {
+                  $this->handleCreateRide($data);
+            } else {
+                  $this->handleUpdateRide($data);
+            }
+      }
+       private function handleDeleteRide(int $rideId): void
+      {
+            $routeId = App::$db->getOneFrom('rides','rides_id', $rideId)['routes_id'];
+            $accountId = App::$db->getOneFrom('routes','routes_id', $routeId)['accounts_id'];
+            $this->rideService->deleteByRideId($rideId);
+            header("Location: index.php?page=rides&accounts_id=" . $accountId);
+            exit();
+      }
 
-
+      private function handleCreateRide(array $data): void
+      {
+            $accountId = App::$db->getOneFrom('vehicules','vehicules_id', $data['vehicules_id'])['accounts_id'];
+            $this->rideService->createRide($data);
+            header("Location: index.php?page=rides&accounts_id=" . $accountId);
+            exit();
+      }
+      private function handleUpdateRide(array $data): void
+      {
+            $accountId = App::$db->getOneFrom('vehicules','vehicules_id', $data['vehicules_id'])['accounts_id'];
+            $this->rideService->updateRide($data);
+            header("Location: index.php?page=rides&accounts_id=" . $accountId);
+            exit();
       }
 }
