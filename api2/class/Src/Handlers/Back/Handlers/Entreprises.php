@@ -2,10 +2,10 @@
 
 namespace Src\Handlers\Back\Handlers;
 
-use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\EntrepriseService;
 
-class Entreprises implements Handler
+class Entreprises implements HandlerInterface
 {
       private static $instance;
       private EntrepriseService $entrepriseService;

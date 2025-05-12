@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class RouteService
+class RouteService implements ServiceInterface
 {
       public RideService $rideService;
       public function __construct()

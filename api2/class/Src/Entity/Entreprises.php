@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Entreprises
+use Core\Abstract\Entity;
+class Entreprises extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

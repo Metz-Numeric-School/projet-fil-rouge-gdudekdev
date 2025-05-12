@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Car_models
+use Core\Abstract\Entity;
+class Car_models extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class EntrepriseService
+class EntrepriseService implements ServiceInterface
 {
       public DivisionService $divisionService;
       public function __construct()

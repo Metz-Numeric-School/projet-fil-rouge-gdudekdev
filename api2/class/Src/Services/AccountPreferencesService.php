@@ -2,9 +2,20 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
+use Src\Factory\MapperFactory;
+use Src\Factory\ServiceFactory;
 
-class AccountPreferencesService
+class AccountPreferencesService implements ServiceInterface
 {
+      private MapperFactory $mapperFactory;
+      private ServiceFactory $serviceFactory;
+
+      public function __construct()
+      {
+            $this->mapperFactory = new MapperFactory();
+            $this->serviceFactory = new ServiceFactory();
+      }
       public function deleteByAccountId(int $accountId): void
       {
             App::$db->deleteFromWhere('accounts_preferences', [

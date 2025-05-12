@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Roles
+use Core\Abstract\Entity;
+class Roles extends Entity
 {
       private $id = 0;
       private $name = "";

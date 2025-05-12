@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class PreferenceService
+class PreferenceService implements ServiceInterface
 {
       public AccountPreferencesService $accountPreferencesService;
       public function __construct()

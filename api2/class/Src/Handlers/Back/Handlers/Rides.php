@@ -4,9 +4,10 @@ namespace Src\Handlers\Back\Handlers;
 
 use App;
 use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\RideService;
 
-class Rides implements Handler
+class Rides implements HandlerInterface
 {
       private static $instance;
       private RideService $rideService;

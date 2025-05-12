@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class CarColorService
+class CarColorService implements ServiceInterface
 {
       public function deleteCarColor(int $carColorId): void
       {

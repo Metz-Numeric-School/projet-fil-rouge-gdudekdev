@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Handlers\Back;
+namespace Src\Factory;
 
-use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Controller\Auth;
 
 class HandlersFactory
 {
      
-      public static function createHandler($table) : ?Handler
+      public static function createHandler($table) : ?HandlerInterface
       {
             Auth::getInstance()->protect();
             return match($table){

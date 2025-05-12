@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class DivisionService
+class DivisionService implements ServiceInterface
 {
       public function deleteByEntrepriseId(int $entrepriseId): void
       {

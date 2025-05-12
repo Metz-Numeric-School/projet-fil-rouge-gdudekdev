@@ -2,7 +2,7 @@
 
 namespace Core\Interfaces;
 
-interface Handler
+interface HandlerInterface
 {
       public function handle($url,$data);
 }

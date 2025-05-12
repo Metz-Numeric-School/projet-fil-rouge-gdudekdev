@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class RideService
+class RideService implements ServiceInterface
 {
       public function deleteByRideId(int $rideId): void
       {

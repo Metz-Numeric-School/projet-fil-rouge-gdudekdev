@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Routes
+use Core\Abstract\Entity;
+class Routes extends Entity
 {
        public static $array_accepted_key = [
             'id' => [

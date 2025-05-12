@@ -2,10 +2,10 @@
 
 namespace Src\Handlers\Back\Handlers;
 
-use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\DivisionService;
 
-class Divisions implements Handler
+class Divisions implements HandlerInterface
 {
       private static $instance;
       private DivisionService $divisionService;

@@ -2,7 +2,9 @@
 
 namespace Src\Entity;
 
-class Accounts
+use Core\Abstract\Entity;
+
+class Accounts extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

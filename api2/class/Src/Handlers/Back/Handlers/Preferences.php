@@ -4,9 +4,10 @@ namespace Src\Handlers\Back\Handlers;
 
 use App;
 use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\PreferenceService;
 
-class Preferences implements Handler
+class Preferences implements HandlerInterface
 {
       private static $instance;
       private PreferenceService $preferenceService;

@@ -2,34 +2,49 @@
 namespace Src\Services;
 
 use App;
+use Core\Abstract\Entity;
+use Core\Interfaces\ServiceInterface;
+use Src\Entity\Accounts;
+use Src\Factory\MapperFactory;
+use Src\Factory\ServiceFactory;
 
-class AccountService
+class AccountService implements ServiceInterface
 {
-      private AccountPreferencesService $accountPreferencesService;
-      private RouteService $routeService;
-      private VehiculeService $vehiculeService;
+      private MapperFactory $mapperFactory;
+      private ServiceFactory $serviceFactory;
+
       public function __construct()
       {
-            $this->accountPreferencesService = new AccountPreferencesService();
-            $this->vehiculeService = new VehiculeService();
-            $this->routeService = new RouteService();
+            $this->mapperFactory = new MapperFactory();
+            $this->serviceFactory = new ServiceFactory();
       }
       public function deleteAccount(int $accountId): void
       {
-            $this->routeService->deleteByAccountId( $accountId);
-            $this->vehiculeService->deleteByAccountId( $accountId);
-            $this->accountPreferencesService->deleteByAccountId( $accountId);
+            $routeService = $this->serviceFactory->createService('routes');
+            $vehiculeService = $this->serviceFactory->createService('accounts_preferences');
+            $accountPreferenceService = $this->serviceFactory->createService('vehicules');
+
+            $routeService->deleteByAccountId($accountId);
+            $vehiculeService->deleteByAccountId($accountId);
+            $accountPreferenceService->deleteByAccountId($accountId);
             App::$db->delete('accounts', $accountId);
       }
 
-      public function createAccount(array $data): void
+      public function createAccount(Entity $entity): void
       {
-            $data['accounts_created_at'] = date("Y-m-d h:i:s");
-            App::$db->add('accounts', $data);
+            if (!$entity instanceof Accounts) {
+                  throw new \InvalidArgumentException('Expected an Accounts entity.');
+            }
+            $mapper = $this->mapperFactory->createMapper('accounts');
+            App::$db->add('accounts', $mapper->toArray($entity));
       }
 
-      public function updateAccount(array $data): void
+      public function updateAccount(Entity $entity): void
       {
-            App::$db->update('accounts', $data);
+            if (!$entity instanceof Accounts) {
+                  throw new \InvalidArgumentException('Expected an Accounts entity.');
+            }
+            $mapper = $this->mapperFactory->createMapper('accounts');
+           App::$db->update('accounts', $mapper->toArray($entity));
       }
 }

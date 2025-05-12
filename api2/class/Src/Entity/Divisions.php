@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Divisions
+use Core\Abstract\Entity;
+class Divisions extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

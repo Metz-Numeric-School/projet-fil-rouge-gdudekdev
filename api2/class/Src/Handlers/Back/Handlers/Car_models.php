@@ -2,10 +2,10 @@
 
 namespace Src\Handlers\Back\Handlers;
 
-use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\CarModelService;
 
-class Car_models implements Handler
+class Car_models implements HandlerInterface
 {
       private static $instance;
       private CarModelService $carModelService;

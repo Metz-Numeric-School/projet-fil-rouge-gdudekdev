@@ -1,8 +1,8 @@
 <?php
 
 namespace Src\Entity;
-
-class Rides_recurrence_type
+use Core\Abstract\Entity;
+class Rides_recurrence_type extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

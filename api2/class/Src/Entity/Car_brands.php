@@ -2,7 +2,8 @@
 
 namespace Src\Entity;
 
-class Car_brands
+use Core\Abstract\Entity;
+class Car_brands extends Entity
 {
       public static $array_accepted_key = [
             'id' => [

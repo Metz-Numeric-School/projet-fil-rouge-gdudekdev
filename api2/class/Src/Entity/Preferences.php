@@ -1,9 +1,9 @@
 <?php
 
 namespace Src\Entity;
-
-class Preferences
-{
+use Core\Abstract\Entity;
+class Preferences extends Entity
+{ 
       public static $array_accepted_key = [
             'id' => [
                   'title' => 'Identifiant de la preférence',

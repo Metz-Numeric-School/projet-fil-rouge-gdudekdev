@@ -2,8 +2,9 @@
 namespace Src\Services;
 
 use App;
+use Core\Interfaces\ServiceInterface;
 
-class CarBrandService
+class CarBrandService implements ServiceInterface
 {
       public CarModelService $carModelService;
       public function __construct()

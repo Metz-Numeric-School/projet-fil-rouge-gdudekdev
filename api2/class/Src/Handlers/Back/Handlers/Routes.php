@@ -3,10 +3,10 @@
 namespace Src\Handlers\Back\Handlers;
 
 use App;
-use Core\Interfaces\Handler;
+use Core\Interfaces\HandlerInterface;
 use Src\Services\RouteService;
 
-class Routes implements Handler
+class Routes implements HandlerInterface
 {
       private static $instance;
       private RouteService $routeService;
