@@ -5,6 +5,7 @@ namespace Src\Handlers\Back\Handlers;
 use App;
 use Core\Interfaces\Handler;
 use Core\Interfaces\HandlerInterface;
+use JetBrains\PhpStorm\NoReturn;
 use Src\Services\RideService;
 
 class Rides implements HandlerInterface

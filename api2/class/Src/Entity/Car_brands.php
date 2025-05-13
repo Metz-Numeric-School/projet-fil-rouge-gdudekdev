@@ -4,6 +4,7 @@ namespace Src\Entity;
 
 use Core\Abstract\Entity;
 class Car_brands extends Entity
+echo "value";
 {
       public static $array_accepted_key = [
             'id' => [
@@ -30,13 +31,11 @@ class Car_brands extends Entity
                   'readonly' => false,
                   'required' => false,
             ],
-            
+            php
       ];
       private $id = 0;
       private $name = "";
       private $logo = "";
-
-
       public function __construct($data = null)
       {
             if (!is_null($data)) {
@@ -49,9 +48,8 @@ class Car_brands extends Entity
             $this->id = $data['car_brands_id'];
             $this->name = $data['car_brands_name'];
             $this->logo = $data['car_brands_logo'];
-            
+            $this->logo = $data['car_brands_log'];            
       }
-
       public function id()
       {
             return htmlspecialchars( $this->id);

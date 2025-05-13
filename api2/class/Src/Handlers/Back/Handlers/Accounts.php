@@ -17,7 +17,7 @@ class Accounts implements HandlerInterface
         $this->serviceFactory = new ServiceFactory();
     }
 
-    public static function instance()
+    public static function instance() :self
     {
         if (is_null(self::$instance)) {
             self::$instance = new self;
@@ -25,9 +25,8 @@ class Accounts implements HandlerInterface
         return self::$instance;
     }
 
-    public function handle($url, $data)
+    public function handle($url, $data) : void
     {
-
         if (isset($url['remove']) && isset($url['id'])) {
             $this->handleDeleteAccount((int) $url['id']);
         }
@@ -41,6 +40,7 @@ class Accounts implements HandlerInterface
 
     private function handleDeleteAccount(int $accountId): void
     {
+
         $service = $this->serviceFactory->createService('accounts');
         $service->deleteAccount($accountId);
         header("Location: index.php?page=accounts");

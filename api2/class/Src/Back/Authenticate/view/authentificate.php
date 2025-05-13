@@ -10,10 +10,8 @@ include_once ROOT . "/view/template/header_template.php";
 
                   <label for="password">Mot de passe</label>
                   <input type="text" id="password" name="password" placeholder="Mot de passe">
-
                   <input type="submit" value="Se connecter">
             </fieldset>
       </form>
 </body>
-
 </html>

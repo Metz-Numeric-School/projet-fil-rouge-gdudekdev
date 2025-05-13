@@ -2,7 +2,6 @@
 
 namespace Src\Factory;
 
-use Core\Interfaces\HandlerInterface;
 use Core\Interfaces\ServiceInterface;
 use Src\Controller\Auth;
 

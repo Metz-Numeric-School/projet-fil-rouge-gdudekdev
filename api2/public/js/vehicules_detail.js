@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const brandSelect = document.getElementById("brands");
     
       function populateModels(brandId, selectedmodelId = null) {
-        // Vider les options existantes
         modelsSelect.innerHTML = "";
-        // Filtrer les models par brand
+
         const filtered = allModels.filter(
           (div) => div.car_brands_id == brandId
         );
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const option = document.createElement("option");
           option.value = div.car_models_id;
           option.textContent = div.car_models_name;
-          if (div.car_models_id == selectedmodelId) {
+          if (div.car_models_id === selectedmodelId) {
             option.selected = true;
           }
           modelsSelect.appendChild(option);
