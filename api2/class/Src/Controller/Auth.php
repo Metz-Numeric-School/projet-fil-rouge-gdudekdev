@@ -9,7 +9,7 @@ use Throwable;
 class Auth
 {
       private static $instance = null;
-      private static $redirect_protect_path = REDIRECT_PROTECT_PATH ?? "";
+      private static $redirect_protect_path = REDIRECT_PROTECT_PATH ?? "index.php";
       public static function getInstance()
       {
             if (is_null(self::$instance)) {

@@ -37,13 +37,12 @@ class Rides
                   'crud_show' => false,
                   'readonly' => false,
             ],
-            'recurrence_start' => [
-                  'title' => 'Date début de la planification',
+            'position' => [
+                  'title' => 'Role lors du trajet',
                   'detail_show' => true,
                   'create_show' => true,
                   'crud_show' => false,
                   'readonly' => false,
-                  'type'=>'datetime-local',
             ],
             'created_at' => [
                   'title' => 'Date de création',
@@ -52,26 +51,20 @@ class Rides
                   'crud_show' => false,
                   'readonly' => true,
             ],
-            'recurrence_end' => [
-                  'title' => 'Date de fin de la planification',
-                  'detail_show' => false,
-                  'create_show' => true,
-                  'crud_show' => false,
-                  'readonly' => false,
-                  'type'=>'datetime-local',
-            ],
       ];
 
       private $id = 0;
       private $departure_time = "";
-      private $seats = "";
+      private $seats= "";
       private $direction = 0;
-      private $recurrence_start = "";
+      private $position = "passenger";
+      private $planifications_start = "";
+      private $planifications_end = "";
       private $created_at = null;
-      private $recurrence_end = "";
       private $routes_id = 0;
-      private $rides_recurrence_type_id = 0;
+      private $planifications_id = 0;
       private $vehicules_id = 0;
+
 
 
 
@@ -88,11 +81,12 @@ class Rides
             $this->departure_time = $data['rides_departure_time'];
             $this->seats = $data['rides_seats'];
             $this->direction = $data['rides_direction'];
-            $this->recurrence_start = $data['rides_recurrence_start'];
+            $this->position = $data['rides_position'];
+            $this->planifications_start = $data['planifications_start'];
+            $this->planifications_end = $data['planifications_end'];
             $this->created_at = $data['rides_created_at'];
-            $this->recurrence_end = $data['rides_recurrence_end'];
             $this->routes_id = $data['routes_id'];
-            $this->rides_recurrence_type_id = $data['rides_recurrence_type_id'];
+            $this->planifications_id = $data['planifications_id'];
             $this->vehicules_id = $data['vehicules_id'];
       }
 
@@ -124,19 +118,27 @@ class Rides
       }
       public function direction()
       {
-            return htmlspecialchars( $this->direction ?? "");
+            return htmlspecialchars( $this->direction ?? 0);
       }
       public function setDirection(string $value)
       {
             $this->direction = $value;
       }
-      public function recurrence_start()
+      public function position()
       {
-            return htmlspecialchars( $this->recurrence_start ?? "");
+            return htmlspecialchars( $this->position);
       }
-      public function setRecurrence_start(string $value)
+      public function setPosition(string $value)
       {
-            $this->recurrence_start = $value;
+            $this->position = $value ==='driver' ? $value :'passenger';
+      }
+      public function planifications_start()
+      {
+            return htmlspecialchars( $this->planifications_start ?? "");
+      }
+      public function setPlanifications_start(string $value)
+      {
+            $this->planifications_start = $value;
       }
       public function created_at()
       {
@@ -146,13 +148,13 @@ class Rides
       {
             $this->created_at = $value;
       }
-      public function recurrence_end()
+      public function planifications_end()
       {
-            return htmlspecialchars( $this->recurrence_end);
+            return htmlspecialchars( $this->planifications_end);
       }
-      public function setRecurrence_end(string $value)
+      public function setPlanifications_end(string $value)
       {
-            $this->recurrence_end = $value;
+            $this->planifications_end = $value;
       }
       public function vehicules_id()
       {
@@ -164,14 +166,14 @@ class Rides
                   $this->vehicules_id = $value;
             }
       }
-      public function rides_recurrence_type_id()
+      public function planifications_id()
       {
-            return htmlspecialchars( $this->rides_recurrence_type_id);
+            return htmlspecialchars( $this->planifications_id);
       }
-      public function setrides_Recurrence_type_id(int $value)
+      public function setPlanifications_id(int $value)
       {
             if (is_numeric($value) && $value !== 0) {
-                  $this->rides_recurrence_type_id = $value;
+                  $this->planifications_id = $value;
             }
       }
       public function routes_id()
