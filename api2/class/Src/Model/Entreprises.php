@@ -11,12 +11,9 @@ class Entreprises extends Model
       protected static function update_show($id)
       {
             $entreprise = new \Src\Entity\Entreprises(self::get($id));
-            var_dump($entreprise);
-            $divisions = Divisions::getAllWhere('entreprises_id', $entreprise->id());
-            var_dump($entreprise,$divisions);
-            exit();
+            $division = Divisions::getAllWhere('entreprises_id', $entreprise->id());
             return
-                  compact(["entreprise","divisions"]);
+                  compact(["entreprise","division"]);
       }
       protected static function add_show(): array
       {

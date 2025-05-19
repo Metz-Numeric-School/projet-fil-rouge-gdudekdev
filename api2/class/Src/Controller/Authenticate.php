@@ -13,7 +13,7 @@ class Authenticate extends Controller
                   $this->logout();
                   
             }
-            require dirname(__DIR__) . '/view/authentificate.php';
+            require ROOT . '/view/Authenticate/authenticate.php';
       }
 
       private function login(array $data)

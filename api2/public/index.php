@@ -6,6 +6,7 @@ App::_init();
 
 
 if (isset($_GET['page'])) {
+     
       $page = ucfirst($_GET['page']);
       $class = '\Src\Controller\\' . $page;
       if (class_exists('\Src\Controller\\' . $page)) {

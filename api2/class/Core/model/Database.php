@@ -13,9 +13,9 @@ class Database
                   self::$PDOInstance = new PDO(DEFAULT_DSN, DEFAULT_HOST, DEFAULT_PASS);
       }
   
-      public function getAllFrom(string $table, $asc = '_id')
+      public function getAllFrom(string $table)
       {
-            $stmt = self::$PDOInstance->prepare("SELECT * FROM $table ORDER BY $table$asc ASC");
+            $stmt = self::$PDOInstance->prepare("SELECT * FROM $table ORDER BY " . $table . "_id ASC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }

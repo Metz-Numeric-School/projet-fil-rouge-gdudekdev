@@ -45,13 +45,13 @@ abstract class Model
             if (isset($url['mode'])) {
                   switch ($url['mode']) {
                         case 'up':
-                              !empty($data) ? self::update($data) : $this->all_show();
+                              !empty($data) ? self::update($data) : get_called_class()::all_show();
                               break;
                         case 'add':
-                              !empty($data) ? self::create($data) : $this->add_show();
+                              !empty($data) ? self::create($data) : get_called_class()::add_show();
                               break;
                         case 'remove':
-                              isset($url['id']) ? self::delete($url['id']) : $this->all_show();
+                              isset($url['id']) ? self::delete($url['id']) : get_called_class()::all_show();
                               break;
                   }
             }
@@ -87,6 +87,6 @@ abstract class Model
             return App::$db->getAllFrom(get_called_class()::$table);
       }
       public static function getAllWhere($closure,$value){
-             return App::$db->getAllFrom(get_called_class()::$table,['stmt'=>$closure . '=:id', 'params'=>[':id='=>$value]]);
+             return App::$db->getAllFromWhere(get_called_class()::$table,['stmt'=>$closure . '=:id', 'params'=>[':id'=>$value]]);
       }
 }

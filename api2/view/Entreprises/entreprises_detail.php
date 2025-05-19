@@ -36,7 +36,7 @@ include_once ROOT . "/view/template/header_template.php";
             </div>
             <div class="form__main">
                   <h5>Divisions de l'entreprise</h5>
-                  <form method="post" action="index.php?page=handlers&table=divisions">
+                  <form method="post" action="index.php?page=divisions&mode=add&id=<?= $entreprise->id()?>">
                         <div class="form-group">
                               <input type="submit" value="Ajouter">
                               <input type="text" placeholder="Nom de la nouvelle division" name="divisions_name">
@@ -60,7 +60,7 @@ include_once ROOT . "/view/template/header_template.php";
                                     <tr>
                                           <td class="crud__table-cell">
                                                 <div class="crud__table-cta">
-                                                      <a href="index.php?page=handlers&table=divisions&remove&divisions_id=<?= $div->id() ?>&entreprises_id=<?= $entreprise->id()?>"
+                                                      <a href="index.php?page=divisions&mode=remove&id=<?= $div->id() ?>&entreprises_id=<?= $entreprise->id()?>"
                                                             class="crud__table-btn crud__table-btn--delete">X</a>
                                                 </div>
                                           </td>
