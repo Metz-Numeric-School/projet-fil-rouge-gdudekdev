@@ -23,6 +23,10 @@ require ROOT . '/view/template/header_template.php';
                                           <a href="/index.php?page=accounts&add">Ajouter un Utilisateur</a>
                                     </div>
                                     <div class="accueil__group-item">
+                                          <h4>Roles</h4>
+                                          <a href="/index.php?page=roles">Gérer les Roles</a>
+                                    </div>
+                                    <div class="accueil__group-item">
                                           <h4>Entreprises</h4>
                                           <a href="/index.php?page=entreprises">Gérer les Entreprises</a>
                                           <a href="/index.php?page=entreprises&add">Ajouter une Entreprise</a>
