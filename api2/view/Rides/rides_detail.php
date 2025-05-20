@@ -22,7 +22,7 @@ const allDivisions = <?= json_encode($divisions) ?>;
                               <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=rides">
+                  <form method="post" action="index.php?page=rides&mode=up&accounts_id=<?= $account_id?>">
                         <?php foreach (Rides::$array_accepted_key as $key => $value): 
                               if(str_contains($key,'planifications')) continue;?>
                               <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>

@@ -12,7 +12,8 @@ include_once ROOT . "/view/template/header_template.php";
                   <div class="crud__header-cta">
                         <a href="index.php?page=home" class="crud__table-btn">
                               <\Retour </a>
-                                    <a href="/index.php?page=planifications&add" class="crud__table-btn crud__table-btn--edit">Ajouter</a>
+                                    <a href="/index.php?page=planifications&add"
+                                          class="crud__table-btn crud__table-btn--edit">Ajouter</a>
 
                   </div>
                   <h2><?= ucfirst($title) ?></h2>
@@ -28,9 +29,9 @@ include_once ROOT . "/view/template/header_template.php";
                                     <?php } ?>
                               <?php endforeach ?>
                         </tr>
-                        <?php foreach ($planifications as $planification): 
-                              $planification = new Planifications($planification)?>
-                              
+                        <?php foreach ($planifications as $planification):
+                              $planification = new Planifications($planification) ?>
+
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
@@ -40,9 +41,9 @@ include_once ROOT . "/view/template/header_template.php";
                                                       class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>
-                                    <?php foreach (Planifications::$array_accepted_key as $key => $value):  
-                                          if ($value['crud_show']) { 
-                                                $method = str_replace('planifications_' , '', $key)?>
+                                    <?php foreach (Planifications::$array_accepted_key as $key => $value):
+                                          if ($value['crud_show']) {
+                                                $method = str_replace('planifications_', '', $key) ?>
                                                 <td class="crud__table-cell"><?= $planification->$method() ?></td>
                                           <?php } ?>
                                     <?php endforeach ?>

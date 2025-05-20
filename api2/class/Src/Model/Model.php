@@ -17,6 +17,7 @@ abstract class Model
       }
       public static function delete($id, $bound = null)
       {
+
             if (self::has_dependencies()) {
                   self::delete_dependencies($id);
             }
@@ -68,7 +69,17 @@ abstract class Model
       public static function delete_dependencies($id)
       {
             foreach (get_called_class()::$dependencies as $dependecy) {
-                  App::$db->deleteFromWhere($dependecy, ['stmt' => get_called_class()::$table . '_id=:id', 'params' => [':id' => $id]]);
+                  $model = '\Src\Model\\' . ucfirst($dependecy);
+                  $items = $model::getAllWhere(get_called_class()::$table . '_id', $id);
+                  foreach ($items as $item) {
+                        if (str_contains($dependecy, get_called_class()::$table)) {
+                              $key = get_called_class()::$table . '_id';
+                              $model::delete([$key => $item[$key]]);
+                        } else {
+                              $model::delete($item[$dependecy . '_id']);
+                        }
+                  }
+
             }
             App::$db->delete(get_called_class()::$table, $id);
       }

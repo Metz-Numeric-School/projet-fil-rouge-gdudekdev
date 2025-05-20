@@ -17,7 +17,7 @@ include_once ROOT . "/view/template/header_template.php";
                               <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=routes">
+                  <form method="post" action="index.php?page=routes&mode=add&accounts_id=<?= $account_id?>">
                         <?php foreach (Routes::$array_accepted_key as $key => $value): ?>
                               <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>
                               <div class="form-group">
@@ -28,7 +28,7 @@ include_once ROOT . "/view/template/header_template.php";
                               </div>
                         <?php endforeach ?>
                         <input type="hidden" name="accounts_id" value="<?= $account_id?>">
-                        <input type="submit" value="Mettre à jour" />
+                        <input type="submit" value="Ajouter" />
                   </form>
             </div>
       </div>

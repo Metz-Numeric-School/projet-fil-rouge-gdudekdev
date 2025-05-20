@@ -7,14 +7,15 @@ use App;
 class Rides extends Model
 {
       public static $table = 'rides';
-      // Dependencies order matterstatic 
-      public static $dependencies = ['rides_instance'];
-      private function update_show($url)
+      // public static $dependencies = ['rides_instance'];
+      protected static function update_show()
       {
-            $ride = new \Src\Entity\Rides(App::$db->getOneFrom('rides', 'rides_id', $url['id']));
-            $account_id = $url['accounts_id'];
-            $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $url['accounts_id']]]);
-            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $url['accounts_id']]]);
+            $id = $_GET['id'] ?? 0;
+            $account_id = $_GET['accounts_id'];
+
+            $ride = new \Src\Entity\Rides(App::$db->getOneFrom('rides', 'rides_id', $id));
+            $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]);
+            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]);
             $planifications = App::$db->getAllFrom('planifications');
             $models = [];
             $brands = [];
@@ -29,14 +30,15 @@ class Rides extends Model
                   $engines[] = App::$db->getOneFrom('car_engines', 'car_engines_id', $vehicule->car_engines_id())['car_engines_name'];
             }
             return
-                  compact(["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"], ["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"]);
+                  compact(["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"]);
       }
-      private function add_show($url)
+      protected static function add_show()
       {
+            $account_id = $_GET['accounts_id'];
+
             $ride = new \Src\Entity\Rides();
-            $account_id = $url['accounts_id'];
-            $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $url['accounts_id']]]);
-            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $url['accounts_id']]]);
+            $vehicules = App::$db->getAllFromWhere('vehicules', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]);
+            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]);
             $planifications = App::$db->getAllFrom('planifications');
             $models = [];
             $brands = [];
@@ -51,12 +53,14 @@ class Rides extends Model
                   $engines[] = App::$db->getOneFrom('car_engines', 'car_engines_id', $vehicule->car_engines_id())['car_engines_name'];
             }
             return
-                  compact(["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"], ["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"]);
+                  compact(["ride", "account_id", "vehicules", "routes", "planifications", "models", "brands", "colors", "engines"]);
 
       }
-      private function all_show($url)
+      protected static function all_show()
       {
-            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $url['accounts_id']]]);
+            $account_id = $_GET['accounts_id'];
+
+            $routes = App::$db->getAllFromWhere('routes', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]);
             $rides = [];
             foreach ($routes as $route) {
                   $corresponding_rides = App::$db->getAllFromWhere("rides", ['stmt' => 'routes_id =:routes_id', 'params' => [':routes_id' => $route['routes_id']]]);
@@ -67,7 +71,7 @@ class Rides extends Model
             return
                   [
                         "rides" => $rides,
-                        "account_id" => $url['accounts_id'],
+                        "account_id" => $account_id,
                   ];
       }
 }
