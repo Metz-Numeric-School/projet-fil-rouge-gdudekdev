@@ -22,7 +22,7 @@ const allModels = <?= json_encode($models) ?>;
                               <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=vehicules&accounts_id=<?= $account_id?>">
+                  <form method="post" action="index.php?page=vehicules&accounts_id=<?= $account_id?>&mode=add">
                         <?php foreach (Vehicules::$array_accepted_key as $key => $value): ?>
                               <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>
                               <div class="form-group">

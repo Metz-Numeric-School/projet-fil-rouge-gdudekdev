@@ -48,9 +48,9 @@ include_once ROOT . "/view/template/header_template.php";
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
-                                                <a href="index.php?page=vehicules&accounts_id=<?= $account_id ?>&id=<?= $vehicule->id() ?>"
+                                                <a href="index.php?page=vehicules&id=<?= $vehicule->id() ?>"
                                                       class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
-                                                <a href="index.php?page=handlers&table=vehicules&remove&id=<?= $vehicule->id() ?>"
+                                                <a href="index.php?page=vehicules&mode=remove&accounts_id=<?=$account_id?>&id=<?= $vehicule->id() ?>"
                                                       class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>
