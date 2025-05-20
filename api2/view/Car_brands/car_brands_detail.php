@@ -15,13 +15,13 @@ include_once ROOT . "/view/template/header_template.php";
                   <div class="crud__header-cta">
                         <a href="index.php?page=cars&sub=brands" class="crud__table-btn">
                               <\Retour </a>
-                                    <a href="index.php?page=handlers&table=cars&sub=brands&remove&id=<?= $car_brand->id() ?>"
+                                    <a href="index.php?page=cars&sub=brands&mode=remove&id=<?= $car_brand->id() ?>"
                                           class="crud__table-btn crud__table-btn--delete">Supprimer</a>
                   </div>
                   <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=cars&sub=brands">
+                  <form method="post" action="index.php?page=cars&mode=up&sub=brands">
                         <?php foreach (Car_brands::$array_accepted_key as $key => $value): ?>
                               <?= $value['detail_show'] ? "<h5>" . $value['title'] . "</h5>" : '' ?>
                               <div class="form-group">
@@ -36,7 +36,7 @@ include_once ROOT . "/view/template/header_template.php";
             </div>
             <div class="form__main">
                   <h5>Modeles de la marque</h5>
-                  <form method="post" action="index.php?page=handlers&table=cars&sub=models">
+                  <form method="post" action="index.php?page=cars&sub=models&mode=add&car_brands_id=<?= $car_brand->id()?>">
                         <div class="form-group">
                               <input type="submit" value="Ajouter">
                               <input type="text" placeholder="Nom de la marque" name="car_models_name">
@@ -60,7 +60,7 @@ include_once ROOT . "/view/template/header_template.php";
                                     <tr>
                                           <td class="crud__table-cell">
                                                 <div class="crud__table-cta">
-                                                      <a href="index.php?page=handlers&table=cars&sub=models&remove&id=<?= $div->id() ?>"
+                                                      <a href="index.php?page=cars&sub=models&mode=remove&id=<?= $div->id() ?>&car_brands_id=<?= $car_brand->id()?>"
                                                             class="crud__table-btn crud__table-btn--delete">X</a>
                                                 </div>
                                           </td>

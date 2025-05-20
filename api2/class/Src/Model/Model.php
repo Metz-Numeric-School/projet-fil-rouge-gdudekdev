@@ -2,7 +2,7 @@
 namespace Src\Model;
 
 use App;
-abstract class Model 
+abstract class Model
 {
       public function handle($url, $data)
       {
@@ -26,12 +26,14 @@ abstract class Model
 
                   App::$db->delete(get_called_class()::$table, $id);
             }
+            return true;
       }
       public static function create(array $data)
       {
             App::$db->add(get_called_class()::$table, $data);
+            return true;
       }
-      public static function update(array $data): void
+      public static function update(array $data)
       {
             if (self::own_method(get_called_class(), 'custom_' . __FUNCTION__)) {
                   $method_name = 'custom_' . __FUNCTION__;
@@ -39,22 +41,15 @@ abstract class Model
             } else {
                   App::$db->update(get_called_class()::$table, $data);
             }
+            return true;
       }
       public static function process($url, $data)
       {
-            if (isset($url['mode'])) {
-                  switch ($url['mode']) {
-                        case 'up':
-                              !empty($data) ? self::update($data) : get_called_class()::all_show();
-                              break;
-                        case 'add':
-                              !empty($data) ? self::create($data) : get_called_class()::add_show();
-                              break;
-                        case 'remove':
-                              isset($url['id']) ? self::delete($url['id']) : get_called_class()::all_show();
-                              break;
-                  }
-            }
+            return match ($url['mode']) {
+                  'up' => !empty($data) ? self::update($data) : get_called_class()::all_show(),
+                  'add' => !empty($data) ? self::create($data) : get_called_class()::add_show(),
+                  'remove' => isset($url['id']) ? self::delete($url['id']) : get_called_class()::all_show(),
+            };
       }
 
       private static function own_method($class_name, $method_name)
@@ -86,7 +81,8 @@ abstract class Model
       {
             return App::$db->getAllFrom(get_called_class()::$table);
       }
-      public static function getAllWhere($closure,$value){
-             return App::$db->getAllFromWhere(get_called_class()::$table,['stmt'=>$closure . '=:id', 'params'=>[':id'=>$value]]);
+      public static function getAllWhere($closure, $value)
+      {
+            return App::$db->getAllFromWhere(get_called_class()::$table, ['stmt' => $closure . '=:id', 'params' => [':id' => $value]]);
       }
 }

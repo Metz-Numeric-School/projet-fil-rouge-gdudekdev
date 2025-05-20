@@ -13,7 +13,7 @@ require ROOT . '/view/template/header_template.php';
                   <div class="accueil__group-list">
                         <div class="accueil__group-item">
                               <h4>Marques</h4>
-                              <a href="/index.php?page=cars&sub=brands">Gérer les Marques</a>
+                              <a href="/index.php?page=cars&sub=brands">Gérer les Marques et Modeles Associés</a>
                         </div>
                         <div class="accueil__group-item">
                               <h4>Couleurs</h4>

@@ -13,7 +13,7 @@ class Entreprises extends Model
             $entreprise = new \Src\Entity\Entreprises(self::get($id));
             $division = Divisions::getAllWhere('entreprises_id', $entreprise->id());
             return
-                  compact(["entreprise","division"]);
+                  compact(["entreprise", "division"]);
       }
       protected static function add_show(): array
       {

@@ -19,7 +19,7 @@ include_once ROOT . "/view/template/header_template.php";
 			<div class="crud__header-cta">
 				<a href="index.php?page=accounts" class="crud__table-btn">
 					<\Retour </a>
-						<a href="index.php?page=handlers&table=accounts&remove&id=<?= $account->id() ?>"
+						<a href="index.php?page=accounts&mode=remove&id=<?= $account->id() ?>"
 							class="crud__table-btn crud__table-btn--delete">Supprimer</a>
 			</div>
 			<h2><?= ucfirst($title) ?></h2>

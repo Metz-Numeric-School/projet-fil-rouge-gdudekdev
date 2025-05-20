@@ -16,7 +16,7 @@ include_once ROOT . "/view/template/header_template.php";
                               <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="form__main">
-                  <form method="post" action="index.php?page=handlers&table=cars&sub=brands">
+                  <form method="post" action="index.php?page=cars&sub=brands&mode=add">
                         <?php foreach (Car_brands::$array_accepted_key as $key => $value): ?>
                               <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" :''?>
                               <div class="form-group">

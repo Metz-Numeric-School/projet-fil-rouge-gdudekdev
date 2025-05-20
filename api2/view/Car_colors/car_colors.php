@@ -17,7 +17,7 @@ include_once ROOT . "/view/template/header_template.php";
                   <h2><?= ucfirst($title) ?></h2>
             </div>
             <div class="crud__main">
-                  <form method="post" action="index.php?page=handlers&table=cars&sub=colors">
+                  <form method="post" action="index.php?page=cars&sub=colors&mode=add">
                         <div class="form-group">
                               <input type="submit" value="Ajouter">
                               <input type="text" placeholder="Nom de la couleur" name="car_colors_name" required>
@@ -41,7 +41,7 @@ include_once ROOT . "/view/template/header_template.php";
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
-                                                <a href="index.php?page=handlers&table=cars&sub=colors&remove&id=<?= $div->id() ?>"
+                                                <a href="index.php?page=cars&sub=colors&mode=remove&id=<?= $div->id() ?>"
                                                       class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>

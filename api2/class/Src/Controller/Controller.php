@@ -11,21 +11,29 @@ class Controller
       public function handle($url, $data)
       {
             Auth::getInstance()->protect();
+
             $table = get_called_class()::$table;
             self::$url_params = self::getTrimmedUrl($url);
 
             $obj = ucfirst($table);
             $model = '\Src\Model\\' . $obj;
             $model = new $model;
+
             if (isset($url['mode'])) {
-                  echo self::var_in_called_class('redirect_path') ? 'dad' : 'no';
-                  var_dump(get_called_class()::$redirect_path);
-                  $model->process($url, $data);
-                  self::redirect();
-                  exit();
+                  $response = $model->process($url, $data);
+
+                  if ($response === true) {
+                        self::redirect();
+                        exit();
+                  } else {
+                        extract($response);
+                  }
+            } else {
+                  extract($model->handle($url, $data));
             }
+
             $title = get_called_class()::$title;
-            extract($model->handle($url, $data));
+
             if (isset($url['id'])) {
                   include ROOT . '/view/' . $obj . '/' . $table . '_detail.php';
             } else if (isset($url['add'])) {

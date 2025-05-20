@@ -10,21 +10,21 @@ class Preferences extends Model
       // Dependencies order matterstatic 
       public static $dependencies = ['accounts_preferences'];
      
-      private function update_show($id)
+      protected static function update_show($id)
       {
             $preference = new \Src\Entity\Preferences(App::$db->getOneFrom('preferences', 'preferences_id', $id));
             $preferences = App::$db->getAllFrom('preferences');
             return
                   compact([ "preferences","preference"], [ "preferences","preference"]);
       }
-      private function add_show()
+      protected static function add_show()
       {
             $preference = new \Src\Entity\Preferences();
             return
                   compact(["preference"], ["preference"]);
             
       }
-      private function all_show()
+      protected static function all_show()
       {
             return
                   [

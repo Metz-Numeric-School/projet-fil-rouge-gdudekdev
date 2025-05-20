@@ -36,7 +36,7 @@ include_once ROOT . "/view/template/header_template.php";
                                           <div class="crud__table-cta">
                                                 <a href="index.php?page=preferences&id=<?= $preference->id() ?>"
                                                       class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
-                                                <a href="index.php?page=handlers&table=preferences&remove&id=<?= $preference->id() ?>"
+                                                <a href="index.php?page=preferences&mode=remove&id=<?= $preference->id() ?>"
                                                       class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>
