@@ -13,16 +13,24 @@ class Planifications
                   'create_show' => false,
                   'type' => "number",
             ],
-            'name' => [
-                  'title' => 'Nom de la planification',
+            'pattern_type' => [
+                  'title' => 'Type de pattern de la planification',
                   'detail_show' => true,
                   'create_show' => true,
                   'crud_show' => true,
                   'readonly' => false,
                   'required' => true,
             ],
-            'map' => [
-                  'title' => 'Type de mappage de la planification',
+            'days_of_week' => [
+                  'title' => 'Jours prévus dans la planification',
+                  'detail_show' => true,
+                  'create_show' => true,
+                  'crud_show' => true,
+                  'readonly' => false,
+                  'required' => true,
+            ],
+            'interval_weeks' => [
+                  'title' => 'Intervalle de semaine pour la planification',
                   'detail_show' => true,
                   'create_show' => true,
                   'crud_show' => true,
@@ -31,8 +39,9 @@ class Planifications
             ],
       ];
       private $id = 0;
-      private $name = "";
-      private $map = [];
+      private $pattern_type = "none";
+      private $days_of_week = [];
+      private $interval_weeks = 1;
 
       public function __construct($data = null)
       {
@@ -44,8 +53,9 @@ class Planifications
       private function hydrate($data)
       {
             $this->id = $data['planifications_id'];
-            $this->name = $data['planifications_name'];
-            $this->map = $data['planifications_map'];
+            $this->pattern_type = $data['planifications_pattern_type'];
+            $this->days_of_week = $data['planifications_days_of_week'];
+            $this->interval_weeks = $data['planifications_interval_weeks'];
 
       }
       public function id()
@@ -58,20 +68,28 @@ class Planifications
                   $this->id = $value;
             }
       }
-      public function name()
+      public function pattern_type()
       {
-            return htmlspecialchars($this->name);
+            return htmlspecialchars($this->pattern_type);
       }
-      public function setName(string $value)
+      public function setPattern_type(string $value)
       {
-            $this->name = $value;
+            $this->pattern_type = $value;
       }
-      public function map()
+      public function days_of_week()
       {
-            return htmlspecialchars($this->map);
+            return htmlspecialchars($this->days_of_week);
       }
-      public function setMap(string $value)
+      public function setDays_of_week(string $value)
       {
-            $this->map = $value;
+            $this->days_of_week = $value;
+      }
+      public function interval_weeks()
+      {
+            return htmlspecialchars($this->interval_weeks);
+      }
+      public function setInterval_weeks(string $value)
+      {
+            $this->interval_weeks = $value;
       }
 }

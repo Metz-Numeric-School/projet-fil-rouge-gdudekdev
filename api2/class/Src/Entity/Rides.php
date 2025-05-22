@@ -37,13 +37,6 @@ class Rides
                   'crud_show' => false,
                   'readonly' => false,
             ],
-            'position' => [
-                  'title' => 'Role lors du trajet',
-                  'detail_show' => true,
-                  'create_show' => true,
-                  'crud_show' => false,
-                  'readonly' => false,
-            ],
             'created_at' => [
                   'title' => 'Date de création',
                   'detail_show' => true,

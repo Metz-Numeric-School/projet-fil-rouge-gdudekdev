@@ -4,18 +4,18 @@
 require dirname(__DIR__) . '/class/src/App.php';
 App::_init();
 
-
+$page = 'Home';
 if (isset($_GET['page'])) {
-     
       $page = ucfirst($_GET['page']);
-      $class = '\Src\Controller\\' . $page;
-      if (class_exists('\Src\Controller\\' . $page)) {
-            $controller = new $class;
-            $controller->handle($_GET,$_POST);
-      } else {
-            $controller = new \Src\Controller\Home;
-            $controller->handle($_GET,$_POST);
-      }
+
+}
+$class = '\Src\Controller\\' . $page;
+if (class_exists('\Src\Controller\\' . $page)) {
+      $controller = new $class;
+      $controller->handle($_GET, $_POST);
+} else {
+      $controller = new \Src\Controller\Home;
+      $controller->handle($_GET, $_POST);
 }
 
 // if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

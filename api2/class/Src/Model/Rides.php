@@ -7,7 +7,7 @@ use App;
 class Rides extends Model
 {
       public static $table = 'rides';
-      // public static $dependencies = ['rides_instance'];
+      public static $dependencies = ['instances'];
       protected static function update_show()
       {
             $id = $_GET['id'] ?? 0;
@@ -73,5 +73,20 @@ class Rides extends Model
                         "rides" => $rides,
                         "account_id" => $account_id,
                   ];
+      }
+      public static function create(array $data)
+      {
+            $ride = $data;
+            $removeKeys = array('pattern_type', 'single_date', 'interval_weeks', 'days_of_week');
+
+
+            $planification_id = Planifications::getOrGeneratePlanificationId($ride);
+            $ride = array_diff_key($data, array_flip($removeKeys));
+            $ride['planifications_id'] = $planification_id;
+
+            App::$db->add(get_called_class()::$table, $ride);
+            $data['rides_id'] = App::$db->getLastInserted();
+            Instances::onCreateRide($data);
+            return true;
       }
 }

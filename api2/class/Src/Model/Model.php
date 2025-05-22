@@ -47,9 +47,9 @@ abstract class Model
       public static function process($url, $data)
       {
             return match ($url['mode']) {
-                  'up' => !empty($data) ? self::update($data) : get_called_class()::all_show(),
-                  'add' => !empty($data) ? self::create($data) : get_called_class()::add_show(),
-                  'remove' => isset($url['id']) ? self::delete($url['id']) : get_called_class()::all_show(),
+                  'up' => !empty($data) ? get_called_class()::update($data) : get_called_class()::all_show(),
+                  'add' => !empty($data) ? get_called_class()::create($data) : get_called_class()::add_show(),
+                  'remove' => isset($url['id']) ? get_called_class()::delete($url['id']) : get_called_class()::all_show(),
             };
       }
 

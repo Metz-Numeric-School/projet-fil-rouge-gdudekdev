@@ -18,10 +18,8 @@ class Controller
             $obj = ucfirst($table);
             $model = '\Src\Model\\' . $obj;
             $model = new $model;
-
             if (isset($url['mode'])) {
                   $response = $model->process($url, $data);
-
                   if ($response === true) {
                         self::redirect();
                         exit();

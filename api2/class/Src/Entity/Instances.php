@@ -2,7 +2,7 @@
 
 namespace Src\Entity;
 
-class RidesInstance
+class Instances
 {
       public static $array_accepted_key = [
             'id' => [
@@ -77,13 +77,13 @@ class RidesInstance
       }
       private function hydrate($data)
       {
-            $this->id = $data['rides_instance_id'];
-            $this->departure_time = $data['rides_instance_departure_time'];
-            $this->departure = $data['rides_instance_departure'];
-            $this->destination = $data['rides_instance_destination'];
-            $this->driver_id = $data['rides_instance_driver_id'];
-            $this->status = $data['rides_instance_status'];
-            $this->rides_id = $data['rides_id'];
+            $this->setId($data['instances_id']);
+            $this->setDeparture_time($data['instances_departure_time']);
+            $this->setDeparture($data['instances_departure']);
+            $this->setDestination($data['instances_destination']);
+            $this->setDriver_id($data['instances_driver_id']);
+            $this->setStatus($data['instances_status']);
+            $this->setRides_id($data['rides_id']);
       }
 
       public function id()
@@ -140,6 +140,14 @@ class RidesInstance
             if (is_numeric($value) && $value !== 0) {
                   $this->rides_id = $value;
             }
+      }
+      public function status()
+      {
+            return htmlspecialchars($this->status ?? 0);
+      }
+      public function setStatus(string $value)
+      {
+            $this->status = $value;
       }
 
 }
