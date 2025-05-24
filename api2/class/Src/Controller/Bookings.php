@@ -14,12 +14,16 @@ class Bookings extends Controller
       {
             Auth::getInstance()->protect();
 
-            $table = get_called_class()::$table;
+
             self::$url_params = self::getTrimmedUrl($url);
 
-            $obj = ucfirst($table);
-            $model = '\Src\Model\\' . $obj;
-            $model = new $model;
+            $model = new \Src\Model\Bookings;
+
+            if (isset($url['status']) && ($url['status'] == 'accepted' || $url['status'] == 'refused') && isset($url['id'])) {
+                  $model->setStatus($url['id'], $url['status']);
+                  self::redirect();
+                  exit();
+            }
             if (isset($url['mode'])) {
                   $response = $model->process($url, $data);
                   if ($response === true) {
@@ -35,10 +39,10 @@ class Bookings extends Controller
             $title = get_called_class()::$title;
 
             if ($url['accounts_id'] == Instances::get($url['instances_id'])['instances_driver_id']) {
-                  include ROOT . '/view/' . $obj . '/' . $table . '_receiver.php';
+                  include ROOT . '/view/Bookings/' . self::$table . '_receiver.php';
 
             } else {
-                  include ROOT . '/view/' . $obj . '/' . $table . '_sender.php';
+                  include ROOT . '/view/Bookings/' . self::$table . '_sender.php';
 
             }
       }
