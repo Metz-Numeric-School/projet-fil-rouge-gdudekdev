@@ -22,6 +22,7 @@ include_once ROOT . "/view/template/header_template.php";
             <form method="post" action="index.php?page=rides&mode=add&accounts_id=<?= $account_id ?>">
                 <div class="form-group">
                     <label><input type="checkbox" name="rides_position" value="driver"> Conducteur</label><br>
+                    <!-- TODO changer le js pour que si c'est coché, on affiche le champ du nombre de place sinon on le cache -->
 
                     <?php foreach (Rides::$array_accepted_key as $key => $value): ?>
                         <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" : '' ?>

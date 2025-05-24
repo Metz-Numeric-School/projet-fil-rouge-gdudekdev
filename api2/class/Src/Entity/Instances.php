@@ -26,14 +26,14 @@ class Instances
                   'title' => 'Adresse de départ',
                   'detail_show' => true,
                   'create_show' => true,
-                  'crud_show' => false,
+                  'crud_show' => true,
                   'readonly' => false,
             ],
             'destination' => [
                   'title' => 'Adresse d\'arrivée',
                   'detail_show' => true,
                   'create_show' => true,
-                  'crud_show' => false,
+                  'crud_show' => true,
                   'readonly' => false,
             ],
             'driver_id' => [

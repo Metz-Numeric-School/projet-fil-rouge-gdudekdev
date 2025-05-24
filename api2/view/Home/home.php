@@ -41,15 +41,6 @@ require ROOT . '/view/template/header_template.php';
                                           <a href="/index.php?page=preferences&add">Ajouter une Préférence</a>
                                     </div>
                                     <div class="accueil__group-item">
-                                          <h4>Instances de trajet</h4>
-                                          <a href="/index.php?page=instances">Gérer les Instances de trajet</a>
-                                    </div>
-                                    <div class="accueil__group-item">
-                                          <h4>Reservations</h4>
-                                          <a href="">Gérer les Utilisateurs</a>
-                                          <a href="">Ajouter un Utilisateur</a>
-                                    </div>
-                                    <div class="accueil__group-item">
                                           <h4>Planifications</h4>
                                           <a href="/index.php?page=planifications">Gérer les Planifications</a>
                                           <a href="/index.php?page=planifications&add">Ajouter une Planification</a>

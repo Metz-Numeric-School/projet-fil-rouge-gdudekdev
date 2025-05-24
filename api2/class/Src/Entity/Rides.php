@@ -28,7 +28,6 @@ class Rides
                   'create_show' => true,
                   'crud_show' => true,
                   'readonly' => false,
-                  'required' => true,
             ],
             'direction' => [
                   'title' => 'Sens de direction',

@@ -7,7 +7,7 @@ use App;
 class Planifications extends Model
 {
       public static $table = 'planifications';
-      // public static $dependencies = ['rides'];
+      public static $dependencies = ['rides'];
       private function update_show($id)
       {
             $entreprise = new \Src\Entity\planifications(App::$db->getOneFrom('planifications', 'planifications_id', $id));

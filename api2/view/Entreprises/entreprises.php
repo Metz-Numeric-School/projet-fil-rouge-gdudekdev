@@ -36,7 +36,7 @@ include_once ROOT . "/view/template/header_template.php";
                                           <div class="crud__table-cta">
                                                 <a href="index.php?page=entreprises&id=<?= $entreprise->id() ?>"
                                                       class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
-                                                <a href="index.php?page=handlers&table=entreprises&remove&id=<?= $entreprise->id() ?>"
+                                                <a href="index.php?page=entreprises&mode=remove&id=<?= $entreprise->id() ?>"
                                                       class="crud__table-btn crud__table-btn--delete">X</a>
                                           </div>
                                     </td>

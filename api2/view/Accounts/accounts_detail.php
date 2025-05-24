@@ -32,6 +32,9 @@ include_once ROOT . "/view/template/header_template.php";
 			<a href="index.php?page=rides&accounts_id=<?= $account->id() ?>" class='crud__table-btn'>Voir
 				les trajets de
 				l'utilisateur</a>
+			<a href="index.php?page=instances&accounts_id=<?= $account->id() ?>" class='crud__table-btn'>Voir
+				les réservations de
+				l'utilisateur</a>
 		</div>
 		<div class="form__main">
 			<form method="post" action="index.php?page=accounts&mode=up">

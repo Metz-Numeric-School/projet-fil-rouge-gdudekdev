@@ -1,7 +1,6 @@
 <?php
 
-use Src\Entity\Instances;
-
+use Src\Entity\Bookings;
 include_once ROOT . "/view/template/header_template.php";
 ?>
 
@@ -10,7 +9,7 @@ include_once ROOT . "/view/template/header_template.php";
 
             <div class="crud__header">
                   <div class="crud__header-cta">
-                        <a href="index.php?page=accounts&id=<?= $account_id?>" class="crud__table-btn">
+                        <a href="index.php?page=instances&accounts_id=<?= $account_id?>" class="crud__table-btn">
                               <\Retour </a>
 
                   </div>
@@ -21,28 +20,28 @@ include_once ROOT . "/view/template/header_template.php";
                   <table class="crud__table">
                         <tr>
                               <td class=" crud__table-cell crud__table-cell-header ">Actions</td>
-                              <?php foreach (Instances::$array_accepted_key as $field):
+                              <?php foreach (Bookings::$array_accepted_key as $field):
                                     if ($field['crud_show']) { ?>
                                           <td class=" crud__table-cell crud__table-cell-header "> <?= $field['title'] ?></td>
                                     <?php } ?>
                               <?php endforeach ?>
                         </tr>
-                        <?php foreach ($instances as $instance):
-                              $instance = new Instances($instance) ?>
-
+                        <?php foreach ($bookings as $booking): 
+                              $booking = new Bookings($booking)?>
+                              
                               <tr>
                                     <td class="crud__table-cell">
                                           <div class="crud__table-cta">
-                                                <a href="index.php?page=bookings&instances_id=<?= $instance->id() ?>&accounts_id=<?= $account_id ?>"
-                                                      class="crud__table-btn crud__table-btn--edit">Voir le détail</a>
-                                                <a href="index.php?page=instances&mode=remove&id=<?= $instance->id() ?>"
-                                                      class="crud__table-btn crud__table-btn--delete">X</a>
+                                                <a href="index.php?page=bookings&id=<?= $booking->id() ?>"
+                                                      class="crud__table-btn crud__table-btn--edit">Accepter</a>
+                                                <a href="index.php?page=bookings&mode=remove&id=<?= $booking->id() ?>"
+                                                      class="crud__table-btn crud__table-btn--delete">Refuser</a>
                                           </div>
                                     </td>
-                                    <?php foreach (instances::$array_accepted_key as $key => $value):
-                                          if ($value['crud_show']) {
-                                                $method = str_replace('instances_', '', $key) ?>
-                                                <td class="crud__table-cell"><?= $instance->$method() ?></td>
+                                    <?php foreach (Bookings::$array_accepted_key as $key => $value):  
+                                          if ($value['crud_show']) { 
+                                                $method = str_replace('bookings_' , '', $key)?>
+                                                <td class="crud__table-cell"><?= $booking->$method() ?></td>
                                           <?php } ?>
                                     <?php endforeach ?>
                               </tr>

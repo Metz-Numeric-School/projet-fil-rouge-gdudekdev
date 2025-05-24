@@ -7,19 +7,25 @@ use App;
 class Instances extends Model
 {
       public static $table = 'instances';
-      protected static function update_show()
-      {
-            $id = $_GET['id'] ?? 0;
-            $route = new \Src\Entity\Routes(Routes::get($id));
-            $account_id = $route->accounts_id();
-            return
-                  compact(["route", "account_id"], ["route", "account_id"]);
-      }
       protected static function all_show()
       {
+            $account_id = $_GET['accounts_id'] ?? 0;
+
+            $routes = Routes::getAllWhere('accounts_id', $account_id);
+            $allRides = [];
+            foreach ($routes as $route) {
+                  $rides = Rides::getAllWhere('routes_id', $route['routes_id']);
+                  $allRides = [...$allRides, ...$rides];
+            }
+            $instances = [];
+            foreach ($allRides as $ride) {
+                  $instance = Instances::getAllWhere('rides_id', $ride['rides_id']);
+                  $instances = [...$instances, ...$instance];
+            }
             return
                   [
-                        "instances" => self::getAll()
+                        "instances" => $instances,
+                        "account_id" => $account_id,
                   ];
       }
       public static function onCreateRide($ride)
@@ -36,7 +42,7 @@ class Instances extends Model
       private static function createInstance($ride)
       {
             $route = Routes::get($ride['routes_id']);
-            $driverId = $route['accounts_id'];
+            $driverId = isset($ride['rides_position']) ? $route['accounts_id'] : 0;
             $departure = $route['routes_departure'];
             $destination = $route['routes_destination'];
             $instance_data = [
