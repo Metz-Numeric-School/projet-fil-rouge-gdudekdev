@@ -7,28 +7,27 @@ use App;
 class Preferences extends Model
 {
       public static $table = 'preferences';
-      // Dependencies order matterstatic 
       public static $dependencies = ['accounts_preferences'];
      
       protected static function update_show($id)
       {
-            $preference = new \Src\Entity\Preferences(App::$db->getOneFrom('preferences', 'preferences_id', $id));
-            $preferences = App::$db->getAllFrom('preferences');
+            $preference = self::newEntity(self::get($id));
+            $preferences = Preferences::getAll();
             return
-                  compact([ "preferences","preference"], [ "preferences","preference"]);
+                  compact([ "preferences","preference"]);
       }
       protected static function add_show()
       {
-            $preference = new \Src\Entity\Preferences();
+            $preference = self::newEntity();
             return
-                  compact(["preference"], ["preference"]);
+                  compact(["preference"]);
             
       }
       protected static function all_show()
       {
             return
                   [
-                        "preferences" => App::$db->getAllFrom("preferences"),
+                        "preferences" => Preferences::getAll(),
                   ];
       }
 }

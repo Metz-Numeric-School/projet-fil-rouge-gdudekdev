@@ -96,4 +96,10 @@ abstract class Model
       {
             return App::$db->getAllFromWhere(get_called_class()::$table, ['stmt' => $closure . '=:id', 'params' => [':id' => $value]]);
       }
+
+      public static function newEntity($value = null )
+      {
+            $entity = "\Src\Entity\\" . str_replace('Src\Model\\', '', get_called_class());
+            return new $entity($value);
+      }
 }

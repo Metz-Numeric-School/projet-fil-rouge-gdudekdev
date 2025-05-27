@@ -21,12 +21,12 @@ include_once ROOT . "/view/template/header_template.php";
         <div class="form__main">
             <form method="post" action="index.php?page=rides&mode=add&accounts_id=<?= $account_id ?>">
                 <div class="form-group">
-                    <label><input type="checkbox" name="rides_position" value="driver"> Conducteur</label><br>
-                    <!-- TODO changer le js pour que si c'est coché, on affiche le champ du nombre de place sinon on le cache -->
+                    <label><input type="checkbox" name="rides_position" id="rides_position" value="driver">
+                        Conducteur</label><br>
 
                     <?php foreach (Rides::$array_accepted_key as $key => $value): ?>
-                        <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" : '' ?>
                         <div class="form-group">
+                            <?= $value['create_show'] ? "<h5>" . $value['title'] . "</h5>" : '' ?>
                             <input type="<?= $value['create_show'] ? ($value['type'] ?? "text") : "hidden" ?>"
                                 name="<?= 'rides_' . $key ?>" id="<?= $key ?>" value="<?= $ride->{$key}() ?>"
                                 class="form-control" <?= $value['readonly'] ? "readonly='readonly'" : "" ?>
@@ -41,7 +41,8 @@ include_once ROOT . "/view/template/header_template.php";
                             $vehicule = new Vehicules($raw);
                             ?>
                             <option value="<?= $vehicule->id() ?>">
-                                <?= $brands[$index] ?>, <?= $models[$index] ?>, <?= $colors[$index] ?>, <?= $engines[$index] ?>,
+                                <?= $brands[$index] ?>, <?= $models[$index] ?>, <?= $colors[$index] ?>,
+                                <?= $engines[$index] ?>,
                                 <?= $vehicule->license_plate() ?>
                             </option>
                         <?php endforeach; ?>

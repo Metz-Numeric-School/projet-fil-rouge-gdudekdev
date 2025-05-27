@@ -10,14 +10,14 @@ class Entreprises extends Model
       public static $dependencies = ['divisions'];
       protected static function update_show($id)
       {
-            $entreprise = new \Src\Entity\Entreprises(self::get($id));
+            $entreprise =self::newEntity(self::get($id));
             $division = Divisions::getAllWhere('entreprises_id', $entreprise->id());
             return
                   compact(["entreprise", "division"]);
       }
       protected static function add_show(): array
       {
-            $entreprise = new \Src\Entity\Entreprises();
+            $entreprise = self::newEntity();
             return
                   compact(["entreprise"], ["entreprise"]);
       }
@@ -25,7 +25,7 @@ class Entreprises extends Model
       {
             return
                   [
-                        "entreprises" => App::$db->getAllFrom("entreprises"),
+                        "entreprises" => Entreprises::getAll(),
                   ];
       }
 }

@@ -11,17 +11,17 @@ class Routes extends Model
       protected static function update_show()
       {
             $id = $_GET['id'] ?? 0;
-            $route = new \Src\Entity\routes(App::$db->getOneFrom('routes', 'routes_id', $id));
+            $route = self::newEntity(self::get($id));
             $account_id = $route->accounts_id();
             return
-                  compact(["route", "account_id"], ["route", "account_id"]);
+                  compact(["route", "account_id"]);
       }
       protected static function add_show()
       {
-            $route = new \Src\Entity\routes();
+            $route = self::newEntity();
             $account_id = $_GET['accounts_id'] ?? 0;
             return
-                  compact(["route", "account_id"], ["route", "account_id"]);
+                  compact(["route", "account_id"]);
 
       }
       protected static function all_show()
@@ -29,7 +29,7 @@ class Routes extends Model
             $account_id = $_GET['accounts_id'] ?? 0;
             return
                   [
-                        "routes" => App::$db->getAllFromWhere("routes", ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account_id]]),
+                        "routes" => Routes::getAllWhere('accounts_id', $account_id),
                         "account_id" => $account_id,
                   ];
       }

@@ -2,8 +2,6 @@
 
 namespace Src\Model;
 
-use App;
-
 class Bookings extends Model
 {
       public static $table = 'bookings';
@@ -27,7 +25,7 @@ class Bookings extends Model
                                     $ride = Rides::get($instance['rides_id']);
                                     $route = Routes::get($ride['routes_id']);
 
-                                    $sender = new \Src\Entity\Accounts(Accounts::get($route['accounts_id']));
+                                    $sender = Accounts::newEntity(Accounts::get($route['accounts_id']));
                                     $refused_bookings[] = [
                                           'booking' => $booking,
                                           'time' => $time,
@@ -41,7 +39,7 @@ class Bookings extends Model
                                     $ride = Rides::get($instance['rides_id']);
                                     $route = Routes::get($ride['routes_id']);
 
-                                    $sender = new \Src\Entity\Accounts(Accounts::get($route['accounts_id']));
+                                    $sender =Accounts::newEntity(Accounts::get($route['accounts_id']));
                                     $accepted_bookings[] = [
                                           'booking' => $booking,
                                           'time' => $time,
@@ -66,7 +64,6 @@ class Bookings extends Model
                               "accepted_bookings" => $accepted_bookings,
                               "refused_bookings" => $refused_bookings,
                         ];
-                  // TODO montrer les demandes de passagers pour ce trajet en particulier
             } else {
                   // TODO faire une recherche de demande de trajet qui sont proposés par les conducteurs selon des critères encore a definir 
                   $bookings = Bookings::getAllWhere('instances_sender_id', $instance_id);
@@ -80,7 +77,7 @@ class Bookings extends Model
                         }
                         $route = $instance['instances_departure'] . ", " . $instance['instances_destination'];
                         $time = $instance['instances_departure_time'];
-                        $driver = new \Src\Entity\Accounts(Accounts::get($instance['instances_driver_id']));
+                        $driver = Accounts::newEntity(Accounts::get($instance['instances_driver_id']));
 
                         $valid_instances[] = [
                               'route' => $route,
@@ -106,6 +103,6 @@ class Bookings extends Model
 
             $booking['bookings_status'] = $value;
 
-            App::$db->update(self::$table, $booking);
+            self::update($booking);
       }
 }

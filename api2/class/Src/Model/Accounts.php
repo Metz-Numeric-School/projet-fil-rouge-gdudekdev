@@ -20,10 +20,9 @@ class Accounts extends Model
             }
             App::$db->update(self::$table, $data);
       }
-      // TODO revenir sur tous les update_show, add_show et utilsier les méthodes de Model\Model
       protected static function update_show($id)
       {
-            $account = new \Src\Entity\Accounts(self::get($id));
+            $account = self::newEntity(self::get($id));
             $roles = Roles::getAll();
             $entreprises = Entreprises::getAll();
             $division_entreprises = Divisions::get($account->divisions_id());
@@ -32,16 +31,16 @@ class Accounts extends Model
             }
             $divisions = Divisions::getAll();
             $preferences = Preferences::getAll();
-            $account_preferences = array_column(App::$db->getAllFromWhere('accounts_preferences', ['stmt' => 'accounts_id =:accounts_id', 'params' => [':accounts_id' => $account->id()]]), 'preferences_id');
+            $account_preferences = array_column(Accounts_preferences::getAllWhere('accounts_id', $account->id()), 'preferences_id');
             return
                   compact(["account", "roles", "entreprises", "divisions", "division_entreprises", "preferences", "account_preferences"]);
       }
       protected static function add_show(): array
       {
-            $account = new \Src\Entity\Accounts();
-            $roles = App::$db->getAllFrom('roles');
-            $entreprises = App::$db->getAllFrom('entreprises');
-            $divisions = App::$db->getAllFrom('divisions');
+            $account = Accounts::newEntity();
+            $roles = Roles::getAll();
+            $entreprises = Entreprises::getAll();
+            $divisions = Divisions::getAll();
             return
                   compact(["account", "roles", "entreprises", "divisions"]);
 

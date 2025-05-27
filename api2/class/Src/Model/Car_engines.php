@@ -11,7 +11,7 @@ class Car_engines extends Model
       {
             return
                   [
-                        "engines" => App::$db->getAllFrom("car_engines"),
+                        "engines" => Car_engines::getAll(),
                   ];
       }
 }
