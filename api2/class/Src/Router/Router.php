@@ -2,6 +2,7 @@
 
 namespace Src\Router;
 
+use Src\Api\Api;
 use Src\Api\ApiQuery;
 use Src\Auth\Auth;
 use Src\Controller\Authenticate;
@@ -71,7 +72,7 @@ class Router
                                     $controller->handleApiLogout($data);
                                     break;
                               case 'on':
-                                    $controller = new ApiQuery;
+                                    $controller = new Api;
                                     $controller->handle($data, $_GET);
                                     break;
                               default:

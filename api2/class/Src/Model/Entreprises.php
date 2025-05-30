@@ -7,7 +7,6 @@ use App;
 class Entreprises extends Model
 {
       public static $table = 'entreprises';
-      public static $dependencies = ['divisions'];
       protected static function update_show($id)
       {
             $entreprise =self::newEntity(self::get($id));

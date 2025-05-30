@@ -8,7 +8,6 @@ class Accounts extends Model
 {
       public static $table = 'accounts';
       // Dependencies order matterstatic 
-      public static $dependencies = ['accounts_preferences', 'routes', 'vehicules'];
       public static function custom_update(array $data): void
       {
             App::$db->deleteFromWhere('accounts_preferences', ['stmt' => 'accounts_id=:id', 'params' => [':id' => $data['accounts_id']]]);

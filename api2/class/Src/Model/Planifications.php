@@ -7,8 +7,6 @@ use App;
 class Planifications extends Model
 {
       public static $table = 'planifications';
-      public static $dependencies = ['rides'];
-
 
       public static function getOrGeneratePlanificationId($ride)
       {

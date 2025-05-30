@@ -7,7 +7,6 @@ use App;
 class Preferences extends Model
 {
       public static $table = 'preferences';
-      public static $dependencies = ['accounts_preferences'];
      
       protected static function update_show($id)
       {

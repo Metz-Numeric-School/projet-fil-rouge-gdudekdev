@@ -7,7 +7,6 @@ use App;
 class Routes extends Model
 {
       public static $table = 'routes';
-      public static $dependencies = ['rides'];
       protected static function update_show()
       {
             $id = $_GET['id'] ?? 0;

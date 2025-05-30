@@ -7,7 +7,6 @@ use App;
 class Car_brands extends Model
 {
       public static $table = 'car_brands';
-      public static $dependencies = ['car_models','vehicules'];
       protected static function update_show($id)
       {
             $car_brand = self::newEntity(self::get($id));
