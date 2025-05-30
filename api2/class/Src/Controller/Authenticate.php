@@ -2,6 +2,7 @@
 
 namespace Src\Controller;
 
+use Core\Model\JWT;
 use Src\Auth\Auth;
 
 class Authenticate extends Controller
@@ -26,12 +27,22 @@ class Authenticate extends Controller
 
       }
       public function handleApiLogin($data)
-      {     
-            var_dump($data['body']);
+      {
             $body = $data['body'];
-            if(Auth::verifyApiAccess($body->email,$body->password)){
+            if (Auth::verifyApiAccess($body->email, $body->password)) {
                   echo 'test';
             }
+      }
+      public function handleApiLogout($data)
+      {
+            $headers = $data['headers'];
+            $token = $headers['Bearer'] ?? "";
+            if (!empty($token)) {
+                  var_dump($token);
+                  $jwt = new JWT();
+                  var_dump($jwt->decode($token));
+            }
+            // TODO créer une blacklist qui supprime au bout d'un certain temps le token
       }
       private function logout()
       {

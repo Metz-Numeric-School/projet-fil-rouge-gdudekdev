@@ -45,7 +45,7 @@ class JWT
         try {
             return \Firebase\JWT\JWT::decode($jwt, new Key($this->publicKey, 'RS256'));
         } catch (Exception $e) {
-            return "Erreur de validation du token : " . $e->getMessage();
+            return false;
         }
     }
 }

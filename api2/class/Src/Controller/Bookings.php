@@ -12,9 +12,6 @@ class Bookings extends Controller
       public static $redirect_path;
       public function handle($url, $data)
       {
-            Auth::getInstance()->protect();
-
-
             self::$url_params = self::getTrimmedUrl($url);
 
             $model = new \Src\Model\Bookings;

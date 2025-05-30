@@ -74,14 +74,13 @@ class Auth
       }
       public static function disconnect()
       {
-            echo 'here';
             $_SESSION['is_logged'] = false;
             session_destroy();
             self::redirect();
       }
       private static function redirect()
       {
-            header("Location: " . self::$redirect_protect_path);
-            exit();
+            header("Location: index.php?page=authenticate");
+            exit;
       }
 }

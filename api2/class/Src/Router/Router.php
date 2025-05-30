@@ -2,6 +2,7 @@
 
 namespace Src\Router;
 
+use Src\Api\ApiQuery;
 use Src\Auth\Auth;
 use Src\Controller\Authenticate;
 use Src\Test;
@@ -17,52 +18,61 @@ class Router
                   exit();
             }
 
-            // if (isset($_GET['api'])) {
-            //       self::run_api();
-            // } else {
-            //       self::run_back();
-            // }
+            if (isset($_GET['api'])) {
+                  self::run_api();
+            } else {
+                  self::run_back();
+            }
 
       }
       private static function run_back()
       {
-            Auth::protect();
+
             $page = 'Home';
             if (isset($_GET['page'])) {
                   $page = ucfirst($_GET['page']);
             }
-
-
-            $class = '\Src\Controller\\' . $page;
-            if (class_exists('\Src\Controller\\' . $page)) {
-                  $controller = new $class;
+            if ($page == "Authenticate") {
+                  $controller = new Authenticate;
                   $controller->handle($_GET, $_POST);
             } else {
-                  $controller = new \Src\Controller\Home;
-                  $controller->handle($_GET, $_POST);
+                  Auth::protect();
+                  $class = '\Src\Controller\\' . $page;
+                  if (class_exists('\Src\Controller\\' . $page)) {
+                        $controller = new $class;
+                        $controller->handle($_GET, $_POST);
+                  } else {
+                        $controller = new \Src\Controller\Home;
+                        $controller->handle($_GET, $_POST);
+                  }
             }
+
       }
       private static function run_api()
       {
             if (isset($_GET['api'])) {
-                  $acces_path = $_GET['access'] ?? '';
+                  $query = $_GET['query'] ?? '';
+
                   $data = [
                         'headers' => getallheaders(),
                         'body' => json_decode(file_get_contents('php://input'), true),
                   ];
 
-                  if (!empty($acces_path)) {
-                        var_dump($data['headers']);
+                  if (!empty($query)) {
+                        $data['headers']['Bearer'] = Test::token();
                         $data['body'] = json_decode(Test::test());
-                        var_dump($data['body']->email);
-                        switch ($acces_path) {
+                        switch ($query) {
                               case 'login':
                                     $controller = new Authenticate;
                                     $controller->handleApiLogin($data);
                                     break;
-                              case 'fetch':
-                                    $controller = new ApiFetchController;
-                                    $controller->handleFetch($data);
+                              case 'logout':
+                                    $controller = new Authenticate;
+                                    $controller->handleApiLogout($data);
+                                    break;
+                              case 'on':
+                                    $controller = new ApiQuery;
+                                    $controller->handle($data, $_GET);
                                     break;
                               default:
                                     http_response_code(400);

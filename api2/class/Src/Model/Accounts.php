@@ -3,6 +3,7 @@
 namespace Src\Model;
 
 use App;
+use Src\Api\Api;
 class Accounts extends Model
 {
       public static $table = 'accounts';
@@ -52,4 +53,5 @@ class Accounts extends Model
                         "accounts" => self::getAll(),
                   ];
       }
+
 }
