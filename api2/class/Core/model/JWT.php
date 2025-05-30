@@ -3,14 +3,12 @@
 namespace Core\Model;
 
 use Exception;
-use Firebase\JWT\JWT as JWTJWT;
 use Firebase\JWT\Key;
 
 class JWT
 {
-    private $privateKey;  // Clé privée pour signer les tokens
-    private $publicKey;   // Clé publique pour vérifier les tokens
-
+    private $privateKey;  
+    private $publicKey;  
     private $payload = array(
         "iss" => "http://carpool",
         "aud" => "http://localhost:5173",
@@ -18,38 +16,34 @@ class JWT
         "exp" => null
     );
 
-    public function __construct($user_id = null)
+    public function __construct($id = null)
     {
-        $this->privateKey = file_get_contents(__DIR__ . '/../../config/privkey.pem');  // Charger la clé privée
-        $this->publicKey = file_get_contents(__DIR__ . '/../../config/pubkey.pem');    // Charger la clé publique
+        $this->privateKey = file_get_contents(ROOT . '/config/privkey.pem');  
+        $this->publicKey = file_get_contents(ROOT . '/config/pubkey.pem');
 
-        // Ajouter des informations de payload
         $this->payload['iat'] = time();
-        $this->payload['exp'] = time() + 3600;  // Durée de validité du token (1 heure)
+        $this->payload['exp'] = time() + 3600;  
 
-        // Ajouter des données spécifiques à l'utilisateur
         $this->payload['data'] = array(
-            "userId" => $user_id,
+            "id" => $id,
         );
     }
 
-    // Encoder un token JWT avec la clé privée (RS256) et ajouter un "kid"
     public function encode()
     {
         try {
             $header = ['kid' => 'carpool-key-id'];
-            return JWTJWT::encode($this->payload, $this->privateKey, 'RS256', null, $header);
+            return \Firebase\JWT\JWT::encode($this->payload, $this->privateKey, 'RS256', null, $header);
         } catch (Exception $e) {
             echo "Erreur lors de l'encodage du JWT : " . $e->getMessage();
             return null;
         }
     }
 
-    // Décoder le token avec la clé publique (RS256)
     public function decode($jwt)
     {
         try {
-            return JWTJWT::decode($jwt, new Key($this->publicKey, 'RS256'));
+            return \Firebase\JWT\JWT::decode($jwt, new Key($this->publicKey, 'RS256'));
         } catch (Exception $e) {
             return "Erreur de validation du token : " . $e->getMessage();
         }

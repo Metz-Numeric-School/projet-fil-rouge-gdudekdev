@@ -1,0 +1,17 @@
+{
+    "name": "stagiaire/api2",
+    "autoload": {
+        "psr-4": {
+            "Stagiaire\\Api2\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gdudek",
+            "email": "gdudek.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}

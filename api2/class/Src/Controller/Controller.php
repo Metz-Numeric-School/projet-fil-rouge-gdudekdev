@@ -10,8 +10,6 @@ class Controller
       protected static $url_params;
       public function handle($url, $data)
       {
-            Auth::getInstance()->protect();
-
             $table = get_called_class()::$table;
             self::$url_params = self::getTrimmedUrl($url);
 

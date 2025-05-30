@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Controller;
+namespace Src\Auth;
 
 use App;
 use Core\Model\JWT;
@@ -8,27 +8,19 @@ use Throwable;
 
 class Auth
 {
-      private static $instance = null;
       private static $redirect_protect_path = REDIRECT_PROTECT_PATH ?? "index.php";
-      public static function getInstance()
+      public static function verify(string $email, string $password)
       {
-            if (is_null(self::$instance)) {
-                  self::$instance = new self;
-            }
-            return self::$instance;
-      }
-      public function verify(string $email, string $password)
-      {    
-            if ($password == $this->getPassword($email)) {
+            if ($password == self::getPassword($email)) {
                   $_SESSION['is_logged'] = true;
             } else {
-                  $this->redirect();
+                  self::redirect();
             }
       }
 
-      public function verifyApiAccess(string $email, string $password)
+      public static function verifyApiAccess(string $email, string $password)
       {
-            header('Content-Type: application/json');
+            // header('Content-Type: application/json');
 
             $user = App::$db->getOneFrom('accounts', 'accounts_email', $email);
 
@@ -48,10 +40,10 @@ class Auth
             exit;
       }
 
-      public function protect()
+      public static function protect()
       {
             if (!isset($_SESSION['is_logged']) || $_SESSION['is_logged'] != true) {
-                  $this->redirect();
+                  self::redirect();
             }
       }
       public function protectApiAccess($data)
@@ -61,7 +53,7 @@ class Auth
                         $token = $matches[1];
                         $jwt = new JWT();
 
-                        $status =  (array) $jwt->decode($token);
+                        $status = (array) $jwt->decode($token);
                         $dataRetrieved = (array) $status['data'];
 
                         return $dataRetrieved['userId'];
@@ -71,23 +63,24 @@ class Auth
                   }
             }
       }
-      private function getPassword(string $id)
+      private static function getPassword(string $id)
       {
             try {
                   $user = App::$db->getOneFrom('accounts', 'accounts_email', $id);
                   return $user['accounts_password'];
             } catch (Throwable $e) {
-                  $this->redirect();
+                  self::redirect();
             }
       }
-      public function disconnect()
-      {     
-            echo'here';
+      public static function disconnect()
+      {
+            echo 'here';
             $_SESSION['is_logged'] = false;
             session_destroy();
-            $this->redirect();
+            self::redirect();
       }
-      private function redirect(){
+      private static function redirect()
+      {
             header("Location: " . self::$redirect_protect_path);
             exit();
       }

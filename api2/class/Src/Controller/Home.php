@@ -6,7 +6,7 @@ class Home
 {
       public function handle($url, $data)
       {
-            Auth::getInstance()->protect();
+            \Src\Auth\Auth::protect();
             include ROOT . '/view/Home/home.php';
       }
 

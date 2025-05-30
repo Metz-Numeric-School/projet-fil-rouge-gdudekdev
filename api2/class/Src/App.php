@@ -13,6 +13,14 @@ class App{
             spl_autoload_register([__CLASS__,"autoload"]);
       }
       private static function autoload($class){
-            require ROOT . "/class/" . $class . '.php';
+            if(!str_contains($class, "Firebase")){
+                  require ROOT . "/class/" . $class . '.php';
+            }
+            else{
+                  
+                  require ROOT . "/vendor/Firebase/JWT.php" ;
+                  require ROOT . "/vendor/Firebase/Key.php" ;
+            }
+            echo 'firebase';
       }
 }
