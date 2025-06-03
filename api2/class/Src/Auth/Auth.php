@@ -20,47 +20,15 @@ class Auth
 
       public static function verifyApiAccess(string $email, string $password)
       {
-            // header('Content-Type: application/json');
-
             $user = App::$db->getOneFrom('accounts', 'accounts_email', $email);
 
-            if (!$user || $password !== $user['accounts_password']) {
-                  echo json_encode([
-                        'error' => "Nom d'utilisateur ou mot de passe incorrect"
-                  ]);
-                  exit;
-            }
-
-            $jwt = new JWT($user['accounts_id']);
-            $token = $jwt->encode();
-
-            echo json_encode([
-                  "token" => $token
-            ]);
-            exit;
+            return $user['accounts_id'] ?? false;
       }
 
       public static function protect()
       {
             if (!isset($_SESSION['is_logged']) || $_SESSION['is_logged'] != true) {
                   self::redirect();
-            }
-      }
-      public function protectApiAccess($data)
-      {
-            if (isset($data['headers']['Authorization'])) {
-                  if (preg_match('/Bearer\s(\S+)/', $data['headers']['Authorization'], $matches)) {
-                        $token = $matches[1];
-                        $jwt = new JWT();
-
-                        $status = (array) $jwt->decode($token);
-                        $dataRetrieved = (array) $status['data'];
-
-                        return $dataRetrieved['userId'];
-                  } else {
-                        http_response_code(400);
-                        die('Erreur dans le header de la requête');
-                  }
             }
       }
       private static function getPassword(string $id)

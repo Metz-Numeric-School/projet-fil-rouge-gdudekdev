@@ -4,12 +4,13 @@ namespace Src\Api;
 
 use App;
 use Core\Model\JWT;
+use Src\Auth\Auth;
 use Src\Model\Accounts;
 
 class Api
 {
       public static $get_methods = [
-            'me' => 'accounts',
+            'accounts' => 'me',
             'vehicules' => 'vehicules',
             'preferences' => 'preferences',
             'routes' => 'routes',
@@ -27,10 +28,9 @@ class Api
             $jwt = new JWT();
             $token = $jwt->decode($data['headers']['Bearer']);
             if (!$token) {
+                  http_response_code(401);
                   self::apiResponse(['error' => 'Invalid Token']);
-
             }
-            // TODO pour le moment on ne fait que ça
 
             return $token;
 
@@ -57,7 +57,7 @@ class Api
                   self::apiResponse(['error' => "No Target Provided"]);
             }
 
-            $id = $token->data->id;
+            $id = $token->sub;
 
             switch ($url['action']) {
                   case 'get':
@@ -98,7 +98,7 @@ class Api
       protected static function handleApiPost($id, $target, $data)
       {
             if (!self::hasPermission($id, $target, $data[$target . '_id'])) {
-                  self::apiResponse(['error' => 'Not enough rights to delete this content']);
+                  self::apiResponse(['error' => 'Permission not granted']);
             }
             $model = '\Src\Model\\' . self::$get_methods[$target];
             $model::create($data);
@@ -106,7 +106,7 @@ class Api
       protected static function handleApiPut($id, $target, $data)
       {
             if (!self::hasPermission($id, $target, $data[$target . '_id'])) {
-                  self::apiResponse(['error' => 'Not enough rights to delete this content']);
+                  self::apiResponse(['error' => 'Permission not granted']);
             }
             $model = '\Src\Model\\' . self::$get_methods[$target];
             $model::create($data);
@@ -114,7 +114,7 @@ class Api
       protected static function handleApiDelete($id, $target, $target_id)
       {
             if (!self::hasPermission($id, $target, $target_id)) {
-                  self::apiResponse(['error' => 'Not enough rights to delete this content']);
+                  self::apiResponse(['error' => 'Permission not granted']);
             }
             $model = '\Src\Model\\' . self::$get_methods[$target];
             $model::delete($target_id);
@@ -138,5 +138,42 @@ class Api
                   }
             }
             return false;
+      }
+      public function connect($data)
+      {
+            $account_id = Auth::verifyApiAccess($data['body']->email, $data['body']->password);
+            if (!$account_id) {
+                  self::apiResponse(['error' => 'Incorrect Credentials']);
+            }
+
+            JWT::instance()->getTokens($account_id);
+      }
+      public function disconnect($data)
+      {
+            if (!isset($data['Cookie'])) {
+                  self::apiResponse(['error' => 'No Refresh-token Provided']);
+            }
+
+            $refresh_token_hash = hash('sha256', $data['Cookie']);
+
+            $token_row = App::$db->getOneFrom('tokens', 'tokens_hash', $refresh_token_hash);
+            $token_row['tokens_revoked'] = true;
+
+            App::$db->update('tokens', $token_row);
+            setcookie('refresh_token', '', [
+                  'expires' => time() - 3600,
+                  'path' => '/auth/refresh',
+                  // 'secure' => true,
+                  'httponly' => true,
+                  'samesite' => 'Strict'
+            ]);
+
+      }
+      public function refresh($data)
+      {
+            if (!isset($data['Cookie'])) {
+                  self::apiResponse(['error' => 'No Refresh-token Provided']);
+            }
+            JWT::instance()->refresh($data['Cookie']);
       }
 }

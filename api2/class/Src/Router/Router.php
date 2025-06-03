@@ -64,12 +64,16 @@ class Router
                         $data['body'] = json_decode(Test::test());
                         switch ($query) {
                               case 'login':
-                                    $controller = new Authenticate;
-                                    $controller->handleApiLogin($data);
+                                    $controller = new Api;
+                                    $controller->connect($data);
                                     break;
                               case 'logout':
-                                    $controller = new Authenticate;
-                                    $controller->handleApiLogout($data);
+                                    $controller = new Api;
+                                    $controller->disconnect($data);
+                                    break;
+                              case 'refresh':
+                                    $controller = new Api;
+                                    $controller->refresh($data);
                                     break;
                               case 'on':
                                     $controller = new Api;

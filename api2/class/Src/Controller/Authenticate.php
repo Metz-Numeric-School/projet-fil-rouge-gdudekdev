@@ -26,24 +26,6 @@ class Authenticate extends Controller
             exit();
 
       }
-      public function handleApiLogin($data)
-      {
-            $body = $data['body'];
-            if (Auth::verifyApiAccess($body->email, $body->password)) {
-                  echo 'test';
-            }
-      }
-      public function handleApiLogout($data)
-      {
-            $headers = $data['headers'];
-            $token = $headers['Bearer'] ?? "";
-            if (!empty($token)) {
-                  var_dump($token);
-                  $jwt = new JWT();
-                  var_dump($jwt->decode($token));
-            }
-            // TODO créer une blacklist qui supprime au bout d'un certain temps le token
-      }
       private function logout()
       {
             Auth::disconnect();

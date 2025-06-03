@@ -14,6 +14,24 @@ class Test
       }
       public static function token()
       {
-            return "eyJ0eXAiOiJKV1QiLCJraWQiOiJjYXJwb29sLWtleS1pZCIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJodHRwOi8vY2FycG9vbCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyIsImlhdCI6MTc0ODYxMTg5MiwiZXhwIjoxNzQ4NjE1NDkyLCJkYXRhIjp7ImlkIjoxfX0.wAzbv8k92GslS8HcXNJs7p8-XO1BFyW0XnZ-22SOFraxz7CCUYc5-b1Ek8nA9iUgnlXQIfnREbhvnLxpKVzpVC00SAVTod0HO3jywU0EqRg1UT0UM43We-xZSt-ASSzXe9v9orRkdByDO1vh_HFw5Om9OZjKpB6Kk2ri23ZiIvw-s7fdvSl20ymmurxuSVlS5YQj25zZQD4cWwruyru_xF3CQCDP7ZL2h_ek4PC9t0PmIkigZxzlv_tp3JpQYQpZDxbh9GY8QHzUzSzPZc2_-pwlhL8FJj3iM6Td9OHOMQntfdJWqDY2bsoLopubey3T_szmV6Cxr0o-dEMM1LuYOg";
+            return "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImNhcnBvb2wta2V5LWlkLWdkdWRlay1kZXYifQ.eyJpc3MiOiJodHRwOi8vY2FycG9vbCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyIsImlhdCI6MTc0ODkzNTU3MiwiZXhwIjoxNzQ4OTM5MTcyLCJzdWIiOjF9.0WxFPnfovEKPzWQf67gOJalE6x9cxOvYZBe0chDTKAN2Xai2_dzEHKUoQW1MO4RtYDaSjqG0i91Na2SJU15px8HvbG-lrJg-7KaHZWFF7ODyVb4G2aFlHfzoZq5jrUK1n3Wi8_YC0p0gsQ_0ocDgteXNFv79NtUKEP9cRtMLI6gR0u8mnXBVCCTJLFfP-l98jpziS_DS_D0I92_DKq9d7P_wVHsPLaliAzb9WipCKXWJrhhYUUDVlx5iseHk55TYUYfMVwvUaFlIcaAd-uEJTjJKKJzdVHu2TxXIt0ssVi6mZKlEFpSstXgI4HHd9-W46avWoZNpu1USYL26kIPtRA";
+      }
+      // TODO faire des test d'envoi et de récupération de refresh token (ne pas oublier le credentials include)
+      public static function test_img($id)
+      {
+            $file_path = ROOT . '/upload/' . $id . '/';
+            if(!file_exists($file_path)){
+                  mkdir($file_path);
+            }
+
+            if(file_exists($file_path . 'profile.jpg')){
+                  echo 'pas d\'image de profil sauvegardé';
+            }
+            if(!isset($_FILES['accounts_profile'])){
+                  echo 'aucune image de profil envoyé';
+            }
+
+            move_uploaded_file($_FILES['accounts_profile']['tmp_name'], $file_path . 'profile.jpg');
+            var_dump($_FILES);
       }
 }

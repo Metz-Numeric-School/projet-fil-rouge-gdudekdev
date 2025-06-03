@@ -17,10 +17,18 @@ include_once ROOT . "/view/template/header_template.php";
 	<div class="container">
 		<div class="crud__header">
 			<div class="crud__header-cta">
-				<a href="index.php?page=accounts" class="crud__table-btn">
-					<\Retour </a>
-						<a href="index.php?page=accounts&mode=remove&id=<?= $account->id() ?>"
-							class="crud__table-btn crud__table-btn--delete">Supprimer</a>
+				<div style="display:flex">
+					<a href="index.php?page=accounts" class="crud__table-btn">
+						<\Retour </a>
+							<a href="index.php?page=accounts&mode=remove&id=<?= $account->id() ?>"
+								class="crud__table-btn crud__table-btn--delete">Supprimer</a>
+
+					<form action="index.php" enctype="multipart/form-data" method="post">
+						<input type="file" name="accounts_profile">
+						<input type="submit" value="Enregistrer">
+					</form>
+				</div>
+
 			</div>
 			<h2><?= ucfirst($title) ?></h2>
 			<a href="index.php?page=vehicules&accounts_id=<?= $account->id() ?>" class='crud__table-btn'>Voir

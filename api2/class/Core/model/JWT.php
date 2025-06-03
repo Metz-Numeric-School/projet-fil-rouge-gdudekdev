@@ -2,38 +2,39 @@
 
 namespace Core\Model;
 
+use App;
 use Exception;
 use Firebase\JWT\Key;
+use Src\Api\Api;
 
 class JWT
 {
-    private $privateKey;  
-    private $publicKey;  
-    private $payload = array(
-        "iss" => "http://carpool",
-        "aud" => "http://localhost:5173",
-        "iat" => null,
-        "exp" => null
-    );
+    private static $privateKey;
+    private static $publicKey;
+    private static $instance = null;
 
-    public function __construct($id = null)
+    public function __construct()
     {
-        $this->privateKey = file_get_contents(ROOT . '/config/privkey.pem');  
-        $this->publicKey = file_get_contents(ROOT . '/config/pubkey.pem');
-
-        $this->payload['iat'] = time();
-        $this->payload['exp'] = time() + 3600;  
-
-        $this->payload['data'] = array(
-            "id" => $id,
-        );
+        self::$privateKey = file_get_contents(ROOT . '/config/privkey.pem');
+        self::$publicKey = file_get_contents(ROOT . '/config/pubkey.pem');
+    }
+    public static function instance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
+    public function getTokens($id)
+    {
+        $this->createRefreshToken($id);
+        $this->createAccessToken($id);
     }
 
-    public function encode()
+    public function encode($payload)
     {
         try {
-            $header = ['kid' => 'carpool-key-id'];
-            return \Firebase\JWT\JWT::encode($this->payload, $this->privateKey, 'RS256', null, $header);
+            return \Firebase\JWT\JWT::encode($payload, self::$privateKey, 'RS256', 'carpool-key-id-gdudek-dev');
         } catch (Exception $e) {
             echo "Erreur lors de l'encodage du JWT : " . $e->getMessage();
             return null;
@@ -43,9 +44,61 @@ class JWT
     public function decode($jwt)
     {
         try {
-            return \Firebase\JWT\JWT::decode($jwt, new Key($this->publicKey, 'RS256'));
+            return \Firebase\JWT\JWT::decode($jwt, new Key(self::$publicKey, 'RS256'));
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    public function createAccessToken($id)
+    {
+        $payload = [
+            'iat' => time(),
+            'exp' => time() + 900,
+            'sub' => $id
+        ];
+        echo json_encode(
+            [
+                'access_token' => $this->encode($payload),
+            ]
+        );
+    }
+    public function createRefreshToken($id)
+    {
+        $token = bin2hex(random_bytes(64));
+        $hash = hash('sha256', $token);
+        $expiration_date = date('Y-m-d H:i:s', time() + 604800);
+
+        App::$db->add(
+            'tokens',
+            [
+                'tokens_hash' => $hash,
+                'accounts_id' => $id,
+                'tokens_expires_at' => $expiration_date,
+                'tokens_ip_adress' => $_SERVER['REMOTE_ADDR'],
+                'tokens_user_agent' => $_SERVER['HTTP_USER_AGENT']
+            ]
+        );
+        setcookie('refresh_token', $token, [
+            'expires' => time() + 604800,
+            'path' => '/auth/refresh',
+            // 'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
+    }
+    public function refresh($refreshToken)
+    {
+        $tokenHash = hash('sha256', $refreshToken);
+        $token = App::$db->getAllFromWhere('tokens', ['stmt' => 'tokens_hash=:hash AND revoked = false', 'params' => [':hash' => $tokenHash]]);
+        if (!$token || strtotime($token[0]['tokens_expires_at']) > time()) {
+            Api::apiResponse(['error' => 'Invalid or expired token']);
+        }
+
+        $token = $token[0];
+        $token['tokens_revoked'] = true;
+        App::$db->update('tokens', $token);
+
+        $this->getTokens($token['accounts_id']);
     }
 }
