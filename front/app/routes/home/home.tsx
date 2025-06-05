@@ -7,6 +7,8 @@ import PlanningHome from "~/components/home/planning/PlanningHome/PlanningHome";
 import SectionHome from "~/components/home/import/ImportSectionHome";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
+import { useToken } from "~/context/TokenContext";
+import { getAccessToken, getRefreshToken } from "~/utils/api";
 
 // Types
 interface HalfDay {
@@ -35,30 +37,27 @@ const Home = () => {
     useState(false);
   const [loadPlanning, setLoadPlanning] = useState<PlanningData | null>(null);
   const navigate = useNavigate();
+  const {token, setToken} = useToken();
 
   useEffect(() => {
     const loadPlanningData = async () => {
+      if(token == null){
+        getAccessToken();
+      }
+      return ;
       try {
-        const response = await fetch("http://carpool/index.php?api=fetch", {
+        const response = await fetch("http://carpool/index.php?api&query=on&action=get&target=instances", {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${Cookies.get("jwt")}`,
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            table: "plannings",
-          }),
         });
 
-        const raw = await response.text();
-        console.log(raw);
-        if(!response.ok){
-          navigate("/login");
+        if(response.status == 401){
+          console.log("erreur 401");
+          getRefreshToken();
         }
-
         
-        // const plannings = await response.json();
-        // console.log(plannings);
-    
       } catch (error) {
         console.error("Erreur lors de l'envoi du formulaire :", error);
       }

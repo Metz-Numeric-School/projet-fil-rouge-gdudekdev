@@ -12,13 +12,12 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap" 
+    href: "https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap",
   },
-
 ];
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
-
+import { TokenProvider } from "./context/TokenContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,14 +32,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script
+          type="text/javascript"
+          src="https://code.jquery.com/jquery-3.5.1.min.js"
+        ></script>
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <TokenProvider>
+      <Outlet />
+    </TokenProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

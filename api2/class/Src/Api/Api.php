@@ -22,6 +22,7 @@ class Api
       public static function protectApiQuery($data)
       {
             if (!isset($data['headers']['Bearer'])) {
+                  http_response_code(401);
                   self::apiResponse(['error' => 'No Bearer Provided']);
             }
 
@@ -90,7 +91,8 @@ class Api
       {
             if (in_array($target, self::$get_methods)) {
                   $method = $target;
-                  self::apiResponse(['response' => App::$db->$method($id)]);
+                  $class = new ApiGet;
+                  self::apiResponse(['response' => $class->$method($id)]);
             } else {
                   self::apiResponse(['error' => "Invalid Action"]);
             }
@@ -141,15 +143,18 @@ class Api
       }
       public function connect($data)
       {
-            $account_id = Auth::verifyApiAccess($data['body']->email, $data['body']->password);
-            if (!$account_id) {
+            $account_id = Auth::verifyApiAccess($data['body']['email'], $data['body']['password']);
+            if (is_int($account_id)) {
+                  JWT::instance()->getTokens($account_id);
+            } else {
+                  http_response_code(422);
                   self::apiResponse(['error' => 'Incorrect Credentials']);
             }
 
-            JWT::instance()->getTokens($account_id);
       }
       public function disconnect($data)
       {
+            var_dump($_COOKIE);
             if (!isset($data['Cookie'])) {
                   self::apiResponse(['error' => 'No Refresh-token Provided']);
             }
@@ -171,9 +176,9 @@ class Api
       }
       public function refresh($data)
       {
-            if (!isset($data['Cookie'])) {
+            if (!isset($_COOKIE['refresh_token'])) {
                   self::apiResponse(['error' => 'No Refresh-token Provided']);
             }
-            JWT::instance()->refresh($data['Cookie']);
+            JWT::instance()->refresh();
       }
 }

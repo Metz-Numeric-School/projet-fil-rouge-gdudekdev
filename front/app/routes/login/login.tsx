@@ -1,18 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Cookies from "js-cookie";
+import { useToken } from "~/context/TokenContext";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { token, setToken } = useToken();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://carpool/index.php?api=login", {
+      const response = await fetch("http://carpool/index.php?api&query=login", {
         method: "POST",
+        credentials : 'include',
         headers: {
           "Content-Type": "application/json",
         },
@@ -21,26 +23,17 @@ const Login = () => {
           password: password,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Erreur lors de la connexion");
+      console.log(response);
+      if (response.status == 422) {
+        throw new Error("Credentials are incorrect");
+        // TODO faire l'UI lorsque le user et mdp sont incorrects
       }
+
       // const raw = await response.text();
       // console.log(raw);
-      const data = await response.json();
-      console.log(data);
-      if (data.error) {
-        console.error("Erreur de login :", data.error);
-        alert(data.error); // TODO faire l'UI lorsque le user et mdp sont incorrects
-        return;
-      }
-      const jwt = data.token;
-
-      Cookies.set("jwt", jwt, {
-        expires: 1 / 24,
-        sameSite: "Strict",
-      });
       
+      const data = await response.json();
+      console.log("data: ", data)
       navigate("/home");
     } catch (error) {
       console.error("Erreur lors de l'envoi du formulaire :", error);

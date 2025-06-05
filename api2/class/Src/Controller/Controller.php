@@ -6,7 +6,7 @@ use Src\Controller\Auth;
 
 
 class Controller
-{// TODO faire une disjonction de cas , si il y a une vue, l'utiliser, sinon on est en API
+{
       protected static $url_params;
       public function handle($url, $data)
       {

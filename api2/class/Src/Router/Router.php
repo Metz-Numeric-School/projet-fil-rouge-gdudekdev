@@ -28,7 +28,6 @@ class Router
       }
       private static function run_back()
       {
-
             $page = 'Home';
             if (isset($_GET['page'])) {
                   $page = ucfirst($_GET['page']);
@@ -53,15 +52,12 @@ class Router
       {
             if (isset($_GET['api'])) {
                   $query = $_GET['query'] ?? '';
-
                   $data = [
                         'headers' => getallheaders(),
                         'body' => json_decode(file_get_contents('php://input'), true),
                   ];
 
                   if (!empty($query)) {
-                        $data['headers']['Bearer'] = Test::token();
-                        $data['body'] = json_decode(Test::test());
                         switch ($query) {
                               case 'login':
                                     $controller = new Api;
