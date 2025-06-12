@@ -1,0 +1,3 @@
+<?php 
+
+var_dump(hash('sha256','f343112e628afa5c74bde7c827e3c5fe0e0a36e733f686c9ce9dd304c9cfaf60031bdacd78a718aaa5a7328b2fc80a8331dd806310273cca773dc857d3faefd1'));

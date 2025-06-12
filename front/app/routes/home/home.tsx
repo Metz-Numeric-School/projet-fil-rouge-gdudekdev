@@ -1,106 +1,95 @@
 import { useEffect, useState } from "react";
-import HomeOverlayChoice from "~/components/home/overlay/HomeOverlayChoice/HomeOverlayChoice";
-import HomeOverlayTrajet from "~/components/home/overlay/HomeOverlayTrajet/HomeOverlayTrajet";
 import ModalHomeTrajet from "~/components/home/modal/modalHomeTrajet/ModalHomeTrajet";
 import HomeSection from "~/components/home/sections/HomeSection";
 import PlanningHome from "~/components/home/planning/PlanningHome/PlanningHome";
-import SectionHome from "~/components/home/import/ImportSectionHome";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router";
-import { useToken } from "~/context/TokenContext";
-import { getAccessToken, getRefreshToken } from "~/utils/api";
+import { useApi } from "~/utils/api";
+import { useHome } from "~/hooks/useHome";
+import FSOverlay from "~/layouts/FSOverlay/FSOverlay";
+import { Trajet } from "~/components/profil/import/ProfilSectionImport";
+import TrajetChoice from "~/components/profil/sections/component/trajet/TrajetChoice/TrajetChoice";
 
-// Types
-interface HalfDay {
-  home: string | null;
-  work: string | null;
-}
 
-interface HalfDayRideEnabled {
-  home: boolean;
-  work: boolean;
-}
+const SectionHome = [
+      {
+        className: "home__friend",
+        title: "Inviter un ami ou un collègue à covoiturer",
+        description:
+          "Envoyez une demande de covoiturage à vos contacts, comme vos amis ou collègues.",
+        link: {
+          href: "/home/relatives",
+          text: "Covoiturer avec une connaissance",
+        },
+        icon: "fa-user-friends", // Ajouter une icône
+      },
+      {
+        className: "home__newride",
+        title: "Publier un trajet domicile-travail",
+        description:
+          "Partagez votre trajet pour trouver des covoitureurs sur votre route.",
+        link: {
+          href: "#",
+          text: "Publier votre trajet",
+        },
+        icon: "fa-route", // Icône représentant un trajet
+      },
+    ];
 
-interface PlanningData {
-  planning: {
-    departure_time: HalfDay[];
-    ride_enabled: HalfDayRideEnabled[];
-    route_enabled: boolean;
-    driver: boolean;
-  };
-}
 
 const Home = () => {
-  const [isOverlayTrajetVisible, setIsOverlayTrajetVisible] = useState(false);
-  const [isOverlayChoiceVisible, setIsOverlayChoiceVisible] = useState(false);
-  const [isModalHomeTrajetVisible, setIsModalHomeTrajetVisible] =
-    useState(false);
-  const [loadPlanning, setLoadPlanning] = useState<PlanningData | null>(null);
-  const navigate = useNavigate();
-  const {token, setToken} = useToken();
+  const [planning, setPlanning] = useState<string[] | null>(null);
+  const {
+    isPlanning,
+    openPlanning,
+    closePlanning,
+    isRideChoice,
+    openRideChoice,
+    closeRideChoice,
+    isRideSettings,
+    openRideSettings,
+    closeRideSettings,
+  } = useHome();
+  const { apiQuery } = useApi();
 
   useEffect(() => {
-    const loadPlanningData = async () => {
-      if(token == null){
-        getAccessToken();
-      }
-      return ;
+    async function fetchPlanning() {
       try {
-        const response = await fetch("http://carpool/index.php?api&query=on&action=get&target=instances", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if(response.status == 401){
-          console.log("erreur 401");
-          getRefreshToken();
+        const result = await apiQuery("get", "plannings");
+        if (result?.response) {
+          setPlanning(result.response);
         }
-        
       } catch (error) {
-        console.error("Erreur lors de l'envoi du formulaire :", error);
+        console.error("Erreur lors du chargement du planning :", error);
       }
-    };
-
-    loadPlanningData();
+    }
+    fetchPlanning();
   }, []);
+
   return (
     <div className="home">
-      {SectionHome.map((section, index) => (
-        <HomeSection key={index} section={section} />
+      {SectionHome.map((section, idx) => (
+        <HomeSection key={idx} section={section} />
       ))}
 
-      {/* Vérifier si userPlanning est défini avant de le passer */}
-      {loadPlanning ? (
+      {planning ? (
         <PlanningHome
-          onClickTrajet={() => setIsOverlayTrajetVisible(true)}
-          onClickModal={() => setIsModalHomeTrajetVisible(true)}
-          onClickChoice={() => setIsOverlayChoiceVisible(true)}
-          userPlanning={loadPlanning}
+          planning={planning}
+          onClicks={{
+            trajet: openPlanning,
+            modal: openRideSettings,
+            choice: openRideChoice,
+          }}
         />
       ) : (
-        <div>Chargement des plannings...</div> // Option de fallback en attendant les données
+        <div className="w-full flex justify-center">
+          Chargement des plannings...
+        </div>
       )}
 
-      {isOverlayTrajetVisible && (
-        <HomeOverlayTrajet
-          isVisibleCalendar
-          onCloseCalendar={() => setIsOverlayTrajetVisible(false)}
-        />
-      )}
-      {isOverlayChoiceVisible && (
-        <HomeOverlayChoice
-          isVisibleChoice
-          onCloseChoice={() => setIsOverlayChoiceVisible(false)}
-        />
-      )}
-      {isModalHomeTrajetVisible && (
-        <ModalHomeTrajet
-          isVisibleModalHomeTrajet
-          onCloseModalHomeTrajet={() => setIsModalHomeTrajetVisible(false)}
-        />
-      )}
+      {isPlanning && <FSOverlay onClose={closePlanning} children={<Trajet />} />}
+
+      {isRideChoice && <FSOverlay onClose={closeRideChoice} children={<TrajetChoice />} />}
+
+      {isRideSettings && <ModalHomeTrajet close={() => closeRideSettings()} />}
     </div>
   );
 };

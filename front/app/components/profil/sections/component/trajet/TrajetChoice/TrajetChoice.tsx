@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TrajetChoiceItem from "./TrajetChoiceItem/TrajetChoiceItem";
 import TrajetChoiceDetail from "./TrajetChoiceDetail/TrajetChoiceDetail";
-
-interface Trajet {
-  id: number;
-  name: string;
-  entreprise: string;
-  rdv: string;
-  distance: string;
-}
 
 const TrajetChoice = () => {
   const trajets: Trajet[] = [

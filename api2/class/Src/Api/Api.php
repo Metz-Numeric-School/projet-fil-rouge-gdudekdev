@@ -15,19 +15,19 @@ class Api
             'preferences' => 'preferences',
             'routes' => 'routes',
             'rides' => 'rides',
-            'instances' => 'instances',
+            'plannings' => 'instances',
             'bookings' => 'bookings',
       ];
 
       public static function protectApiQuery($data)
       {
-            if (!isset($data['headers']['Bearer'])) {
+            if (!isset($data['headers']['Authorization'])) {
                   http_response_code(401);
                   self::apiResponse(['error' => 'No Bearer Provided']);
             }
 
             $jwt = new JWT();
-            $token = $jwt->decode($data['headers']['Bearer']);
+            $token = $jwt->decode(str_replace('Bearer ', '', $data['headers']['Authorization']));
             if (!$token) {
                   http_response_code(401);
                   self::apiResponse(['error' => 'Invalid Token']);
@@ -47,14 +47,17 @@ class Api
             $token = self::protectApiQuery($data);
 
             if (!isset($url["action"])) {
+                  http_response_code(400);
                   self::apiResponse(['error' => "No Action Provided"]);
             }
 
             if (!in_array($url['action'], ['get', 'post', 'put', 'delete'])) {
+                  http_response_code(400);
                   self::apiResponse(['error' => "Action is not valid (get, put, post, delete only)"]);
             }
 
             if (!isset($url["target"])) {
+                  http_response_code(400);
                   self::apiResponse(['error' => "No Target Provided"]);
             }
 
@@ -89,9 +92,9 @@ class Api
       }
       protected static function handleApiGet($id, $target)
       {
-            if (in_array($target, self::$get_methods)) {
-                  $method = $target;
-                  $class = new ApiGet;
+            if (in_array($target, array_keys(self::$get_methods))) {
+                  $method = self::$get_methods[$target];
+                  $class = new ApiGet();
                   self::apiResponse(['response' => $class->$method($id)]);
             } else {
                   self::apiResponse(['error' => "Invalid Action"]);

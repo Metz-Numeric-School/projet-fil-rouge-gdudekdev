@@ -69,7 +69,6 @@ Système de match entre le conducteur et les passagers */
 /* --- ROUTES ---- */
 /* HOME */
 @import "./routes/home/home.css";
-@import "./components/home/import/ImportHome.css";
 /* PROFIL */
 @import "./routes/profil/profil.css";
 @import "./components/profil/import/ImportProfil.css";

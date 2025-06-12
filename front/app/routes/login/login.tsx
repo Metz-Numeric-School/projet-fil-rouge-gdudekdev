@@ -1,42 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToken } from "~/context/TokenContext";
+import { useApi } from "~/utils/api";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { token, setToken } = useToken();
-
+  const { apiConnect, loading, error } = useApi();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://carpool/index.php?api&query=login", {
-        method: "POST",
-        credentials : 'include',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      console.log(response);
-      if (response.status == 422) {
-        throw new Error("Credentials are incorrect");
-        // TODO faire l'UI lorsque le user et mdp sont incorrects
-      }
-
-      // const raw = await response.text();
-      // console.log(raw);
-      
-      const data = await response.json();
-      console.log("data: ", data)
+    let data = await apiConnect(email, password);
+    if(data != false){
       navigate("/home");
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du formulaire :", error);
+    }else{
+      navigate("/login");
     }
   };
 

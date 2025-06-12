@@ -93,15 +93,12 @@ class JWT
     public function refresh()
     {
         $tokenHash = hash('sha256', $_COOKIE['refresh_token']);
-        $token = App::$db->getAllFromWhere('tokens', ['stmt' => 'tokens_hash=:hash AND tokens_revoked = false', 'params' => [':hash' => $tokenHash]]);
-        if (!$token || strtotime($token[0]['tokens_expires_at']) < time()) {
+        $token = App::$db->getAllFromWhere('tokens', ['stmt' => 'tokens_hash=:hash AND tokens_revoked = 0', 'params' => [':hash' => $tokenHash]]);
+
+        if (empty($token)|| strtotime($token[0]['tokens_expires_at']) < time()) {
             Api::apiResponse(['error' => 'Invalid or expired token']);
         }
 
-        $token = $token[0];
-        $token['tokens_revoked'] = true;
-        App::$db->update('tokens', $token);
-
-        $this->createAccessToken($token['accounts_id']);
+        $this->createAccessToken($token[0]['accounts_id']);
     }
 }
