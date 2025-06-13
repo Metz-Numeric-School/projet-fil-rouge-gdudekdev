@@ -1,17 +1,16 @@
 import CtaCalendar from "~/src/assets/icon/home/CtaCalendar";
 import PlanningItem from "../PlanningItemHome/PlanningItemHome";
 import { getTimeFromRide } from "~/utils/datetime";
+
 interface PlanningHomeProps {
   onClicks: {
     trajet: () => void;
     modal: () => void;
-    choice: () => void;
   };
   planning: any;
 }
 
 const PlanningHome = ({ onClicks, planning }: PlanningHomeProps) => {
-
   return (
     <div className="home__planning">
       <div className="home__planning-header">
@@ -35,7 +34,6 @@ const PlanningHome = ({ onClicks, planning }: PlanningHomeProps) => {
                   time={timeOnly}
                   ride={ride}
                   onClickModal={onClicks.modal}
-                  onClickChoice={onClicks.choice}
                 />
               </div>
             </div>

@@ -1,5 +1,55 @@
-/* USER */
-.profil{
-  @apply flex flex-col pt-4 mt-8 ;
+/* PROFIL */
+.profil {
+  @apply flex flex-col pt-4 mt-8;
 }
-
+/* PROFIL SECTION */
+.profil__section {
+  @apply flex flex-col gap-5 mb-4 mt-8;
+}
+.profil__section-title {
+  @apply w-full text-[var(--maincolor-original)];
+}
+/* PROFIL USER */
+.profil__user {
+  @apply flex justify-center items-center flex-col h-26 mb-4 gap-4;
+}
+.profil__user-img-container {
+  @apply gap-8 relative;
+}
+.profil__user-img {
+  @apply h-16 w-16 rounded-full border border-black overflow-hidden;
+}
+.profil__user-input-img {
+  @apply flex justify-center items-center w-5 h-5 bg-[var(--maincolor-vibrant)] text-2xl font-bold text-center rounded-full cursor-pointer hover:bg-gray-700 absolute right-0 bottom-0 z-1000;
+}
+.profil__user-input-img svg {
+  @apply stroke-white w-4 h-4 block;
+}
+/* PROFIL SECTION ITEM */
+.profil__item {
+  @apply flex items-center relative py-3 border-b border-gray-300;
+}
+.profil__item:last-child {
+  @apply border-b-0;
+}
+.profil__item:hover {
+  @apply bg-gray-100;
+}
+.profil__item-icon {
+  @apply flex items-center justify-center mr-4 stroke-[var(--maincolor-vibrant)];
+}
+.profil__item-icon svg {
+  @apply w-5 h-auto block;
+}
+.profil__item-content {
+  @apply max-w-1/2;
+}
+.profil__item-cta {
+  @apply flex items-center justify-center absolute right-0;
+}
+.profil__item-cta span {
+  @apply font-semibold underline text-sm;
+}
+.profil__item-cta svg {
+  @apply w-4 h-auto block;
+}

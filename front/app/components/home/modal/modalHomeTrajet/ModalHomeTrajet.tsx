@@ -8,7 +8,6 @@ interface ModalHomeTrajetProps {
 
 const ModalHomeTrajet = ({ close }: ModalHomeTrajetProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
-
   return (
     <Container>
       <motion.div

@@ -1,0 +1,15 @@
+@import "./attestation/Attestation.css";
+@import "./attestation/notif/Notif.css";
+@import "./block/Block.css";
+@import "./cgu/Cgu.css";
+@import "./faq/Faq.css";
+@import "./cookies/Cookie.css";
+@import "./historique/Historique.css";
+@import "./privacy/Privacy.css";
+@import "./stats/Stats.css";
+@import "./vehicule/Vehicule.css";
+@import "./info/Info.css";
+
+@import "./trajet/Trajet.css";
+@import "./trajet/TrajetChoice/TrajetChoiceDetail/TrajetChoiceDetail.css";
+@import "./trajet/TrajetChoice/TrajetItineraire/TrajetItineraire.css";

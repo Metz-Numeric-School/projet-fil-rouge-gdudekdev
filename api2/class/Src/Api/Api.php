@@ -17,6 +17,7 @@ class Api
             'rides' => 'rides',
             'plannings' => 'instances',
             'bookings' => 'bookings',
+            'search' => 'search',
       ];
 
       public static function protectApiQuery($data)
@@ -127,8 +128,8 @@ class Api
 
       protected static function hasPermission($id, $target, $target_id)
       {
-            if ($target == 'accounts') {
-                  return Accounts::get($target_id);
+            if ($target == 'me') {
+                  return Accounts::get($id);
             }
 
             foreach (DEPENDENCY_TABLE[$target]['depends_on'] as $parent) {

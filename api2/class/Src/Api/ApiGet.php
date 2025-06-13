@@ -50,7 +50,8 @@ class ApiGet
       {
             $sql = "SELECT instances_id, instances.rides_id, instances_status, instances_departure, instances_departure_time, instances_destination, instances_driver_id
                       FROM (instances INNER JOIN rides ON instances.rides_id = rides.rides_id ) INNER JOIN routes ON rides.routes_id = routes.routes_id
-                     WHERE accounts_id =:id AND instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
+                     WHERE accounts_id =:id AND instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+                     ORDER BY instances_departure_time ASC";
             $bound = [':id' => $id];
             return App::$db->query($sql, $bound);
       }
@@ -89,6 +90,15 @@ class ApiGet
                      ";
             $sql = $sql1 . ' UNION ' . $sql2;
             $bound = [':id' => $id, ':id2' => $id];
+            return App::$db->query($sql, $bound);
+      }
+      public function search($id)
+      {
+            $sql = "SELECT instances_id, instances.rides_id, instances_status, instances_departure, instances_departure_time, instances_destination, instances_driver_id
+                      FROM instances
+                     WHERE  instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+                            AND NOT(instances_driver_id =:id OR instances_driver_id=0)";
+            $bound = [':id' => $id];
             return App::$db->query($sql, $bound);
       }
 }

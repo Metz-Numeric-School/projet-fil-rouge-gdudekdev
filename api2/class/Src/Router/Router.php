@@ -3,7 +3,11 @@
 namespace Src\Router;
 
 use Src\Api\Api;
+use Src\Api\ApiInstances;
 use Src\Api\ApiQuery;
+use Src\Api\ApiRide;
+use Src\Api\ApiRideChoice;
+use Src\Api\ApiRides;
 use Src\Auth\Auth;
 use Src\Controller\Authenticate;
 use Src\Test;
@@ -12,8 +16,6 @@ class Router
 {
       public static function run()
       {
-
-
             if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                   http_response_code(200);
                   exit();
@@ -71,6 +73,12 @@ class Router
                                     $controller = new Api;
                                     $controller->refresh($data);
                                     break;
+                              case 'instances':
+                                    (new ApiInstances)->request($data);
+                              case 'ride':
+                                    (new ApiRide)->request($data);
+                              case 'ride_choice':
+                                    (new ApiRideChoice)->request($data);
                               case 'on':
                                     $controller = new Api;
                                     $controller->handle($data, $_GET);

@@ -1,21 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useToken } from "~/context/TokenContext";
-import { useApi } from "~/utils/api";
+import { apiConnect } from "~/api/apiConnect";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { apiConnect, loading, error } = useApi();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let data = await apiConnect(email, password);
-    if(data != false){
-      navigate("/home");
-    }else{
-      navigate("/login");
-    }
+    let isConnected = await apiConnect(email, password);
+    isConnected ? navigate('/home') : navigate('/login');
   };
 
   return (

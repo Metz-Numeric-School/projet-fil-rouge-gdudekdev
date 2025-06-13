@@ -12,7 +12,7 @@ class Database
       {
             self::$PDOInstance = new PDO(DEFAULT_DSN, DEFAULT_HOST, DEFAULT_PASS);
       }
-      public function query($sql, $bound, $all = true)
+      public function query($sql, $bound = [], $all = true)
       {
             $stmt = self::$PDOInstance->prepare($sql);
             $stmt->execute($bound);
