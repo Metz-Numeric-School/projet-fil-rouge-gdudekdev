@@ -4,10 +4,13 @@ namespace Src\Router;
 
 use Src\Api\Api;
 use Src\Api\ApiInstances;
+use Src\Api\ApiMe;
+use Src\Api\ApiPreferences;
 use Src\Api\ApiQuery;
 use Src\Api\ApiRide;
 use Src\Api\ApiRideChoice;
 use Src\Api\ApiRides;
+use Src\Api\ApiVehicule;
 use Src\Auth\Auth;
 use Src\Controller\Authenticate;
 use Src\Test;
@@ -73,12 +76,25 @@ class Router
                                     $controller = new Api;
                                     $controller->refresh($data);
                                     break;
+                              case 'me':
+                                    (new ApiMe)->request($data);
+                                    break;
+                              case 'me/update':
+                                    (new ApiMe)->update($data);
+                                    break;
+                              case 'vehicules':
+                                    (new ApiVehicule)->request('vehicules', $data);
+                                    break;
+
                               case 'instances':
                                     (new ApiInstances)->request($data);
+                                    break;
                               case 'ride':
                                     (new ApiRide)->request($data);
+                                    break;
                               case 'ride_choice':
                                     (new ApiRideChoice)->request($data);
+                                    break;
                               case 'on':
                                     $controller = new Api;
                                     $controller->handle($data, $_GET);

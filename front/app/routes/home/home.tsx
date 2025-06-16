@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import ModalHomeTrajet from "~/components/home/modal/modalHomeTrajet/ModalHomeTrajet";
-import HomeSection from "~/components/home/sections/HomeSection";
 import PlanningHome from "~/components/home/planning/PlanningHome/PlanningHome";
 import { useHome } from "~/hooks/useHome";
 import FSOverlay from "~/layouts/FSOverlay/FSOverlay";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useApi } from "~/hooks/useApi";
+import MainModal from "~/components/main/modal/MainModal";
 
 const SectionHome = [
   {
@@ -56,7 +55,7 @@ const Home = () => {
           setPlanning(result.response);
         }
       } catch (error) {
-        navigate('/login');
+        navigate("/login");
         console.error("Erreur lors du chargement du planning :", error);
       }
     }
@@ -87,7 +86,54 @@ const Home = () => {
         <FSOverlay onClose={closePlanning} children={<Trajet />} />
       )}
 
-      {isRideSettings && <ModalHomeTrajet close={() => closeRideSettings()} />}
+      {isRideSettings && (
+        <MainModal
+          children={ModalHomeContent()}
+          close={() => closeRideSettings()}
+        />
+      )}
+    </div>
+  );
+};
+
+const HomeSection = ({
+  section,
+}: {
+  section: {
+    className: string;
+    icon?: string;
+    title: string;
+    description: string;
+    link: {
+      href: string;
+      text: string;
+    };
+  };
+}) => (
+  <section className={section.className}>
+    <div className={`${section.className}-content`}>
+      {section.icon && <i className={`fa ${section.icon}`}></i>}
+      <h2>{section.title}</h2>
+      <p>{section.description}</p>
+    </div>
+    <Link to={section.link.href} className={`${section.className}-cta`}>
+      <button>{section.link.text}</button>
+    </Link>
+  </section>
+);
+
+const ModalHomeContent = () => {
+  return (
+    <div className="modal__home-trajet-action">
+      <ul>
+        <li className="modal__home-trajet-action-item">Voir mon itinéraire</li>
+        <li className="modal__home-trajet-action-item">
+          Modifier l'heure de ce trajet
+        </li>
+        <li className="modal__home-trajet-action-item">
+          Ne pas proposer ce trajet
+        </li>
+      </ul>
     </div>
   );
 };

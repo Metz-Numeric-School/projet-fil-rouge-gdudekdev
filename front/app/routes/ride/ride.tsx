@@ -1,14 +1,9 @@
 import { useNavigate, useParams } from "react-router";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useApi } from "~/hooks/useApi";
 import FSOverlay from "~/layouts/FSOverlay/FSOverlay";
 import TrajetChoiceItem from "../profilSection/trajet/TrajetChoice/TrajetChoiceItem/TrajetChoiceItem";
 import TrajetChoiceDetail from "../profilSection/trajet/TrajetChoice/TrajetChoiceDetail/TrajetChoiceDetail";
-
-interface Trajet {
-  id: number;
-  // autres propriétés selon ta définition
-}
 
 const Ride = () => {
   const { id } = useParams();

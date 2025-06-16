@@ -33,7 +33,7 @@
   @apply flex flex-col gap-4 py-6;
 }
 .vehicule__step-choice-list div{
-  @apply hover:bg-[var(--maincolor-light)] hover:text-white hover:cursor-pointer;
+  @apply hover:bg-[var(--maincolor-light)] hover:translate-0.5 transition-all hover:cursor-pointer;
 }
 .vehicule__step-btn{
   @apply flex items-center justify-center px-4 py-2 rounded bg-[var(--maincolor-original)] text-white hover:bg-[var(--maincolor-dark)] hover:cursor-pointer;
