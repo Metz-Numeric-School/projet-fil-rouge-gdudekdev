@@ -2,7 +2,6 @@
 
 namespace Src\Model;
 
-use App;
 
 class Vehicules extends Model
 {
@@ -43,7 +42,6 @@ class Vehicules extends Model
             $engines = [];
             foreach ($vehicules as $vehicule) {
                   $vehicule = self::newEntity($vehicule);
-
                   $colors[] = Car_Colors::get($vehicule->car_colors_id())['car_colors_name'];
                   $engines[] = Car_engines::get($vehicule->car_engines_id())['car_engines_name'];
                   $model = Car_models::get($vehicule->car_models_id());

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApi } from "~/hooks/useApi";
 import { getTextColorByBackground } from "~/utils/getBrightness";
+import { useNavigate } from "react-router";
 
 interface Brands {
   car_brands_id: number;
@@ -12,8 +13,8 @@ interface Models {
   car_models_name: string;
 }
 interface Colors {
-  car_models_id: number;
-  car_models_name: string;
+  car_colors_id: number;
+  car_colors_name: string;
 }
 interface Engines {
   car_engines_id: number;
@@ -36,6 +37,7 @@ interface StepProps {
   onSelect: (step: string, choice: string) => void;
   formData: { [key: string]: string };
   displayMethod?: string;
+  vehicule: Vehicule;
 }
 
 const Step: React.FC<StepProps> = ({
@@ -45,6 +47,7 @@ const Step: React.FC<StepProps> = ({
   onSelect,
   formData,
   displayMethod = "",
+  vehicule,
 }) => {
   const [inputValue, setInputValue] = useState(formData[step] || "");
 
@@ -56,8 +59,6 @@ const Step: React.FC<StepProps> = ({
     event.preventDefault();
     onSelect(step, "");
   };
-  console.log(choices);
-  console.log(step);
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -66,7 +67,7 @@ const Step: React.FC<StepProps> = ({
       transition={{ duration: 0.3 }}
     >
       {step !== "recap" ? (
-        <>
+        <div className="mb-[var(--navbar-height)]">
           <h2 className="vehicule__step-title">{stepTitles[step]}</h2>
           {step === "immatriculation" ? (
             <div className="vehicule__step-skippable">
@@ -113,17 +114,21 @@ const Step: React.FC<StepProps> = ({
               })}
             </div>
           )}
-        </>
+        </div>
       ) : (
         <>
           <h2 className="vehicule__step-title">Récapitulatif</h2>
           <div className="vehicule__recap-list">
-            {Object.entries(formData).map(([key, value]) => (
-              <p key={key}>
-                <strong className="vehicule__recap-key">{key}:</strong>{" "}
-                {value || "Non renseigné"}
-              </p>
-            ))}
+            <p>Marque : {vehicule.brand?.car_brands_name}</p>
+            <p>Modèle : {vehicule.model?.car_models_name}</p>
+            <p>Couleur : {vehicule.color?.car_colors_name}</p>
+            <p>Motorisation : {vehicule.engine?.car_engines_name}</p>
+            <p>
+              Plaque d'immatriculation :{" "}
+              {vehicule.plate?.immatriculation == ""
+                ? "Non fournie"
+                : vehicule.plate?.immatriculation}
+            </p>
           </div>
           <button className="vehicule__step-btn skippable" type="submit">
             Valider
@@ -138,6 +143,7 @@ const Vehicule = () => {
   const { apiQuery } = useApi();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const [brands, setBrands] = useState([]);
   const [models, setModels] = useState([]);
@@ -185,11 +191,10 @@ const Vehicule = () => {
         console.error("Erreur de chargement pour l'étape", step, error);
       }
     };
-// TODO faire le recpa du formulaire du vehicule
     fetchData();
     console.log(vehicule);
   }, [currentStepIndex, formData, vehicule]);
-
+  // TODO faire en sorte de pouvoir voir les véhicules, les modifier au besoin et de pouvoir en créer de nouveau, il va probablement falloir faire une requete pour voir si il existe deja des véhicules et faire au choix : une redirection vers le composant de création d'un véhicule, une autre vers celui pour voir les véhicules, les composants de création et  de mise a jour sont similaires, avec une valeur de l'état du véhicule prédéfinie dans le second cas
   const steps = [
     "brands",
     "models",
@@ -204,8 +209,8 @@ const Vehicule = () => {
     models: { data: models, display_method: "car_models_name" },
     colors: { data: colors, display_method: "car_colors_name" },
     engines: { data: engines, display_method: "car_engines_name" },
-    immatriculation : {data : "", display_method : ""},
-    recap : {data : "", display_method : ""},
+    immatriculation: { data: "", display_method: "" },
+    recap: { data: "", display_method: "" },
   };
   const stepTitles = {
     brands: "Quelle est la marque de votre véhicule?",
@@ -276,9 +281,14 @@ const Vehicule = () => {
     [currentStepIndex]
   );
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    window.location.href = "/profil";
+    const res = await apiQuery("vehicules/update", { vehicule });
+    if (res.response) {
+      console.log(res);
+      navigate("/profil");
+    }
+    console.error("Erreur lors de l'ajout du véhicule");
   };
 
   return (
@@ -301,6 +311,7 @@ const Vehicule = () => {
                   formData={formData}
                   stepTitles={stepTitles}
                   displayMethod={choices[step].display_method}
+                  vehicule={vehicule}
                 />
                 {currentStepIndex > 0 && (
                   <button

@@ -8,29 +8,28 @@
 
 :root {
   --navbar-height: 76px;
-  --maincolor-light: #52C98A;
+  --maincolor-light: #52c98a;
   --maincolor-original: #149255;
   --maincolor-medium: #107543;
-  --maincolor-dark: #0C5832;
+  --maincolor-dark: #0c5832;
   --maincolor-vibrant: #094927;
 
   --cta-primary: #149255;
   --cta-primary-hover: #107543;
-  --cta-primary-active: #0C5832;
-  
-  --cta-secondary: #14A292;
-  --cta-secondary-hover: #107A74;
-  --cta-secondary-active: #0C5C58;
-  
-  --cta-accent: #921449;
-  --cta-accent-hover: #7A113E;
-  --cta-accent-active: #5C0D30;
-  
-  --cta-text-highlight: #FFD166;
-  --cta-background: #F4F4F4;
+  --cta-primary-active: #0c5832;
 
+  --cta-secondary: #14a292;
+  --cta-secondary-hover: #107a74;
+  --cta-secondary-active: #0c5c58;
+
+  --cta-accent: #921449;
+  --cta-accent-hover: #7a113e;
+  --cta-accent-active: #5c0d30;
+
+  --cta-text-highlight: #ffd166;
+  --cta-background: #f4f4f4;
 }
-html{
+html {
   @apply overflow-x-hidden;
 }
 body {
@@ -41,15 +40,22 @@ main {
 }
 /* STYLES GENERAUX  */
 h2 {
-  @apply font-bold text-2xl ; 
+  @apply font-bold text-2xl;
 }
 h3 {
-  @apply font-semibold text-xl ;
+  @apply font-semibold text-xl;
 }
 
 .noscroll {
   overflow: hidden;
 }
+
+/* MAPS  */
+.maplibregl-ctrl-attrib {
+  display: none;
+}
+
+
 /* IMPORTANT */
 /* TODO détail d'un trajet plus choix du chemin que l'on souhaite emprunter*/
 /* TODO faire un modèle pour l'historique avec un recap du trajet et potentiellment changer la note ( à voir sur le fonctionnement à venir) */
@@ -81,4 +87,4 @@ Système de match entre le conducteur et les passagers */
 /* LOGIN */
 @import "./routes/login/login.css";
 /* --- COMPONENTS --- */
-@import "./components/main/import/ImportComponentMain.css"
+@import "./components/main/import/ImportComponentMain.css";

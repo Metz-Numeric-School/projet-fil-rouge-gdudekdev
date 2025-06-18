@@ -83,9 +83,10 @@ class Router
                                     (new ApiMe)->update($data);
                                     break;
                               case 'vehicules':
-                                    (new ApiVehicule)->request('vehicules', $data);
+                                    (new ApiVehicule)->request( $data);
                                     break;
-
+                              case 'vehicules/update':
+                                    (new ApiVehicule)->update($data);
                               case 'instances':
                                     (new ApiInstances)->request($data);
                                     break;

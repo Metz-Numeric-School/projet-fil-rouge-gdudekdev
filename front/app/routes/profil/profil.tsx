@@ -40,10 +40,7 @@ const sections = [
         href: "vehicule",
         icon: <IconProfilVehicule />,
         alt: "Voiture",
-        title: "Véhicule",
-        description:
-          "Ajoutez-le pour faciliter la rencontre avec vos passagers",
-        cta: "Ajouter",
+        title: "Véhicules",
       },
     ],
   },
