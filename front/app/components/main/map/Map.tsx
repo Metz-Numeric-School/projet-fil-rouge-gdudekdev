@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import maplibregl from "maplibre-gl";
 import polyline from "@mapbox/polyline";
-import type { Coord } from "~/routes/profilSection/trajet/TrajetDetail/TrajetDetail";
+import type { Coord } from "~/routes/profilSection/trajet/TrajetDetail/TrajetAdd";
 
 type MapProps = {
   coord: Coord[];
@@ -74,3 +74,6 @@ export default function Map({ coord }: MapProps) {
 
   return <div id="map" style={{ width: "70%", height: "40vh" }}></div>;
 }
+
+// TODO finir les trajets, finir l'historique, 
+// TODO faire les fichiers CRON

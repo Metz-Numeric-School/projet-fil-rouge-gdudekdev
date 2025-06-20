@@ -14,6 +14,6 @@ export default [
     route("profil/:section", "routes/profilSection/ProfilSection.tsx"),
     route("chat", "routes/chat/chat.tsx"),
     route("ride/:id", "routes/ride/ride.tsx"),
-    route("profil/trajet/:id","routes/profilSection/trajet/Trajet.tsx"),
+    route("profil/trajet/:param","routes/profilSection/trajet/Trajet.tsx"),
   ]),
 ] satisfies RouteConfig;

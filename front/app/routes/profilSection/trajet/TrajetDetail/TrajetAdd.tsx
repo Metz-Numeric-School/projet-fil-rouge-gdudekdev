@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import Map from "~/components/main/map/Map";
 import FormSubmit from "~/components/main/button/FormSubmit/FormSubmit";
 import FSOverlay from "~/layouts/FSOverlay/FSOverlay";
+import TrajetOverview from "./TrajetOverview";
 
 export type Coord = [number | null, number | null];
 
@@ -31,30 +32,28 @@ type RideForm = {
   planifications: Planifications;
   route: Route;
 };
-
-const TrajetDetail = ({ id }: { id: number }) => {
-  const [trajet, setTrajet] = useState<any>(); // Vous pouvez ajuster le type si besoin
-  const navigate = useNavigate();
-
-  const onCloseTrajetDetail = () => {
-    navigate("/profil/trajet");
-  };
-
-  return (
-    <FSOverlay
-      children={<TrajetDetailComponent trajet={trajet} />}
-      onClose={onCloseTrajetDetail}
-    />
-  );
+export const mapDaysOfWeek = [
+            ["mon", "Lundi"],
+            ["tue", "Mardi"],
+            ["wed", "Mercredi"],
+            ["thu", "Jeudi"],
+            ["fri", "Vendredi"],
+          ];
+const TrajetAdd = () => {
+  const [trajet, setTrajet] = useState<any>();
+  return <TrajetAddComponent trajet={trajet} />
 };
 
-const TrajetDetailComponent = ({ trajet }: { trajet: any }) => {
+const TrajetAddComponent = ({ trajet }: { trajet: any }) => {
   const [positions, setPositions] = useState<[Coord | null, Coord | null]>([
     [null, null],
     [null, null],
   ]);
-  const [addressLabels, setAddressLabels] = useState<[string, string]>(["", ""]);
-
+  const [addressLabels, setAddressLabels] = useState<[string, string]>([
+    "",
+    "",
+  ]);
+  
   const setPositionDeparture = (result: any) => {
     setPositions(([_, dest]) => [[+result.lon, +result.lat], dest]);
   };
@@ -74,12 +73,16 @@ const TrajetDetailComponent = ({ trajet }: { trajet: any }) => {
         <div className="flex flex-col justify-between items-center w-full max-w-[320px] gap-4">
           <InputCoordMap
             setPosition={setPositionDeparture}
-            setAddressLabel={(label) => setAddressLabels(([_, dest]) => [label, dest])}
+            setAddressLabel={(label) =>
+              setAddressLabels(([_, dest]) => [label, dest])
+            }
             placeholder="Adresse de départ"
           />
           <InputCoordMap
             setPosition={setPositionDestination}
-            setAddressLabel={(label) => setAddressLabels(([dep, _]) => [dep, label])}
+            setAddressLabel={(label) =>
+              setAddressLabels(([dep, _]) => [dep, label])
+            }
             placeholder="Adresse d'arrivée"
           />
         </div>
@@ -115,7 +118,11 @@ const InputCoordMap = ({
       return;
     }
     const timer = setTimeout(() => {
-      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+      fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          query
+        )}`
+      )
         .then((res) => res.json())
         .then(setResults)
         .catch(console.error);
@@ -160,17 +167,22 @@ const PlanRide = ({
   addressLabels: [string, string];
 }) => {
   const [planType, setPlanType] = useState("none");
-  const [position, setPosition] = useState<"passager" | "conducteur">("passager");
+  const [position, setPosition] = useState<"passager" | "conducteur">(
+    "passager"
+  );
   const [seats, setSeats] = useState(0);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
-    const selectedDays: string[] = ["mon", "tue", "wed", "thu", "fri"].filter((day) => form.get(day));
+    const selectedDays: string[] = ["mon", "tue", "wed", "thu", "fri"].filter(
+      (day) => form.get(day)
+    );
 
     const plan: Planifications = {
-      planifications_pattern_type: form.get("planifications_pattern_type")?.toString() || "none",
+      planifications_pattern_type:
+        form.get("planifications_pattern_type")?.toString() || "none",
       planifications_days_of_week: selectedDays,
       planifications_interval_week: parseInt(
         form.get("planifications_interval_weeks")?.toString() || "1",
@@ -192,19 +204,29 @@ const PlanRide = ({
     const rideForm: RideForm = {
       rides_position: position,
       rides_seats: position === "conducteur" ? seats : 0,
-      planifications_start: form.get("planifications_start")?.toString() ?? null,
+      planifications_start:
+        form.get("planifications_start")?.toString() ?? null,
       planifications_end: form.get("planifications_end")?.toString() ?? null,
       planifications: plan,
       route,
     };
-
   };
-
+  const formatDateForDatetimeLocal = (date: any) => {
+    const pad = (num: number) => num.toString().padStart(2, "0");
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+      date.getDate()
+    )}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex gap-4 items-center">
         <label>Position :</label>
-        <select value={position} onChange={(e) => setPosition(e.target.value as "passager" | "conducteur")}>
+        <select
+          value={position}
+          onChange={(e) =>
+            setPosition(e.target.value as "passager" | "conducteur")
+          }
+        >
           <option value="passager">Passager</option>
           <option value="conducteur">Conducteur</option>
         </select>
@@ -244,7 +266,7 @@ const PlanRide = ({
       {planType === "days" && (
         <div className="flex flex-col gap-2">
           <label>Jours choisis :</label>
-          {[["mon","Lundi"], ["tue","Mardi"], ["wed", "Mercredi"], ["thu","Jeudi"], ["fri","Vendredi"]].map((day) => (
+          {mapDaysOfWeek.map((day) => (
             <label key={day[0]}>
               <input type="checkbox" name={day[0]} /> {day[1]}
             </label>
@@ -256,16 +278,16 @@ const PlanRide = ({
         <>
           <label>Date de début :</label>
           <input
-            type="date-time"
+            type="datetime-local"
             name="planifications_start"
-            defaultValue={new Date().toISOString().split("T")[0]}
-            min={new Date().toISOString().split("T")[0]}
+            defaultValue={formatDateForDatetimeLocal(new Date())}
+            min={formatDateForDatetimeLocal(new Date())}
           />
           <label>Date de fin :</label>
           <input
-            type="date"
+            type="datetime-local"
             name="planifications_end"
-            defaultValue={new Date().toISOString().split("T")[0]}
+            defaultValue={formatDateForDatetimeLocal(new Date())}
           />
           <label>Fréquence :</label>
           <select name="planifications_interval_weeks">
@@ -282,4 +304,4 @@ const PlanRide = ({
   );
 };
 
-export default TrajetDetail;
+export default TrajetAdd;

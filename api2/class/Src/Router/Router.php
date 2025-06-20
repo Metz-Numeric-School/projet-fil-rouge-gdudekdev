@@ -8,6 +8,7 @@ use Src\Api\ApiMe;
 use Src\Api\ApiPreferences;
 use Src\Api\ApiQuery;
 use Src\Api\ApiRide;
+use Src\Api\ApiRideAll;
 use Src\Api\ApiRideChoice;
 use Src\Api\ApiRides;
 use Src\Api\ApiVehicule;
@@ -92,6 +93,12 @@ class Router
                                     break;
                               case 'ride':
                                     (new ApiRide)->request($data);
+                                    break;
+                              case 'ride/instances':
+                                    (new ApiRide)->request_instances($data);
+                                    break;
+                              case 'rides_all': 
+                                    (new ApiRideAll)->request($data);
                                     break;
                               case 'ride_choice':
                                     (new ApiRideChoice)->request($data);

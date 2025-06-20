@@ -26,7 +26,7 @@ const getTimeFromRide = (ride: Rides) => {
   } else if (isTomorrow) {
     dateLabel = "Demain";
   } else {
-    dateLabel = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1); // Majuscule au début
+    dateLabel = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1); 
   }
 
   return { dateLabel, timeOnly };
