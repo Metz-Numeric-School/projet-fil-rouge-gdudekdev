@@ -28,12 +28,9 @@ export const useApi = () => {
         body : JSON.stringify(body),
       }
     );
-    console.log(response);
     if (response.status === 401) {
-      console.log("Demande d'access token suite a une 401");
       const newToken = await getAccessToken();
       if (newToken) {
-        console.log("Mise a jour de l'état du token");
         setToken(newToken);
         // relancer la requête avec le nouveau token
         // return await apiQuery(action, target);
@@ -44,7 +41,6 @@ export const useApi = () => {
     // const raw = await response.text();
     // console.log("valeur en dure", raw);
     const data = await response.json();
-    console.log("reponse de la requete de query", data.response);
     return data;
   } catch (err) {
     return null;

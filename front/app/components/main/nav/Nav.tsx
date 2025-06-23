@@ -4,7 +4,6 @@ interface NavProps {
   onClose: () => void;
 }
 const Nav = ({ onClose }: NavProps) => {
-  console.log("Rendering Nav");
   return (
     <header>
       <nav className="navbar">

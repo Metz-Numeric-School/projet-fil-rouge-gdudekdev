@@ -93,7 +93,6 @@ class ApiRide
             b.bookings_id,
             b.bookings_status,
             s.accounts_fullname AS sender_fullname,
-            s.accounts_email AS sender_email,
             s.accounts_phone AS sender_phone
         FROM rides r
         JOIN instances i ON r.rides_id = i.rides_id
@@ -119,6 +118,7 @@ class ApiRide
             ir.instances_departure_time,
             ir.instances_departure,
             ir.instances_destination,
+            a.accounts_id AS driver_id,
             a.accounts_fullname AS driver_fullname,
             a.accounts_email AS driver_email,
             a.accounts_phone AS driver_phone
@@ -132,11 +132,10 @@ class ApiRide
         WHERE r.rides_id = :id
           AND r.rides_position = 'passager'
           AND ir.instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-        ORDER BY ir.instances_departure_time ASC;
+        ORDER BY b.bookings_status ASC;
     ";
                   $response['sent'] = App::$db->query($sql, [':id' => $rides_id]);
             }
-
             return $response;
       }
       

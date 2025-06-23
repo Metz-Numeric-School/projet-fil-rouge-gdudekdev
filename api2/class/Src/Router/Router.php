@@ -3,6 +3,7 @@
 namespace Src\Router;
 
 use Src\Api\Api;
+use Src\Api\ApiBookings;
 use Src\Api\ApiInstances;
 use Src\Api\ApiMe;
 use Src\Api\ApiPreferences;
@@ -102,6 +103,9 @@ class Router
                                     break;
                               case 'ride_choice':
                                     (new ApiRideChoice)->request($data);
+                                    break;
+                              case 'bookings/set_status':
+                                    (new ApiBookings)->request($data);
                                     break;
                               case 'on':
                                     $controller = new Api;

@@ -14,10 +14,6 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap",
   },
-  {
-    rel: "stylesheet",
-    href: " https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
-  },
 ];
 import React from "react";
 import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
@@ -39,12 +35,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           type="text/javascript"
           src="https://code.jquery.com/jquery-3.5.1.min.js"
         ></script>
-        <script
-          src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        ></script>
-        <script src="./app/config/config.js">
-        </script>
       </body>
     </html>
   );

@@ -9,7 +9,6 @@ export const apiConnect = async (email: string, password: string) => {
       body: JSON.stringify({ email, password }),
     });
 
-    console.log(response);
     if (response.status === 422) {
       return false;
     }

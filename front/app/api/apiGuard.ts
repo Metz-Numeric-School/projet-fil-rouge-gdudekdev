@@ -9,7 +9,6 @@ export const apiGuard = async () => {
       },
     });
     
-    console.log(response);
     if (response.status === 422) {
       return false;
     }

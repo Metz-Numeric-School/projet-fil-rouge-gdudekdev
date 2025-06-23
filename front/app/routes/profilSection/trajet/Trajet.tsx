@@ -10,7 +10,7 @@ import TrajetAdd from "./TrajetDetail/TrajetAdd.js";
 export const arrayPlan = {
   none: "Une seule fois",
   daily: "Tous les jours",
-  days: "Personnalisée",
+  days: "Personnalisé",
 };
 export type RideDataSet = {
   planifications_days_of_week: string[];
@@ -35,15 +35,16 @@ const TrajetItem = ({
 
   onClick: (id: number) => void;
 }) => {
-  console.log("ride dans TrajetItem: ", ride);
   return (
     <div
-      className=" flex justify-between items-center w-full border hover:cursor-pointer hover:translate-x-0.5 hover:transition-all border-gray-300 rounded-md p-3 mb-2 gap-4"
+      className="flex justify-between items-center w-full border hover:cursor-pointer hover:translate-x-0.5 hover:transition-all border-gray-300 rounded-md p-3 mb-2 gap-4 relative"
       onClick={() => onClick(ride.rides_id)}
     >
-      <div className="flex-col w-full gap-5">
-        <div className="">
-          <div className="flex w-full justify-between">
+      <div className="flex items-center ml-2 justify-center absolute top-0 left-0.5 text-[10px] text-[var(--maincolor-original)]  ">
+        <p>{ride.rides_position == "driver" ? "Conducteur" : "Passager"}</p>
+      </div>
+      <div className="flex w-1/2 gap-4">
+          <div className="flex w-full justify-between ml-5">
             <h4>
               {ride.routes_departure} - {ride.routes_destination}
             </h4>
@@ -53,7 +54,6 @@ const TrajetItem = ({
               {arrayPlan[ride.planifications_pattern_type]}
             </p>
           </div>
-        </div>
       </div>
       <div className="trajet__adress-right-cta-svg ml-4">
         <CtaRightArrow />
@@ -62,7 +62,7 @@ const TrajetItem = ({
   );
 };
 // TODO faire une requete directement sur tous les trajets définis par l'utilisateur, les mettre dans une variable d'état et la passer via un props dans le detail, enlever donc la route trajet/{id}, elle n'est plus pertinente ici mais plutot faire afficher le bon trajet via FSOverlay au moment ou en a besoin pour afficher le détail, passer en props a ce moment la
-// TODO faire le reste des routes : les différentes réservations liées à un trajet pour les accepter et les refuser, faire le formulaire pour charger les adresses et les stocker en bdd si nécessaire, faire en sorte de stocker les adresses a un endroit pour l'utilisateur, qu'il puisse les supprimer si nécessaire, faire de l'autocomplétion sur les adresses et les stocker à la fois en latitude longitude et en clair pour le montrer a l'utilisateur, le relier via un identifiant et créer un type correspondant à un itinéraire (départ arrivé et sens de direction, avec la longitude et latitude pour chaque données), finir la partie de présentation des trajets disponible, mettre dans le formualrie un moyen de créer des planifications mais aussi de le modifier dans les détails, le reste est facultatif, faire en sorte de pouvoir afficher la carte concernant un itinéraire et de génerer des itinéraires plus complet comprenant différents point de ralliement entre les utilsiateurs et le conducteur, permettre, au fur et  a mesure, de pouvoir voir le trajet qui se complete, previsualisation , ça fait BEAUCOUP de choses a faire pour rendre le tout vraiment pertinent mais c'est faisable
+// TODO faire le reste des routes :faire le formulaire pour charger les adresses et les stocker en bdd si nécessaire, faire en sorte de stocker les adresses a un endroit pour l'utilisateur, qu'il puisse les supprimer si nécessaire, faire de l'autocomplétion sur les adresses et les stocker à la fois en latitude longitude et en clair pour le montrer a l'utilisateur, le relier via un identifiant et créer un type correspondant à un itinéraire (départ arrivé et sens de direction, avec la longitude et latitude pour chaque données), finir la partie de présentation des trajets disponible, mettre dans le formualrie un moyen de créer des planifications mais aussi de le modifier dans les détails, le reste est facultatif, faire en sorte de pouvoir afficher la carte concernant un itinéraire et de génerer des itinéraires plus complet comprenant différents point de ralliement entre les utilsiateurs et le conducteur, permettre, au fur et  a mesure, de pouvoir voir le trajet qui se complete, previsualisation , ça fait BEAUCOUP de choses a faire pour rendre le tout vraiment pertinent mais c'est faisable
 const Trajet = () => {
   const { param } = useParams();
   const { apiQuery } = useApi();
@@ -73,13 +73,11 @@ const Trajet = () => {
   const openRideDetail = (param: number) => {
     navigate(`/profil/trajet/${param}`);
   };
-  console.log("param = ", param);
   if (param === "add") {
     return <FSOverlay children={<TrajetAdd />} onClose={onCloseRideViews} />;
   }
   const [rides, setRides] = useState(() => {
     const storedRides = localStorage.getItem("rides");
-    console.log(storedRides);
     return storedRides ? JSON.parse(storedRides) : [];
   });
 
@@ -88,7 +86,6 @@ const Trajet = () => {
       try {
         const res = await apiQuery("rides_all");
         const data = res.response;
-        console.log("data:", data);
         setRides(data);
         localStorage.setItem("rides", JSON.stringify(data));
       } catch (err) {
@@ -98,7 +95,6 @@ const Trajet = () => {
 
     fetchRides();
   }, []);
-  console.log("param", typeof param);
   if (typeof param === "string") {
     return (
       <FSOverlay
@@ -124,8 +120,6 @@ const TrajetStd = ({
   const openOverview = (rides_id: number) => {
     openRideDetail(rides_id);
   };
-
-  console.log("rides :", rides);
   return (
     <div className="trajet">
       <div className="flex w-full justify-between">

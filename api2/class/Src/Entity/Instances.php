@@ -43,7 +43,6 @@ class Instances
                   'crud_show' => false,
                   'readonly' => true,
             ],
-            // TODO mettre un status sur les comptes au moment de leur suppression pour pouvoir conserver les informations sous 30 jours
             'status' => [
                   'title' => 'Status du trajet',
                   'detail_show' => true,
