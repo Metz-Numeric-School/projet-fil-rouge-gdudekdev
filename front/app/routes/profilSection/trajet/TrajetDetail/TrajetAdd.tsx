@@ -22,7 +22,14 @@ type Planifications = {
   planifications_days_of_week: string[] | null;
   planifications_interval_week: number;
 };
-
+export type VehiculesData = {
+  brand: string;
+  color: string;
+  model: string;
+  engine: string;
+  license_plate: string;
+  vehicules_id: number;
+};
 type RideForm = {
   rides_position: "passager" | "conducteur";
   rides_seats: number;
@@ -31,6 +38,7 @@ type RideForm = {
   planifications_start: string | null;
   planifications_end: string | null;
   planifications: Planifications;
+  vehicules_id: number;
   route: Route;
 };
 export const mapDaysOfWeek = [
@@ -56,7 +64,18 @@ const TrajetAdd = () => {
   const setPositionDestination = (result: any) => {
     setPositions(([dep, _]) => [dep, [+result.lon, +result.lat]]);
   };
+  const [vehicules, setVehicules] = useState<VehiculesData[]>();
+  const [vehiculeId, setVehiculeId] = useState<number>(0);
+  const { apiQuery } = useApi();
 
+  useEffect(() => {
+    const fetchVehicules = async () => {
+      const res = await apiQuery("me/vehicules");
+
+      setVehicules(res.response);
+    };
+    fetchVehicules();
+  }, []);
   return (
     <div className="flex-col gap-y-4 items-center mb-[var(--navbar-height)]">
       <h2 className="text-[var(--maincolor-original)] mb-4">
@@ -86,9 +105,36 @@ const TrajetAdd = () => {
           <Map coord={positions} />
         </div>
       </div>
+      <div className="flex flex-col gap-2 text-[var(--maincolor-light)] mb-4">
+        <h3>Choisissez votre véhicule</h3>
+        {vehicules != undefined && (
+          <select
+            defaultValue="0"
+            name="vehicules"
+            id="vehicules"
+            onChange={(e) => {
+              setVehiculeId(parseInt(e.target.value));
+              console.log(vehiculeId);
+            }}
+          >
+            <option value="0" className="text-gray-500">
+              --Sélectionnez votre véhicule--
+            </option>
+            {vehicules?.map((vehicule) => (
+              <option
+                value={vehicule.vehicules_id}
+              >{`${vehicule.model}, ${vehicule.brand}, ${vehicule.color}, ${vehicule.license_plate}, ${vehicule.engine}`}</option>
+            ))}
+          </select>
+        )}
+      </div>
       <div className="text-[var(--maincolor-light)] mb-4">
         <h3>Planifiez votre trajet</h3>
-        <PlanRide positions={positions} addressLabels={addressLabels} />
+        <PlanRide
+          positions={positions}
+          addressLabels={addressLabels}
+          vehiculeId={vehiculeId}
+        />
       </div>
     </div>
   );
@@ -116,7 +162,8 @@ const InputCoordMap = ({
     if (address.road) parts.push(address.road);
 
     // Choisir la ville/town/village/hamlet selon dispo
-    const city = address.city || address.town || address.village || address.hamlet;
+    const city =
+      address.city || address.town || address.village || address.hamlet;
     if (city) parts.push(city);
 
     if (address.postcode) parts.push(address.postcode);
@@ -171,13 +218,14 @@ const InputCoordMap = ({
   );
 };
 
-
 const PlanRide = ({
   positions,
   addressLabels,
+  vehiculeId,
 }: {
   positions: [Coord | null, Coord | null];
   addressLabels: [string, string];
+  vehiculeId: number;
 }) => {
   const [planType, setPlanType] = useState("none");
   const [position, setPosition] = useState<"passager" | "conducteur">(
@@ -219,14 +267,15 @@ const PlanRide = ({
     const rideForm: RideForm = {
       rides_position: position,
       rides_seats: position === "conducteur" ? seats : 0,
-      rides_departure_date: form.get("rides_departure_date") ?? "",
-      rides_departure_time: form.get("rides_departure_time") ?? "",
+      rides_departure_date: form.get("rides_departure_date")?.toString() ?? "",
+      rides_departure_time: form.get("rides_departure_time")?.toString() ?? "",
 
       planifications_start:
         form.get("planifications_start")?.toString() ?? null,
       planifications_end: form.get("planifications_end")?.toString() ?? null,
       planifications: plan,
       route,
+      vehicules_id: vehiculeId,
     };
 
     apiQuery("rides/post", { rides: rideForm });
@@ -249,7 +298,7 @@ const PlanRide = ({
           }
         >
           <option value="passager">Passager</option>
-          <option value="conducteur">Conducteur</option>
+          <option value="driver">Conducteur</option>
         </select>
       </div>
 

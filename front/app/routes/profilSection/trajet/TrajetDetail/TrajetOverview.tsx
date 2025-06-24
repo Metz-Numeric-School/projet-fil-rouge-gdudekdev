@@ -2,34 +2,45 @@ import { useNavigate } from "react-router";
 import type { RideDataSet } from "../Trajet";
 import properDate from "~/utils/properDate";
 import { arrayPlan } from "../Trajet";
-import { mapDaysOfWeek } from "./TrajetAdd";
+import { mapDaysOfWeek, type VehiculesData } from "./TrajetAdd";
 import { useApi } from "~/hooks/useApi";
 import { useEffect, useState } from "react";
 import CtaRightArrow from "~/src/assets/icon/cta/CtaRightArrow";
 
 const TrajetOverview = ({ rideId }: { rideId: number }) => {
   const navigate = useNavigate();
-  const {apiQuery} = useApi();
+  const { apiQuery } = useApi();
+  const [vehicules, setVehicules] = useState<VehiculesData>();
+
   const ride: RideDataSet[] = JSON.parse(
     localStorage.getItem("rides") ?? "[]"
   ).filter((ride: RideDataSet) => ride.rides_id == rideId);
   if (ride.length === 0) {
     navigate("/profil/trajet");
   }
-
-  const handleOnDelete =  ()=>{
-    apiQuery('rides/delete', {rides_id : rideId});
-    localStorage.removeItem('rides');
+  useEffect(() => {
+    const fetchVehicule = async () => {
+      const res = await apiQuery("vehicules/get", { rides_id: rideId });
+      setVehicules(res.response);
+    };
+    fetchVehicule();
+  }, []);
+  const handleOnDelete = () => {
+    apiQuery("rides/delete", { rides_id: rideId });
+    localStorage.removeItem("rides");
     navigate("/profil/trajet");
-  }
+  };
   const currentRide = ride[0];
   return (
     <div className="flex flex-col gap-4 mb-[var(--navbar-height)]">
       <div className="flex w-full justify-between items-center">
-        <h2 className="text-[var(--maincolor-dark)] mb-4">
-          Votre trajet
-        </h2>
-        <button className="text-white bg-[var(--cta-accent)] p-2 rounded-sm hover:bg-[var(--cta-accent-hover)] hover:cursor-pointer" onClick ={handleOnDelete}>Supprimer</button>
+        <h2 className="text-[var(--maincolor-dark)] mb-4">Votre trajet</h2>
+        <button
+          className="text-white bg-[var(--cta-accent)] p-2 rounded-sm hover:bg-[var(--cta-accent-hover)] hover:cursor-pointer"
+          onClick={handleOnDelete}
+        >
+          Supprimer
+        </button>
       </div>
       <div className="">
         <h3 className="text-[var(--maincolor-original)] mb-4 text-sm underline">
@@ -101,6 +112,18 @@ const TrajetOverview = ({ rideId }: { rideId: number }) => {
               </div>
             )}
           </div>
+          <div className="border border-[var(--maincolor-light)] rounded-sm p-5 relative">
+            <h4 className="text-sm text-[var(--maincolor-original)] absolute top-0 left-2">
+              Vehicule sélectionné
+            </h4>
+            {vehicules == undefined ? (
+              <p className="text-gray-500 text-sm">Aucun</p>
+            ) : (
+              <p className="text-gray-500 text-sm">
+                {`${vehicules.model}, ${vehicules.brand}, ${vehicules.color}, ${vehicules.license_plate}, ${vehicules.engine}`}
+              </p>
+            )}
+          </div>
           {currentRide.rides_position === "driver" && (
             <div className="border border-[var(--maincolor-light)] rounded-sm p-5 relative">
               <h4 className="text-sm text-[var(--maincolor-original)] absolute top-0 left-2">
@@ -150,18 +173,10 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
   useEffect(() => {
     const fetchInstances = async () => {
       const res = await apiQuery("ride/instances", { rides_id });
-      console.log(res);
+      console.log("resultat de la recherche d'instances",  res);
       if (res === null || res.response === undefined) return;
-      const grouped = res.response.sent.reduce((acc: any, obj: any) => {
-        console.log(obj.receiver_instance_id);
-        const key = obj.receiver_instance_id;
-        if (!acc[key]) {
-          acc[key] = [];
-        }
-        acc[key].push(obj);
-        return acc;
-      }, {});
-      setInstances(grouped);
+
+      setInstances(res.response);
     };
     fetchInstances();
   }, [rides_id]);
@@ -172,14 +187,16 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
   console.log(instances);
   return (
     <div className="flex flex-col gap-2">
-      {Object.keys(instances).length > 0 &&
+      {
         Object.keys(instances).map((key: any) => {
+          console.log(key);
           const isOpen = openInstanceId === parseInt(key);
           const instanceArray = instances[key];
           const isCompleted =
-            instances[key].filter(
+            Array.from(instances[key]).filter(
               (instance: any) => instance.bookings_status == "accepted"
             ).length > 0;
+          console.log(instanceArray['bookings']);
           return (
             <div
               key={key}
@@ -191,13 +208,13 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
               >
                 <h4 className="text-md text-[var(--maincolor-original)]">
                   {
-                    properDate(instanceArray[0].instances_departure_time)
+                    properDate(instanceArray.instances_departure_time)
                       .formattedDate
                   }
                 </h4>
                 <p
                   className={`text-sm text-[var(--${
-                    isCompleted  ? "maincolor-original" : "cta-accent"
+                    isCompleted ? "maincolor-original" : "cta-accent"
                   })]`}
                 >
                   {isCompleted
@@ -206,8 +223,7 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
                 </p>
                 {/* TODO IMPORTANT faire le cas où l'utilisateur n'a pas encore de trajet validé, dans ce cas la , le re diriger vers la séléction des trajets
                 Reste  a finir le formulaire de création d'un trajet et enfin de faire la recherche d'un trajet et c'est fini (pour la majeure partie)*/}
-                {!isCompleted && 
-                <button>Cherchez un conducteur</button>}
+                {!isCompleted && <button>Cherchez un conducteur</button>}
                 <div
                   className={`transition-transform duration-300 absolute right-4 [&>svg]:w-3 [&>svg]:h-auto [&>svg]:fill-[var(--maincolor-original)] ${
                     isOpen ? "rotate-90" : ""
@@ -222,11 +238,10 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
                   isOpen ? "max-h-96" : "max-h-0"
                 }`}
               >
-                {instanceArray
-                  .filter(
-                    (instance: any) => instance.bookings_status !== "refused"
-                  )
+                {instanceArray['bookings']
                   .map((instance: any, i: number) => {
+                    instance = instance[0];
+                    console.log(instance);
                     return (
                       <div
                         key={i}
@@ -266,11 +281,11 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
                           </p>
                           <ul className="ml-4 list-disc">
                             <li>
-                              <strong>Nom :</strong> {instance.driver_fullname}
+                              <strong>Nom :</strong> {instance.accounts_fullname}
                             </li>
                             <li>
                               <strong>Téléphone :</strong>{" "}
-                              {instance.driver_phone}
+                              {instance.accounts_phone !== "" ? instance.accounts_phone:'Non fourni'}
                             </li>
                           </ul>
                         </div>
@@ -299,19 +314,34 @@ const RideOverviewDriver = ({
   useEffect(() => {
     const fetchInstances = async () => {
       const res = await apiQuery("ride/instances", { rides_id });
-      if (res === null || res.response === undefined) return;
-      const grouped = res.response.received.reduce((acc: any, obj: any) => {
-        const key = obj.instances_id;
-        if (!acc[key]) {
-          acc[key] = [];
+      if (!res || !res.response) return;
+
+      // Nouvelle structure : clé = instance_id, valeur = { infos + bookings }
+      const regrouped: any = {};
+      res.response.forEach((row: any) => {
+        const id = row.instances_id;
+        if (!regrouped[id]) {
+          regrouped[id] = {
+            infos: {
+              instances_departure_time: row.instances_departure_time,
+              instances_departure: row.instances_departure,
+              instances_destination: row.instances_destination,
+            },
+            bookings: [],
+          };
         }
-        acc[key].push(obj);
-        return acc;
-      }, {});
-      setInstances(grouped);
+
+        if (row.bookings_id) {
+          regrouped[id].bookings.push(row);
+        }
+      });
+
+      setInstances(regrouped);
     };
+
     fetchInstances();
   }, [rides_id]);
+
   const toggleInstance = (id: number) => {
     setOpenInstanceId((prev) => (prev === id ? null : id));
   };
@@ -321,22 +351,15 @@ const RideOverviewDriver = ({
     newStatus: "accepted" | "refused"
   ) => {
     setInstances((prev: any) => {
-      const updated = Object.fromEntries(
-        Object.keys(prev).map((prevKey) => {
-          const newArray = prev[prevKey].map((instance: any) => {
-            if (instance.bookings_id === bookingId) {
-              return {
-                ...instance,
-                bookings_status: newStatus,
-              };
-            }
-            return instance;
-          });
-          return [prevKey, newArray];
-        })
-      );
+      const updated = { ...prev };
+      for (const key in updated) {
+        updated[key].bookings = updated[key].bookings.map((b: any) =>
+          b.bookings_id === bookingId ? { ...b, bookings_status: newStatus } : b
+        );
+      }
       return updated;
     });
+
     apiQuery("bookings/set_status", {
       bookings_id: bookingId,
       bookings_status: newStatus,
@@ -345,60 +368,56 @@ const RideOverviewDriver = ({
 
   return (
     <div className="flex flex-col gap-2">
-      {Object.keys(instances).length > 0 &&
-        Object.keys(instances).map((key) => {
-          const isOpen = openInstanceId === parseInt(key);
-          const instanceArray = instances[key];
-          const bookedSeats = instanceArray.filter(
-            (inst: InstanceData) => inst.bookings_status === "accepted"
-          ).length;
-          const remainingSeats = rides_seats - bookedSeats;
+      {Object.entries(instances).map(([instanceId, data]: [string, any]) => {
+        const isOpen = openInstanceId === parseInt(instanceId);
+        const acceptedBookings = data.bookings.filter(
+          (b: any) => b.bookings_status === "accepted"
+        ).length;
+        const remainingSeats = rides_seats - acceptedBookings;
 
-          return (
+        return (
+          <div
+            key={instanceId}
+            className="border border-[var(--maincolor-original)] rounded-sm transition-all"
+          >
             <div
-              key={key}
-              className="border border-[var(--maincolor-original)] rounded-sm transition-all"
+              className="flex gap-8 items-center p-3 relative hover:scale-[102%] transition-all hover:cursor-pointer"
+              onClick={() => toggleInstance(parseInt(instanceId))}
             >
-              <div
-                className="flex gap-8 items-center p-3 relative hover:scale-[102%] transition-all hover:cursor-pointer"
-                onClick={() => toggleInstance(parseInt(key))}
+              <h4 className="text-md text-[var(--maincolor-original)]">
+                {properDate(data.infos.instances_departure_time).formattedDate}
+              </h4>
+              <p
+                className={`text-sm text-[var(--${
+                  remainingSeats > 0 ? "maincolor-original" : "cta-accent"
+                })]`}
               >
-                <h4 className="text-md text-[var(--maincolor-original)]">
-                  {
-                    properDate(instanceArray[0].instances_departure_time)
-                      .formattedDate
-                  }
-                </h4>
-                <p
-                  className={`text-sm text-[var(--${
-                    remainingSeats > 0 ? "maincolor-original" : "cta-accent"
-                  })]`}
-                >
-                  {remainingSeats > 0
-                    ? `Places restantes ${remainingSeats}`
-                    : "Ce trajet est complet !"}
-                </p>
-                <div
-                  className={`transition-transform duration-300 absolute right-4 [&>svg]:w-3 [&>svg]:h-auto [&>svg]:fill-[var(--maincolor-original)] ${
-                    isOpen ? "rotate-90" : ""
-                  }`}
-                >
-                  <CtaRightArrow />
-                </div>
-              </div>
-
+                {remainingSeats > 0
+                  ? `Places restantes : ${remainingSeats}`
+                  : "Trajet complet"}
+              </p>
               <div
-                className={`transition-[max-height] duration-300 overflow-y-scroll ${
-                  isOpen ? "max-h-96" : "max-h-0"
+                className={`transition-transform duration-300 absolute right-4 [&>svg]:w-3 [&>svg]:h-auto [&>svg]:fill-[var(--maincolor-original)] ${
+                  isOpen ? "rotate-90" : ""
                 }`}
               >
-                {instanceArray
-                  .filter(
-                    (instance: any) => instance.bookings_status !== "refused"
-                  )
-                  .map((instance: any, i: number) => {
-                    const isFull = remainingSeats <= 0;
+                <CtaRightArrow />
+              </div>
+            </div>
 
+            <div
+              className={`transition-[max-height] duration-300 overflow-y-scroll ${
+                isOpen ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              {data.bookings.length === 0 ? (
+                <div className="text-sm text-gray-600 p-3 border-t border-gray-200 italic">
+                  Aucune demande reçue pour ce trajet.
+                </div>
+              ) : (
+                data.bookings
+                  .filter((b: any) => b.bookings_status !== "refused")
+                  .map((booking: any, i: number) => {
                     return (
                       <div
                         key={i}
@@ -406,29 +425,26 @@ const RideOverviewDriver = ({
                       >
                         <p>
                           <strong>Heure exacte :</strong>{" "}
-                          {
-                            properDate(instance.instances_departure_time)
-                              .timeOnly
-                          }
+                          {properDate(booking.instances_departure_time)
+                            .timeOnly}
                         </p>
                         <p>
-                          <strong>Départ :</strong>{" "}
-                          {instance.instances_departure}
+                          <strong>Départ :</strong> {booking.instances_departure}
                         </p>
                         <p>
                           <strong>Destination :</strong>{" "}
-                          {instance.instances_destination}
+                          {booking.instances_destination}
                         </p>
                         <p>
                           <strong>Status :</strong>{" "}
                           <span
                             className={`font-semibold ${
-                              instance.bookings_status === "pending"
+                              booking.bookings_status === "pending"
                                 ? "text-[var(--cta-text-highlight)]"
                                 : "text-[var(--cta-secondary)]"
                             }`}
                           >
-                            {instance.bookings_status}
+                            {booking.bookings_status}
                           </span>
                         </p>
 
@@ -438,18 +454,18 @@ const RideOverviewDriver = ({
                           </p>
                           <ul className="ml-4 list-disc">
                             <li>
-                              <strong>Nom :</strong> {instance.sender_fullname}
+                              <strong>Nom :</strong> {booking.sender_fullname}
                             </li>
                             <li>
                               <strong>Téléphone :</strong>{" "}
-                              {instance.sender_phone}
+                              {booking.sender_phone || "Non fourni"}
                             </li>
                           </ul>
                         </div>
 
-                        {instance.bookings_status === "pending" && (
+                        {booking.bookings_status === "pending" && (
                           <>
-                            {isFull ? (
+                            {remainingSeats <= 0 ? (
                               <p className="text-[var(--cta-accent)] font-semibold mt-2">
                                 Trajet complet, impossible de valider plus de
                                 réservations.
@@ -460,7 +476,7 @@ const RideOverviewDriver = ({
                                   className="px-3 py-1 bg-[var(--cta-secondary)] text-white rounded hover:bg-[var(--cta-secondary-hover)] transition"
                                   onClick={() =>
                                     handleBookingAction(
-                                      instance.bookings_id,
+                                      booking.bookings_id,
                                       "accepted"
                                     )
                                   }
@@ -468,10 +484,10 @@ const RideOverviewDriver = ({
                                   Valider
                                 </button>
                                 <button
-                                  className="px-3 py-1 bg-[var(--cta-accent)] text-white rounded hover:bg-[var(--cta-accent)] transition"
+                                  className="px-3 py-1 bg-[var(--cta-accent)] text-white rounded hover:bg-[var(--cta-accent-hover)] transition"
                                   onClick={() =>
                                     handleBookingAction(
-                                      instance.bookings_id,
+                                      booking.bookings_id,
                                       "refused"
                                     )
                                   }
@@ -484,11 +500,12 @@ const RideOverviewDriver = ({
                         )}
                       </div>
                     );
-                  })}
-              </div>
+                  })
+              )}
             </div>
-          );
-        })}
+          </div>
+        );
+      })}
     </div>
   );
 };

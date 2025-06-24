@@ -3,6 +3,9 @@
 namespace Src\Api;
 
 use App;
+use Src\Entity\Accounts;
+use Src\Model\Bookings;
+use Src\Model\Instances;
 use Src\Model\Rides;
 use Src\Model\Routes;
 
@@ -82,63 +85,79 @@ class ApiRide
       {
             $sql = "SELECT rides_position FROM rides WHERE rides_id = :id LIMIT 1";
             $position = App::$db->query($sql, [':id' => $rides_id], false)['rides_position'];
-
-            $response = [];
-
             if ($position === 'driver') {
-                  $sql = "
-        SELECT 
-            i.instances_id,
-            i.instances_departure_time,
-            i.instances_departure,
-            i.instances_destination,
-            b.bookings_id,
-            b.bookings_status,
-            s.accounts_fullname AS sender_fullname,
-            s.accounts_phone AS sender_phone
-        FROM rides r
-        JOIN instances i ON r.rides_id = i.rides_id
-        LEFT JOIN bookings b ON i.instances_id = b.instances_receiver_id
-        LEFT JOIN instances si ON si.instances_id = b.instances_sender_id
-        LEFT JOIN rides sr ON sr.rides_id = si.rides_id
-        LEFT JOIN routes sroutes ON sr.routes_id = sroutes.routes_id
-        LEFT JOIN accounts s ON sroutes.accounts_id = s.accounts_id
-        WHERE r.rides_id = :id
-          AND r.rides_position = 'driver'
-          AND i.instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-        ORDER BY i.instances_departure_time ASC;
-    ";
-                  $response['received'] = App::$db->query($sql, [':id' => $rides_id]);
+              $res = [];
+                  if ($instances = Instances::getAllWhere('rides_id', $rides_id)) {
+                        $i = 0;
+                        foreach ($instances as $instance) {
+                              $res[$i] = [
+                                    'instances_departure' => $instance['instances_departure'],
+                                    'instances_destination' => $instance['instances_destination'],
+                                    'instances_departure_time' => $instance['instances_departure_time'],
+                              ];
+                              if ($bookings = Bookings::getAllWhere('instances_receiver_id', $instance['instances_id'])) {
+                                    foreach ($bookings as $booking) {
+                                          $sql = "SELECT a.accounts_fullname, a.accounts_phone, a.accounts_id,instances_departure, i.instances_destination,i.instances_departure_time , b.bookings_status
+                                          FROM bookings b
+                                          JOIN instances i ON b.instances_receiver_id = i.instances_id
+                                          JOIN rides ri ON i.rides_id = ri.rides_id
+                                          JOIN routes ro ON ri.routes_id = ro.routes_id
+                                          JOIN accounts a ON ro.accounts_id = a.accounts_id  
+                                          WHERE b.instances_sender_id =:id
+                                          GROUP BY a.accounts_id";
+                                          $bound = [":id" => $booking['instances_receiver_id']];
+                                          if ($sender = App::$db->query($sql, $bound)) {
+                                                $res[$i]['bookings'][] = $sender;
+                                          } else {
+                                                return false;
+                                          }
+                                    }
+                              } else {
+                                    $res[$i]['bookings'] = [];
+                              }
+                              $i++;
+                        }
+                        return $res;
+                  }
             }
 
             if ($position === 'passager') {
-                  $sql = "
-        SELECT 
-            b.bookings_id,
-            b.bookings_status,
-            ir.instances_id AS receiver_instance_id,
-            ir.instances_departure_time,
-            ir.instances_departure,
-            ir.instances_destination,
-            a.accounts_id AS driver_id,
-            a.accounts_fullname AS driver_fullname,
-            a.accounts_email AS driver_email,
-            a.accounts_phone AS driver_phone
-        FROM rides r
-        JOIN instances isender ON r.rides_id = isender.rides_id
-        JOIN bookings b ON isender.instances_id = b.instances_sender_id
-        JOIN instances ir ON b.instances_receiver_id = ir.instances_id
-        JOIN rides r2 ON ir.rides_id = r2.rides_id
-        JOIN routes rt ON r2.routes_id = rt.routes_id
-        JOIN accounts a ON rt.accounts_id = a.accounts_id
-        WHERE r.rides_id = :id
-          AND r.rides_position = 'passager'
-          AND ir.instances_departure_time BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-        ORDER BY b.bookings_status ASC;
-    ";
-                  $response['sent'] = App::$db->query($sql, [':id' => $rides_id]);
+                  $res = [];
+                  if ($instances = Instances::getAllWhere('rides_id', $rides_id)) {
+                        $i = 0;
+                        foreach ($instances as $instance) {
+                              $res[$i] = [
+                                    'instances_departure' => $instance['instances_departure'],
+                                    'instances_destination' => $instance['instances_destination'],
+                                    'instances_departure_time' => $instance['instances_departure_time'],
+                              ];
+                              if ($bookings = Bookings::getAllWhere('instances_sender_id', $instance['instances_id'])) {
+                                    foreach ($bookings as $booking) {
+                                          $sql = "SELECT a.accounts_fullname, a.accounts_phone, a.accounts_id,instances_departure, i.instances_destination,i.instances_departure_time , b.bookings_status
+                                          FROM bookings b
+                                          JOIN instances i ON b.instances_receiver_id = i.instances_id
+                                          JOIN rides ri ON i.rides_id = ri.rides_id
+                                          JOIN routes ro ON ri.routes_id = ro.routes_id
+                                          JOIN accounts a ON ro.accounts_id = a.accounts_id  
+                                          WHERE b.instances_receiver_id =:id
+                                          GROUP BY a.accounts_id";
+                                          $bound = [":id" => $booking['instances_receiver_id']];
+                                          if ($receiver = App::$db->query($sql, $bound)) {
+                                                $res[$i]['bookings'][] = $receiver;
+                                          } else {
+                                                return false;
+                                          }
+                                    }
+                              } else {
+                                    $res[$i]['bookings'] = [];
+                              }
+                              $i++;
+                        }
+                        return $res;
+                  }
+                  return false;
             }
-            return $response;
+            return false;
       }
       public function delete($request)
       {
@@ -189,22 +208,13 @@ class ApiRide
 
             try {
                   $routes_id = $this->addRoutesFromRequest($request, $token);
-                  $rides_id = $this->addRidesFromRequest($request,$routes_id);
+                  $this->addRidesFromRequest($request, $routes_id);
+                  http_response_code(204);
             } catch (e) {
                   http_response_code(403);
                   Api::apiResponse(['error' => 'Permission not granted']);
             }
 
-
-            // $ride_id = $request['body']['rides_id'];
-            // $id = $token->sub;
-
-            // if (!$this->hasPermissionToDelete($id, $ride_id)) {
-            //       http_response_code(403);
-            //       Api::apiResponse(['error' => 'Permission not granted']);
-            // }
-            // $this->deleteRides($ride_id);
-            // Api::apiResponse(['response' => 'Action Completed']);
       }
       protected function addRoutesFromRequest($request, $token)
       {
@@ -221,11 +231,11 @@ class ApiRide
             Routes::create($routes);
             return App::$db->getLastInserted();
       }
-      protected function addRidesFromRequest($request,$routes_id)
+      protected function addRidesFromRequest($request, $routes_id)
       {
             $rides = $request['body']['rides'];
             $planifications = $rides['planifications'];
-
+            var_dump($rides);
             if ($planifications['planifications_pattern_type'] == 'none') {
                   $rides_departure_time = $rides['rides_departure_date'] . 'T' . $rides['rides_departure_time'];
             } else {
@@ -241,6 +251,7 @@ class ApiRide
                   'days_of_week' => $planifications['planifications_days_of_week'],
                   'interval_week' => $planifications['planifications_interval_week'],
                   'routes_id' => $routes_id,
+                  'vehicules_id' => $rides['vehicules_id'],
             ];
             Rides::create($rides);
       }

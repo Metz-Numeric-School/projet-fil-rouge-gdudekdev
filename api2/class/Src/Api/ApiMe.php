@@ -5,6 +5,11 @@ namespace Src\Api;
 use App;
 use Src\Model\Accounts;
 use Src\Model\Accounts_preferences;
+use Src\Model\Car_brands;
+use Src\Model\Car_colors;
+use Src\Model\Car_engines;
+use Src\Model\Car_models;
+use Src\Model\Vehicules;
 
 class ApiMe
 {
@@ -67,10 +72,10 @@ class ApiMe
 
                   Accounts_preferences::delete(['accounts_id' => $id]);
                   foreach ($data['userPreferences'] as $pref) {
-                        var_dump($id,$pref);
+                        var_dump($id, $pref);
                         $sql = 'INSERT INTO accounts_preferences  (accounts_id, preferences_id) VALUES (:accounts_id, :preferences_id) ';
                         $bound = [':accounts_id' => $id, ':preferences_id' => $pref['preferences_id']];
-                        App::$db->query($sql,$bound);
+                        App::$db->query($sql, $bound);
                   }
                   return true;
             } catch (e) {
@@ -78,5 +83,37 @@ class ApiMe
             }
 
 
+      }
+      public function vehicules($request)
+      {
+            $token = Api::protectApiQuery($request);
+
+            if ($query = $this->queryDisplayableVehicules($token->sub)) {
+                  Api::apiResponse(['response' => $query]);
+            } else {
+                  http_response_code(403);
+                  Api::apiResponse(['error' => 'Permission not granted']);
+            }
+      }
+      protected function queryDisplayableVehicules($id)
+      {
+            $res = [];
+            if ($accounts_vehicules = Vehicules::getAllWhere(('accounts_id'), $id)) {
+                  foreach ($accounts_vehicules as $vehicule) {
+                        $sql = "SELECT v.vehicules_id, m.car_models_name as model, b.car_brands_name as brand,c.car_colors_name as color,e.car_engines_name as engine,v.vehicules_license_plate as license_plate 
+                        FROM vehicules v
+                        JOIN car_models m ON v.car_models_id = m.car_models_id
+                        JOIN car_brands b ON m.car_brands_id = b.car_brands_id
+                        JOIN car_colors c ON v.car_colors_id = c.car_colors_id
+                        JOIN car_engines e ON v.car_engines_id = e.car_engines_id
+                        WHERE v.vehicules_id = :vehicules_id
+                        ";
+                        $bound = [':vehicules_id' => $vehicule['vehicules_id']];
+                        $res[] = App::$db->query($sql, $bound, false);
+                  }
+                  return $res;
+            }
+
+            return false;
       }
 }
