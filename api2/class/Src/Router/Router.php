@@ -101,8 +101,14 @@ class Router
                               case 'rides_all': 
                                     (new ApiRideAll)->request($data);
                                     break;
+                              case 'rides/delete': 
+                                    (new ApiRide)->delete($data);
+                                    break;
                               case 'ride_choice':
                                     (new ApiRideChoice)->request($data);
+                                    break;
+                              case 'rides/post':
+                                    (new ApiRide)->post($data);
                                     break;
                               case 'bookings/set_status':
                                     (new ApiBookings)->request($data);

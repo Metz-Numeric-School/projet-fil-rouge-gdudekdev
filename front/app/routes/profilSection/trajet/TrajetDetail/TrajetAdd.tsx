@@ -2,8 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 import Map from "~/components/main/map/Map";
 import FormSubmit from "~/components/main/button/FormSubmit/FormSubmit";
-import FSOverlay from "~/layouts/FSOverlay/FSOverlay";
-import TrajetOverview from "./TrajetOverview";
+import { useApi } from "~/hooks/useApi";
 
 export type Coord = [number | null, number | null];
 
@@ -27,24 +26,21 @@ type Planifications = {
 type RideForm = {
   rides_position: "passager" | "conducteur";
   rides_seats: number;
+  rides_departure_date: string;
+  rides_departure_time: string;
   planifications_start: string | null;
   planifications_end: string | null;
   planifications: Planifications;
   route: Route;
 };
 export const mapDaysOfWeek = [
-            ["mon", "Lundi"],
-            ["tue", "Mardi"],
-            ["wed", "Mercredi"],
-            ["thu", "Jeudi"],
-            ["fri", "Vendredi"],
-          ];
+  ["mon", "Lundi"],
+  ["tue", "Mardi"],
+  ["wed", "Mercredi"],
+  ["thu", "Jeudi"],
+  ["fri", "Vendredi"],
+];
 const TrajetAdd = () => {
-  const [trajet, setTrajet] = useState<any>();
-  return <TrajetAddComponent trajet={trajet} />
-};
-
-const TrajetAddComponent = ({ trajet }: { trajet: any }) => {
   const [positions, setPositions] = useState<[Coord | null, Coord | null]>([
     [null, null],
     [null, null],
@@ -53,7 +49,7 @@ const TrajetAddComponent = ({ trajet }: { trajet: any }) => {
     "",
     "",
   ]);
-  
+
   const setPositionDeparture = (result: any) => {
     setPositions(([_, dest]) => [[+result.lon, +result.lat], dest]);
   };
@@ -112,6 +108,21 @@ const InputCoordMap = ({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
 
+  // Fonction pour formater une adresse courte
+  const formatAddress = (address: any) => {
+    if (!address) return "";
+    const parts = [];
+    if (address.house_number) parts.push(address.house_number);
+    if (address.road) parts.push(address.road);
+
+    // Choisir la ville/town/village/hamlet selon dispo
+    const city = address.city || address.town || address.village || address.hamlet;
+    if (city) parts.push(city);
+
+    if (address.postcode) parts.push(address.postcode);
+    return parts.join(", ");
+  };
+
   useEffect(() => {
     if (query.length < 3) {
       setResults([]);
@@ -119,7 +130,7 @@ const InputCoordMap = ({
     }
     const timer = setTimeout(() => {
       fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(
           query
         )}`
       )
@@ -145,8 +156,9 @@ const InputCoordMap = ({
             key={idx}
             onClick={() => {
               setPosition(result);
-              setAddressLabel(result.display_name);
-              setQuery(result.display_name);
+              const shortAddr = formatAddress(result.address);
+              setAddressLabel(shortAddr || result.display_name);
+              setQuery(shortAddr || result.display_name);
               setResults([]);
             }}
             className="cursor-pointer hover:bg-gray-100 p-1"
@@ -159,6 +171,7 @@ const InputCoordMap = ({
   );
 };
 
+
 const PlanRide = ({
   positions,
   addressLabels,
@@ -170,8 +183,10 @@ const PlanRide = ({
   const [position, setPosition] = useState<"passager" | "conducteur">(
     "passager"
   );
+  const navigate = useNavigate();
+  const { apiQuery } = useApi();
   const [seats, setSeats] = useState(0);
-
+  const [departureTime, setDepartureTime] = useState("");
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -204,18 +219,24 @@ const PlanRide = ({
     const rideForm: RideForm = {
       rides_position: position,
       rides_seats: position === "conducteur" ? seats : 0,
+      rides_departure_date: form.get("rides_departure_date") ?? "",
+      rides_departure_time: form.get("rides_departure_time") ?? "",
+
       planifications_start:
         form.get("planifications_start")?.toString() ?? null,
       planifications_end: form.get("planifications_end")?.toString() ?? null,
       planifications: plan,
       route,
     };
+
+    apiQuery("rides/post", { rides: rideForm });
+    navigate("/profil/trajet");
   };
   const formatDateForDatetimeLocal = (date: any) => {
     const pad = (num: number) => num.toString().padStart(2, "0");
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
       date.getDate()
-    )}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    )}`;
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -247,7 +268,27 @@ const PlanRide = ({
           />
         </div>
       )}
-
+      <div className="flex gap-2 items-center">
+        <label htmlFor="rides_departure_time">Heure de départ :</label>
+        <input
+          type="time"
+          id="rides_departure_time"
+          name="rides_departure_time"
+          className="border rounded p-1 w-16"
+        />
+        {planType == "none" && (
+          <>
+            <label htmlFor="rides_departure_date">Date de départ :</label>
+            <input
+              type="date"
+              id="rides_departure_date"
+              name="rides_departure_date"
+              className="border rounded p-1"
+              defaultValue={formatDateForDatetimeLocal(new Date())}
+            />
+          </>
+        )}
+      </div>
       <div className="flex gap-4 items-center">
         <label htmlFor="planifications_pattern_type">
           Souhaitez-vous planifier ?
@@ -278,14 +319,14 @@ const PlanRide = ({
         <>
           <label>Date de début :</label>
           <input
-            type="datetime-local"
+            type="date"
             name="planifications_start"
             defaultValue={formatDateForDatetimeLocal(new Date())}
             min={formatDateForDatetimeLocal(new Date())}
           />
           <label>Date de fin :</label>
           <input
-            type="datetime-local"
+            type="date"
             name="planifications_end"
             defaultValue={formatDateForDatetimeLocal(new Date())}
           />

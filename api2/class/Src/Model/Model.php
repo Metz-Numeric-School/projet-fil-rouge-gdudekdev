@@ -66,7 +66,11 @@ abstract class Model
 
             foreach (DEPENDENCY_TABLE[strtolower(get_called_class()::$table)]['cascade_delete'] as $dependecy) {
                   $model = '\Src\Model\\' . ucfirst($dependecy);
-                  $items = $model::getAllWhere(get_called_class()::$table . '_id', $id);
+                  if ($dependecy == 'bookings') {
+                        $items = $model::getAllWhere('instances_receiver_id', $id) ?? $model::getAllWhere('instances_sender_id', $id);
+                  } else {
+                        $items = $model::getAllWhere(get_called_class()::$table . '_id', $id);
+                  }
                   foreach ($items as $item) {
                         if (str_contains($dependecy, get_called_class()::$table)) {
                               $key = get_called_class()::$table . '_id';

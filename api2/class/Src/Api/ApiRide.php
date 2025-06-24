@@ -3,6 +3,8 @@
 namespace Src\Api;
 
 use App;
+use Src\Model\Rides;
+use Src\Model\Routes;
 
 class ApiRide
 {
@@ -138,5 +140,108 @@ class ApiRide
             }
             return $response;
       }
-      
+      public function delete($request)
+      {
+            $token = Api::protectApiQuery($request);
+            if (empty($request['body']['rides_id'])) {
+                  http_response_code(403);
+                  Api::apiResponse(['error' => 'Permission not granted']);
+            }
+
+            $ride_id = $request['body']['rides_id'];
+            $id = $token->sub;
+
+            if (!$this->hasPermissionToDelete($id, $ride_id)) {
+                  http_response_code(403);
+                  Api::apiResponse(['error' => 'Permission not granted']);
+            }
+            $this->deleteRides($ride_id);
+            Api::apiResponse(['response' => 'Action Completed']);
+      }
+      public function hasPermissionToDelete($accounts_id, $rides_id)
+      {
+            $sql = "SELECT a.accounts_id 
+                    FROM rides ri JOIN routes ro ON  ri.routes_id = ro.routes_id
+                    JOIN accounts a ON ro.accounts_id = a.accounts_id
+                    WHERE ri.rides_id = :id ";
+            $bound = [':id' => $rides_id];
+            $account = App::$db->query($sql, $bound, false);
+
+            if ($account) {
+                  return $account['accounts_id'] == $accounts_id;
+            }
+            return false;
+
+      }
+      public function deleteRides($rides_id)
+      {
+            Rides::delete($rides_id);
+      }
+      public function post($request)
+      {
+            $token = Api::protectApiQuery($request);
+            var_dump($request['body']);
+
+            if (empty($request['body']['rides'])) {
+                  http_response_code(403);
+                  Api::apiResponse(['error' => 'Permission not granted']);
+            }
+
+            try {
+                  $routes_id = $this->addRoutesFromRequest($request, $token);
+                  $rides_id = $this->addRidesFromRequest($request,$routes_id);
+            } catch (e) {
+                  http_response_code(403);
+                  Api::apiResponse(['error' => 'Permission not granted']);
+            }
+
+
+            // $ride_id = $request['body']['rides_id'];
+            // $id = $token->sub;
+
+            // if (!$this->hasPermissionToDelete($id, $ride_id)) {
+            //       http_response_code(403);
+            //       Api::apiResponse(['error' => 'Permission not granted']);
+            // }
+            // $this->deleteRides($ride_id);
+            // Api::apiResponse(['response' => 'Action Completed']);
+      }
+      protected function addRoutesFromRequest($request, $token)
+      {
+            $route = $request['body']['rides']['route'];
+            $routes = [
+                  'routes_departure' => $route['routes_departure']['routes_departure_name'],
+                  'routes_destination' => $route['routes_destination']['routes_destination_name'],
+                  'routes_departure_lat' => $route['routes_departure']['routes_departure_coord'][0],
+                  'routes_departure_lon' => $route['routes_departure']['routes_departure_coord'][1],
+                  'routes_destination_lat' => $route['routes_destination']['routes_destination_coord'][0],
+                  'routes_destination_lon' => $route['routes_destination']['routes_destination_coord'][1],
+                  'accounts_id' => $token->sub,
+            ];
+            Routes::create($routes);
+            return App::$db->getLastInserted();
+      }
+      protected function addRidesFromRequest($request,$routes_id)
+      {
+            $rides = $request['body']['rides'];
+            $planifications = $rides['planifications'];
+
+            if ($planifications['planifications_pattern_type'] == 'none') {
+                  $rides_departure_time = $rides['rides_departure_date'] . 'T' . $rides['rides_departure_time'];
+            } else {
+                  $rides_departure_time = $rides['planifications_start'] . 'T' . $rides['rides_departure_time'];
+            }
+            $rides = [
+                  'rides_departure_time' => $rides_departure_time,
+                  'rides_seats' => $rides['rides_seats'],
+                  'planifications_start' => $rides['planifications_start'],
+                  'planifications_end' => $rides['planifications_end'],
+                  'rides_position' => $rides['rides_position'],
+                  'pattern_type' => $planifications['planifications_pattern_type'],
+                  'days_of_week' => $planifications['planifications_days_of_week'],
+                  'interval_week' => $planifications['planifications_interval_week'],
+                  'routes_id' => $routes_id,
+            ];
+            Rides::create($rides);
+      }
 }

@@ -31,6 +31,7 @@ const ProfilSection = () => {
   const navigate = useNavigate();
 
   const onSectionClose = () => {
+    console.log('click');
     navigate("/profil");
   };
 

@@ -23,7 +23,7 @@ class Planifications extends Model
                         self::$table . '_days_of_week' => isset($ride['days_of_week']) ? json_encode($ride['days_of_week']) : null,
                         self::$table . '_interval_weeks' => $ride['interval_weeks'] ?? null,
                   ];
-
+                  var_dump($newPlanification);
                   App::$db->add('planifications', $newPlanification);
                   return App::$db->getLastInserted();
             }

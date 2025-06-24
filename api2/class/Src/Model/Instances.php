@@ -42,7 +42,7 @@ class Instances extends Model
       private static function createInstance($ride)
       {
             $route = Routes::get($ride['routes_id']);
-            $driverId = isset($ride['rides_position']) ? $route['accounts_id'] : 0;
+            $driverId = isset($ride['rides_position']) && $ride['rides_position'] == 'driver' ? $route['accounts_id'] : 0;
             $departure = $route['routes_departure'];
             $destination = $route['routes_destination'];
             $instance_data = [

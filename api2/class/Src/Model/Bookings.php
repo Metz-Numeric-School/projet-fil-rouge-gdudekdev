@@ -2,6 +2,8 @@
 
 namespace Src\Model;
 
+use App;
+
 class Bookings extends Model
 {
       public static $table = 'bookings';
@@ -39,7 +41,7 @@ class Bookings extends Model
                                     $ride = Rides::get($instance['rides_id']);
                                     $route = Routes::get($ride['routes_id']);
 
-                                    $sender =Accounts::newEntity(Accounts::get($route['accounts_id']));
+                                    $sender = Accounts::newEntity(Accounts::get($route['accounts_id']));
                                     $accepted_bookings[] = [
                                           'booking' => $booking,
                                           'time' => $time,

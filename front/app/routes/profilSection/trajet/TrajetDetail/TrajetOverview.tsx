@@ -9,10 +9,17 @@ import CtaRightArrow from "~/src/assets/icon/cta/CtaRightArrow";
 
 const TrajetOverview = ({ rideId }: { rideId: number }) => {
   const navigate = useNavigate();
+  const {apiQuery} = useApi();
   const ride: RideDataSet[] = JSON.parse(
     localStorage.getItem("rides") ?? "[]"
   ).filter((ride: RideDataSet) => ride.rides_id == rideId);
   if (ride.length === 0) {
+    navigate("/profil/trajet");
+  }
+
+  const handleOnDelete =  ()=>{
+    apiQuery('rides/delete', {rides_id : rideId});
+    localStorage.removeItem('rides');
     navigate("/profil/trajet");
   }
   const currentRide = ride[0];
@@ -20,9 +27,9 @@ const TrajetOverview = ({ rideId }: { rideId: number }) => {
     <div className="flex flex-col gap-4 mb-[var(--navbar-height)]">
       <div className="flex w-full justify-between items-center">
         <h2 className="text-[var(--maincolor-dark)] mb-4">
-          Votre trajet {currentRide.routes_departure}-
-          {currentRide.routes_destination}
+          Votre trajet
         </h2>
+        <button className="text-white bg-[var(--cta-accent)] p-2 rounded-sm hover:bg-[var(--cta-accent-hover)] hover:cursor-pointer" onClick ={handleOnDelete}>Supprimer</button>
       </div>
       <div className="">
         <h3 className="text-[var(--maincolor-original)] mb-4 text-sm underline">
@@ -199,8 +206,8 @@ const RideOverviewPassenger = ({ rides_id }: { rides_id: number }) => {
                 </p>
                 {/* TODO IMPORTANT faire le cas où l'utilisateur n'a pas encore de trajet validé, dans ce cas la , le re diriger vers la séléction des trajets
                 Reste  a finir le formulaire de création d'un trajet et enfin de faire la recherche d'un trajet et c'est fini (pour la majeure partie)*/}
-                {isCompleted && 
-                <p>Cherchez un conducteur</p>}
+                {!isCompleted && 
+                <button>Cherchez un conducteur</button>}
                 <div
                   className={`transition-transform duration-300 absolute right-4 [&>svg]:w-3 [&>svg]:h-auto [&>svg]:fill-[var(--maincolor-original)] ${
                     isOpen ? "rotate-90" : ""
